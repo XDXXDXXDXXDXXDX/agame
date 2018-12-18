@@ -1,4 +1,7 @@
-loadingAnim(); // 加载资源时展示动画
+window.onload = (() => {
+    loadingAnim(); // 加载资源时展示动画
+})
+
 
 let loadCount = 0; // 已加载资源个数
 let totalCount = 0;
