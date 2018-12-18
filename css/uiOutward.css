@@ -1,0 +1,155 @@
+#uiIndex, #uiStatistic, #uiInfo, #uiGamming {
+    width: 100%;
+    height: 100%;
+    position: relative;
+} 
+
+#uiIndex .head-ctn {
+    width: 100%;
+    height: 80%;
+    background-image: -webkit-linear-gradient(left, #FF7A00, #FE560A);
+    background-image: linear-gradient(to right, #FF7A00, #FE560A);
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+#uiIndex .auto-fill {
+    width: 100%;
+    position: absolute;
+    top: 80%;
+    bottom: 0px;
+    left: 0px;
+    background-color: #C60A0A;
+    z-index: 0;
+}
+#uiIndex .foot-features {
+    width: 100%;
+    height: 80px;
+    position: absolute;
+    bottom: 0px;
+    background-image: -webkit-linear-gradient(left, #FFC500, #FF9402);
+    background-image: linear-gradient(to right, #FFC500, #FF9402);
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+
+#uiIndex .foot-features button{
+    border: 0;
+    background: none;
+    cursor: pointer;
+    font-size: 40px;
+    width: 32%;
+    text-align: center;
+    outline: none;
+}
+#uiIndex .volume {
+    color: #fff;
+}
+#uiIndex .statistic {
+    color: #fff;;
+}
+#uiIndex .related-info {
+    color: #fff;
+}
+.head-ctn .game-name {
+    padding-top: 20%;
+    height: 20%;
+}
+.head-ctn .game-name img{
+    max-width: 90%;
+    height: 100%;
+}
+
+.start-game {
+    width: 90%;
+    height: 46%;
+    margin: 5% auto;
+    border: 1px solid #000;
+    border-radius: 12px;
+    display: table;
+}
+.begin-test {
+    vertical-align: middle;
+    display: table-cell;
+}
+.start-game-customize {
+    width: 90%;
+    height: 10%;
+    margin: 0 auto;
+    margin-top: 5%;
+    border: 1px solid #000;
+    border-radius: 12px;
+    display: table;
+}
+
+/* 游戏页面 */
+#uiGamming {
+    background-color: aquamarine;
+    padding-top: 10%;
+    box-sizing: border-box;
+}
+.game-menu {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    border: 1px solid #000;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+.game-menu ul li {
+    height: 60px;
+    border: 1px solid #000;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+/* 统计页面 */
+#uiStatistic {
+    background-color: #7f7f7f;
+}
+
+/* 通用按钮 */
+.go2index {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid #000;
+    padding: 4px 12px;
+    z-index: 6;
+}
+
+/* @keyframes btmToTop {
+    from {
+        transform: translate(0px, 100%);
+        -ms-transform: translate(0px, 100%);
+        -webkit-transform: translate(0px, 100%);
+        -o-transform: translate(0px, 100%);
+        -moz-transform: translate(0px, 100%);
+    }to {
+        transform: translate(0px, 0px);
+        -ms-transform: translate(0px, 0px);
+        -webkit-transform: translate(0px, 0px);
+        -o-transform: translate(0px, 0px);
+        -moz-transform: translate(0px, 0px);
+    }
+}
+
+@keyframes topToBtm {
+    from {
+        transform: translate(0px, -100%);
+        -ms-transform: translate(0px, -100%);
+        -webkit-transform: translate(0px, -100%);
+        -o-transform: translate(0px, -100%);
+        -moz-transform: translate(0px, -100%);
+    }to {
+        transform: translate(0px, 0px);
+        -ms-transform: translate(0px, 0px);
+        -webkit-transform: translate(0px, 0px);
+        -o-transform: translate(0px, 0px);
+        -moz-transform: translate(0px, 0px);
+    }
+} */

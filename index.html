@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>kidgame</title>
+    <!-- font awesome -->
+    <link rel="stylesheet" href="assets/frame/fontAwesome/css/all.css">
+    <!-- 通配css -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <!-- 加载页面css -->
+    <link rel="stylesheet" href="css/loadAssets.css">
+    <!-- 未进入游戏前的ui css -->
+    <link rel="stylesheet" href="css/uiOutward.css">
+    <!-- 游戏场景css -->
+    <link rel="stylesheet" href="css/gameStage.css">
+</head>
+<body>
+    <div id="loadAssets" style="display:none">
+        <div>
+            <p class="load-percent load-percent2">0%</p>
+        </div>
+        <div class="loadBg2">
+            <div>
+                <p class="load-tips">游戏已加载<span class="load-percent">0%</span>，快乐马上就准备好了！</p>
+            </div>
+        </div>
+    </div>  
+    <div id="uiIndex" style="display:block">
+        <div class="head-ctn">
+            <div class="game-name">
+                <img src="assets/img/index/gameName.png" alt="game name's img">
+            </div>
+            <div class="start-game"><p class="begin-test">开始游戏</p></div>
+            <div class="start-game-customize"><p class="begin-test">自定义开始</p></div>
+        </div>
+        <div class="auto-fill">
+            <div class="foot-features">
+                <button class="volume"><i class="fas fa-volume-up"></i></button>
+                <button class="statistic"><i class="fas fa-torah"></i></button>
+                <button class="related-info"><i class="fas fa-exclamation-circle"></i></button>
+            </div>
+        </div>
+    </div>
+    <div id="uiStatistic" style="display:none">
+        <button class="go2index">返回首页</button>
+    </div>
+    <div id="uiInfo" style="display:none">
+        <button class="go2index">返回首页</button>
+        <div class="help-info">  
+        </div>
+        <div class="version-info">
+        </div>
+    </div>
+    <div id="uiGamming" style="display:none">
+        <button class="go2index">返回首页</button>
+        <canvas id="gameStage" width="100px" height="100px"></canvas>
+        <div class="game-menu" style="display:none">
+            <button class="go2index">返回首页</button>
+            <ul>
+                <li>模式1</li>
+                <li>模式2</li>
+                <li>模式3</li>
+                <li>拓宽眼界</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- jquery -->
+    <script src="assets/frame/jquery-3.3.1.min.js"></script>
+    <!-- 主逻辑控制 -->
+    <script src="js/config.js"></script>
+    <script src="js/funBox.js"></script>
+    <script src="js/UIController.js"></script>
+    <script src="js/loadAssets.js"></script>
+    <script src="js/gameController.js"></script>  
+    <script src="js/laserTransmitter.js"></script>
+</body>
+</html>
