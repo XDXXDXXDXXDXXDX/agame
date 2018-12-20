@@ -54,7 +54,7 @@ class laserTransmitter {
         }   
     }
     emitLaser() {
-        console.log(this.endX)
+        // console.log(this.endX)
         this.getEndXY();
         GSctx.beginPath(); // 开始绘画路径
         GSctx.moveTo(this.x, this.y); // 将画笔移到发射器所在坐标
@@ -70,6 +70,7 @@ class laserTransmitter {
     }
 }
 
-let laserA = new laserTransmitter(20, 30, 3, 1);
-laserA.emitLaser();
+
+
+
 
