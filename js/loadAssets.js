@@ -8,10 +8,10 @@ let totalCount = 0;
 
 let imgBox = {}; // 图片容器 获取图片的方式：imgBox.imgName
 $(() => {
-    for(let key in imgSrc) {
+    for(let key in Config.resources.images) {
         totalCount++;
         imgBox[key] = new Image();
-        imgBox[key].src = imgSrc[key];
+        imgBox[key].src = Config.resources.images[key];
         imgBox[key].onload = () => {
             loadCount++;
             loadDone();
@@ -37,6 +37,7 @@ function loadDone() {
     if(parseInt($('.loadBg2').css('padding-top')) >= window.innerHeight && loadCount == totalCount) {
         $('#loadAssets').slideUp();
         // $('#uiIndex').fadeIn(500);
+        Game.start();
     }
 }
 

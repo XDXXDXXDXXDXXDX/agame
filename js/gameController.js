@@ -7,16 +7,42 @@ var stageHeight = gameStage.height;
 
 var GSctx = gameStage.getContext("2d");
 
-let laserA = new laserTransmitter(40, 130, 3, 1);
-laserA.emitLaser();
 
-let laserB = new laserTransmitter(50, 230, -3, 1);
-laserB.emitLaser();
 
-var laserArr = [];
+var Game = {
+    start: function() {
+        let laserA = new laserTransmitter({
+            x: 60, // 发射器x坐标，激光开始的x坐标
+            y: 100, // 发射器y坐标，激光结束的y坐标
+            k: 3, // 发射激光的斜率
+            direction: 1, // 方向延Y轴正方向为1, 延Y轴负方向为0
+            icon: imgBox['laserTransmitter'], // 发射器图标
+            width: Config.laserTransmitterSize.width, // 发射器宽度
+            height: Config.laserTransmitterSize.height // 发射器高度
+        });
+        
+        let laserB = new laserTransmitter({
+            x: 160, // 发射器x坐标，激光开始的x坐标
+            y: 200, // 发射器y坐标，激光结束的y坐标
+            k: -3, // 发射激光的斜率
+            direction: 0, // 方向延Y轴正方向为1, 延Y轴负方向为0
+            icon: imgBox['laserTransmitter'], // 发射器图标
+            width: Config.laserTransmitterSize.width, // 发射器宽度
+            height: Config.laserTransmitterSize.height // 发射器高度
+        });
+        
+        var laserArr = [];
+        
+        laserArr.push(laserA);
+        laserArr.push(laserB);
+        
+        laserArr.map((laser, i ) => {
+            laser.draw();
+        })
+    }
+}
 
-laserArr.push(laserA);
-laserArr.push(laserB);
+
 
 gameStage.addEventListener('touchstart', (e) => {
     laserArr.map((laser, i ) => {
@@ -31,10 +57,10 @@ gameStage.addEventListener('touchstart', (e) => {
 function changeLaserK(i) {
     laserArr[i].k = $(`.laser${i}-k input`).val();
 
-    GSctx.clearRect(0, 0, stageWidth, stageHeight);
-    laserArr.map((e, i) => {
-        e.emitLaser();
-    })
+    // GSctx.clearRect(0, 0, stageWidth, stageHeight);
+    // laserArr.map((e, i) => {
+    //     e.emitLaser();
+    // })
 }
 
 // gameStage.addEventListener('touchmove', (e) => {

@@ -1,13 +1,16 @@
 // 坐标轴以canvas为准，向下为Y，向右为X
 // 激光发射器对象
 class laserTransmitter {
-    constructor(x, y, k, direction, endX, endY) {
-        this.x = x; // 发射器x坐标，激光开始的x坐标
-        this.y = y; // 发射器y坐标，激光结束的y坐标
-        this.k = k; // 发射激光的斜率
-        this.direction = direction; // 方向延Y轴正方向为1, 延Y轴负方向为0
-        this.endX = endX; // 激光结束的x坐标
-        this.endY = endY; // 激光结束的y坐标
+    constructor(opts) {
+        this.x = opts.x; // 发射器x坐标，激光开始的x坐标
+        this.y = opts.y; // 发射器y坐标，激光结束的y坐标
+        this.k = opts.k; // 发射激光的斜率
+        this.direction = opts.direction; // 方向延Y轴正方向为1, 延Y轴负方向为0
+        this.endX = opts.endX; // 激光结束的x坐标
+        this.endY = opts.endY; // 激光结束的y坐标
+        this.icon = opts.icon; // 发射器图标
+        this.width = opts.width; // 发射器宽度
+        this.height= opts.height; // 发射器高度
     }
     getEndXY() {
         if(this.k > 0 && this.direction) { // 右下方向
@@ -52,6 +55,17 @@ class laserTransmitter {
                 this.endX = this.x + this.y / Math.abs(this.k);
             }
         }   
+    }
+    draw() {
+        let drawX = 0 - this.width / 2;
+        let drawY = 0 - this.height / 2;
+        GSctx.save();
+        GSctx.translate(this.x, this.y);
+        GSctx.rotate(90 * deg);
+        GSctx.drawImage(this.icon, drawX, drawY, this.width, this.height);
+
+        this.emitLaser();
+        GSctx.restore();
     }
     emitLaser() {
         // console.log(this.endX)
