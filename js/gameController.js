@@ -14,8 +14,7 @@ var Game = {
         let laserA = new laserTransmitter({
             x: 60, // 发射器x坐标，激光开始的x坐标
             y: 100, // 发射器y坐标，激光结束的y坐标
-            k: 3, // 发射激光的斜率
-            direction: 1, // 方向延Y轴正方向为1, 延Y轴负方向为0
+            deg: 40,
             icon: imgBox['laserTransmitter'], // 发射器图标
             width: Config.laserTransmitterSize.width, // 发射器宽度
             height: Config.laserTransmitterSize.height // 发射器高度
@@ -24,49 +23,61 @@ var Game = {
         let laserB = new laserTransmitter({
             x: 160, // 发射器x坐标，激光开始的x坐标
             y: 200, // 发射器y坐标，激光结束的y坐标
-            k: -3, // 发射激光的斜率
-            direction: 0, // 方向延Y轴正方向为1, 延Y轴负方向为0
+            deg: 100,
+            icon: imgBox['laserTransmitter'], // 发射器图标
+            width: Config.laserTransmitterSize.width, // 发射器宽度
+            height: Config.laserTransmitterSize.height // 发射器高度
+        });
+
+        let laserC = new laserTransmitter({
+            x: 160, // 发射器x坐标，激光开始的x坐标
+            y: 200, // 发射器y坐标，激光结束的y坐标
+            deg: 290,
+            icon: imgBox['laserTransmitter'], // 发射器图标
+            width: Config.laserTransmitterSize.width, // 发射器宽度
+            height: Config.laserTransmitterSize.height // 发射器高度
+        });
+
+        let laserD = new laserTransmitter({
+            x: 160, // 发射器x坐标，激光开始的x坐标
+            y: 200, // 发射器y坐标，激光结束的y坐标
+            deg: 200,
             icon: imgBox['laserTransmitter'], // 发射器图标
             width: Config.laserTransmitterSize.width, // 发射器宽度
             height: Config.laserTransmitterSize.height // 发射器高度
         });
         
-        var laserArr = [];
+        this.laserArr = [];
         
-        laserArr.push(laserA);
-        laserArr.push(laserB);
+        this.laserArr.push(laserA);
+        this.laserArr.push(laserB);
+        this.laserArr.push(laserC);
+        this.laserArr.push(laserD);
         
-        laserArr.map((laser, i ) => {
+        this.laserArr.map((laser, i ) => {
             laser.draw();
-        })
+        });
+
+        this.bindTouchAction();
+    },
+    bindTouchAction: function() {
+        let laserArr = this.laserArr;
+        gameStage.addEventListener('touchstart', (e) => {
+            laserArr.map((laser, i ) => {
+                let d = Math.sqrt((e.touches[0].clientX - laser.x) ** 2 + (e.touches[0].clientY - laser.y) ** 2);
+                if(d < 20) {
+                    $('#uiGamming').append(`<div class="laser${i}-k changek" style="top:${laser.y}px;left:${laser.x}px"><input type="range" value="${laser.k}" class="rangeX" onchange="Game.changeLaserK(${i})"></div>`)
+                }
+            }); 
+            $('.rangeX').change(function () {
+                console.log(this)
+            });
+        });     
+    },
+    changeLaserK(i) {
+        this.laserArr[i].k = $(`.laser${i}-k input`).val();
+        console.log(this.laserArr[i].k);
     }
 }
 
 
-
-gameStage.addEventListener('touchstart', (e) => {
-    laserArr.map((laser, i ) => {
-        let d = Math.sqrt((e.touches[0].clientX - laser.x) ** 2 + (e.touches[0].clientY - laser.y) ** 2);
-        if(d < 20) {
-            $('#uiGamming').append(`<div class="laser${i}-k changek" style="top:${laser.y}px;left:${laser.x}px"><input value="${laser.k}" onchange="changeLaserK(${i})"></div>`)
-        }
-    })
-    
-});
-
-function changeLaserK(i) {
-    laserArr[i].k = $(`.laser${i}-k input`).val();
-
-    // GSctx.clearRect(0, 0, stageWidth, stageHeight);
-    // laserArr.map((e, i) => {
-    //     e.emitLaser();
-    // })
-}
-
-// gameStage.addEventListener('touchmove', (e) => {
-//     console.log(e);
-// })
-
-// gameStage.addEventListener('touchend', (e) => {
-//     console.log(e);
-// })

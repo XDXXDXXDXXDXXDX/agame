@@ -4,8 +4,7 @@ class laserTransmitter {
     constructor(opts) {
         this.x = opts.x; // 发射器x坐标，激光开始的x坐标
         this.y = opts.y; // 发射器y坐标，激光结束的y坐标
-        this.k = opts.k; // 发射激光的斜率
-        this.direction = opts.direction; // 方向延Y轴正方向为1, 延Y轴负方向为0
+        this.deg = opts.deg; // 角度值，转换成弧度需要 * deg
         this.endX = opts.endX; // 激光结束的x坐标
         this.endY = opts.endY; // 激光结束的y坐标
         this.icon = opts.icon; // 发射器图标
@@ -13,48 +12,52 @@ class laserTransmitter {
         this.height= opts.height; // 发射器高度
     }
     getEndXY() {
-        if(this.k > 0 && this.direction) { // 右下方向
+        // 根据角度确定射线的方向
+        if(0 <= this.deg && this.deg < 90) {
             let lx = stageWidth - this.x; // x2 - x1
-            let ly = this.y + lx * this.k; // y1 + k * lx
+            let ly = this.y - lx * Math.tan(this.deg * deg);
+            // 不能超出边界
+            if(ly > 0) {
+                this.endX = stageWidth;
+                this.endY = ly;
+            }else{
+                this.endY = 0;
+                this.endX = this.x + this.y / Math.tan(this.deg * deg);
+            }
+        }else if(90 <= this.deg && this.deg < 180) {
+            let lx = this.x; // x2 - x1
+            let ly = this.y + lx * Math.tan(this.deg * deg);
+            // 不能超出边界
+            if(ly > 0) {
+                this.endX = 0;
+                this.endY = ly;
+            }else{
+                this.endY = 0;
+                this.endX = this.x + this.y / Math.tan(this.deg * deg);
+            }
+        }else if(180 <= this.deg && this.deg < 270) {
+            let lx = this.x; // x2 - x1
+            let ly = this.y + lx * Math.tan(this.deg * deg);
+            // 不能超出边界
+            if(ly < stageHeight) {
+                this.endX = 0;
+                this.endY = ly;
+            }else{
+                this.endY = stageHeight;
+                this.endX = this.x - this.y / Math.tan(this.deg * deg);
+            }
+        }else if(270 <= this.deg && this.deg < 360) {
+            let lx = this.x; // x2 - x1
+            let ly = this.y - lx * Math.tan(this.deg * deg);
             // 不能超出边界
             if(ly < stageHeight) {
                 this.endX = stageWidth;
                 this.endY = ly;
             }else{
                 this.endY = stageHeight;
-                this.endX = this.x + (stageHeight - this.y) / this.k;
+                this.endX = this.x - this.y / Math.tan(this.deg * deg);
             }
-        }else if(this.k > 0 && !this.direction){ // 左上方向
-            let lx = this.x - 0; // x2 - x1
-            let ly = this.y - lx * this.k; // y1 + k * lx
-            if(ly > 0) {
-                this.endX = 0;
-                this.endY = ly;
-            }else{
-                this.endY = 0;
-                this.endX = this.x - this.y / this.k;
-            }
-        }else if(this.k < 0 && this.direction){ // 左下方向
-            let lx = this.x - 0; // x2 - x1
-            let ly = this.y + lx * Math.abs(this.k); // y1 + k * lx
-            if(ly < stageHeight) {
-                this.endX = 0;
-                this.endY = ly;
-            }else{
-                this.endY = stageHeight;
-                this.endX = this.x - (stageHeight - this.y) / Math.abs(this.k);
-            }
-        }else{ // 右上方向
-            let lx = stageWidth - this.x; // x2 - x1
-            let ly = this.y - lx * Math.abs(this.k); // y1 + k * lx
-            if(ly > 0) {
-                this.endX = stageWidth;
-                this.endY = ly;
-            }else{
-                this.endY = stageHeight;
-                this.endX = this.x + this.y / Math.abs(this.k);
-            }
-        }   
+        }
     }
     draw() {
         let drawX = 0 - this.width / 2;
@@ -63,9 +66,8 @@ class laserTransmitter {
         GSctx.translate(this.x, this.y);
         GSctx.rotate(90 * deg);
         GSctx.drawImage(this.icon, drawX, drawY, this.width, this.height);
-
-        this.emitLaser();
         GSctx.restore();
+        this.emitLaser(); 
     }
     emitLaser() {
         // console.log(this.endX)
