@@ -21,7 +21,7 @@ var Game = {
         });
         
         let laserB = new laserTransmitter({
-            x: 160, // 发射器x坐标，激光开始的x坐标
+            x: 260, // 发射器x坐标，激光开始的x坐标
             y: 200, // 发射器y坐标，激光结束的y坐标
             deg: 100,
             icon: imgBox['laserTransmitter'], // 发射器图标
@@ -31,7 +31,7 @@ var Game = {
 
         let laserC = new laserTransmitter({
             x: 160, // 发射器x坐标，激光开始的x坐标
-            y: 200, // 发射器y坐标，激光结束的y坐标
+            y: 400, // 发射器y坐标，激光结束的y坐标
             deg: 290,
             icon: imgBox['laserTransmitter'], // 发射器图标
             width: Config.laserTransmitterSize.width, // 发射器宽度
@@ -39,8 +39,8 @@ var Game = {
         });
 
         let laserD = new laserTransmitter({
-            x: 160, // 发射器x坐标，激光开始的x坐标
-            y: 200, // 发射器y坐标，激光结束的y坐标
+            x: 260, // 发射器x坐标，激光开始的x坐标
+            y: 400, // 发射器y坐标，激光结束的y坐标
             deg: 200,
             icon: imgBox['laserTransmitter'], // 发射器图标
             width: Config.laserTransmitterSize.width, // 发射器宽度
@@ -63,21 +63,23 @@ var Game = {
     bindTouchAction: function() {
         let laserArr = this.laserArr;
         gameStage.addEventListener('touchstart', (e) => {
-            laserArr.map((laser, i ) => {
+            laserArr.map((laser, i) => {
                 let d = Math.sqrt((e.touches[0].clientX - laser.x) ** 2 + (e.touches[0].clientY - laser.y) ** 2);
                 if(d < 20) {
-                    $('#uiGamming').append(`<div class="laser${i}-k changek" style="top:${laser.y}px;left:${laser.x}px"><input type="range" value="${laser.k}" class="rangeX" onchange="Game.changeLaserK(${i})"></div>`)
+                    $('#uiGamming').append(`<div class="changeDeg" style="top:${laser.y}px;left:${laser.x}px"><input type="range" value="${laser.deg}" min="0" max="359" class="rangeX" oninput="Game.changeLDeg(${i})"></div>`)
                 }
             }); 
             $('.rangeX').change(function () {
-                console.log(this)
+                console.log(this.value);
             });
         });     
     },
-    changeLaserK(i) {
-        this.laserArr[i].k = $(`.laser${i}-k input`).val();
-        console.log(this.laserArr[i].k);
-    }
+    changeLDeg: function(i) {
+        let laserArr = this.laserArr;
+        laserArr[i]
+
+    },
+
 }
 
 

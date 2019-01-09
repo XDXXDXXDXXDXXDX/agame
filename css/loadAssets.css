@@ -5,22 +5,22 @@ html, body {
 #loadAssets {
     width: 100%;
     height: 100%;
-    background: url('../assets/img/index/loadBg1.png');
+    background: url('../assets/img/index/loadBg2.png');
     background-size: 100% 100%;
     position: relative;
     overflow: hidden;
     z-index: 5;
 }
-.loadBg2 {
+.loadBg1 {
     width: 100%;
     height: 100%;
     position: absolute;
     left: 0;
     top: 0;
-    background: url('../assets/img/index/loadBg2.png');
+    background: url('../assets/img/index/loadBg1.png');
     background-size: 100% 100%;
-    background-origin: padding-box;
-    background-clip: content-box;
+    background-origin: padding-box; /* 背景绘画开始区域 */
+    background-clip: content-box; /* 背景裁剪区域 */
     box-sizing: border-box;
 }
 .load-tips {
