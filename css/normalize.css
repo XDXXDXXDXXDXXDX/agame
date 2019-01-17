@@ -4,6 +4,10 @@
     font-family: "SF Pro SC", "SF Pro Display", "SF Pro Icons", "AOS Icons", "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
+body {
+    overflow: hidden;
+}
+
 button {
     background: none;
     border: 0;

@@ -54,30 +54,46 @@ var Game = {
         this.laserArr.push(laserC);
         this.laserArr.push(laserD);
         
-        this.laserArr.map((laser, i ) => {
-            laser.draw();
-        });
-
+        
+        this.update();
         this.bindTouchAction();
+    },
+    update: function() {
+        let self = this;
+
+        // 先清理画布
+        GSctx.clearRect(0, 0, stageWidth, stageHeight);
+
+        this.draw();
+
+        requestAnimFrame(function() {
+            self.update()
+        });
+    },
+    draw: function() {
+        for(laser of this.laserArr) {
+            laser.draw();
+        }
     },
     bindTouchAction: function() {
         let laserArr = this.laserArr;
         gameStage.addEventListener('touchstart', (e) => {
-            laserArr.map((laser, i) => {
+            for([i, laser] of laserArr.entries()) {
                 let d = Math.sqrt((e.touches[0].clientX - laser.x) ** 2 + (e.touches[0].clientY - laser.y) ** 2);
                 if(d < 20) {
-                    $('#uiGamming').append(`<div class="changeDeg" style="top:${laser.y}px;left:${laser.x}px"><input type="range" value="${laser.deg}" min="0" max="359" class="rangeX" oninput="Game.changeLDeg(${i})"></div>`)
+                    $('#uiGamming').append(`<div class="changeDeg" style="top:${laser.y + 50}px;left:${laser.x + 50}px"><input type="range" value="${laser.deg}" min="0" max="359" class="deg_range" oninput="Game.changeLDeg(this, ${i})"></div>`);
+                    $('.changeDeg').focus();
+                    $('.changeDeg').blur(() => {
+                        $('.changeDeg').hide();
+                    })
+                    break;
                 }
-            }); 
-            $('.rangeX').change(function () {
-                console.log(this.value);
-            });
+            }
         });     
     },
-    changeLDeg: function(i) {
+    changeLDeg: function(thisInput, i) {
         let laserArr = this.laserArr;
-        laserArr[i]
-
+        laserArr[i].deg = thisInput.value;
     },
 
 }

@@ -5,5 +5,27 @@
 }
 
 .changeDeg {
+    height: 36px;
+    line-height: 36px;
     position: absolute;
+}
+
+.deg_range { 
+    appearance: none;
+    -webkit-appearance: none;/*清除系统默认样式*/  
+    outline: none; 
+    width: 100px;  
+    background: #007acc;
+    height: 20px;/*横条的高度*/  
+    border-radius: 10px;
+} 
+/*拖动块的样式*/  
+.deg_range::-webkit-slider-thumb {  
+    appearance: none;
+    -webkit-appearance: none;/*清除系统默认样式*/  
+    height:30px;/*拖动块高度*/  
+    width: 30px;/*拖动块宽度*/  
+    background: #fff;/*拖动块背景*/  
+    border-radius: 50%; /*外观设置为圆形*/  
+    border: solid 1px #ddd; /*设置边框*/  
 }

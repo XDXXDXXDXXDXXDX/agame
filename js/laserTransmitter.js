@@ -64,7 +64,7 @@ class laserTransmitter {
         let drawY = 0 - this.height / 2;
         GSctx.save();
         GSctx.translate(this.x, this.y);
-        GSctx.rotate(90 * deg);
+        GSctx.rotate(this.deg * deg);
         GSctx.drawImage(this.icon, drawX, drawY, this.width, this.height);
         GSctx.restore();
         this.emitLaser(); 
