@@ -14,7 +14,7 @@
     appearance: none;
     -webkit-appearance: none;/*清除系统默认样式*/  
     outline: none; 
-    width: 100px;  
+    width: 200px;  
     background: #007acc;
     height: 20px;/*横条的高度*/  
     border-radius: 10px;
