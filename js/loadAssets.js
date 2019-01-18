@@ -35,9 +35,8 @@ function loadingAnim() {
 // 判断资源是否加载完成
 function loadDone() {
     if(parseInt($('.loadBg1').css('padding-top')) >= window.innerHeight && loadCount == totalCount) {
-        // $('#loadAssets').slideUp();
-        // $('#uiIndex').fadeIn(500);
-        Game.start();
+        $('#loadAssets').slideUp();
+        $('#uiIndex').fadeIn(500);
     }
 }
 

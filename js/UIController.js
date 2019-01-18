@@ -14,6 +14,7 @@ $('.related-info').click(() => {
 $('.start-game').click(() => {
     $('#uiIndex').slideUp();
     $('#uiGamming').fadeIn(500);
+    Game.start();
 })
 // 返回到首页按钮
 $('.go2index').click(() => {

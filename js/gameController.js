@@ -12,36 +12,9 @@ var GSctx = gameStage.getContext("2d");
 var Game = {
     start: function() {
         let laserA = new laserTransmitter({
-            x: 60, // 发射器x坐标，激光开始的x坐标
-            y: 100, // 发射器y坐标，激光结束的y坐标
-            deg: 40,
-            icon: imgBox['laserTransmitter'], // 发射器图标
-            width: Config.laserTransmitterSize.width, // 发射器宽度
-            height: Config.laserTransmitterSize.height // 发射器高度
-        });
-        
-        let laserB = new laserTransmitter({
-            x: 260, // 发射器x坐标，激光开始的x坐标
+            x: 150, // 发射器x坐标，激光开始的x坐标
             y: 200, // 发射器y坐标，激光结束的y坐标
-            deg: 100,
-            icon: imgBox['laserTransmitter'], // 发射器图标
-            width: Config.laserTransmitterSize.width, // 发射器宽度
-            height: Config.laserTransmitterSize.height // 发射器高度
-        });
-
-        let laserC = new laserTransmitter({
-            x: 160, // 发射器x坐标，激光开始的x坐标
-            y: 400, // 发射器y坐标，激光结束的y坐标
-            deg: 290,
-            icon: imgBox['laserTransmitter'], // 发射器图标
-            width: Config.laserTransmitterSize.width, // 发射器宽度
-            height: Config.laserTransmitterSize.height // 发射器高度
-        });
-
-        let laserD = new laserTransmitter({
-            x: 260, // 发射器x坐标，激光开始的x坐标
-            y: 400, // 发射器y坐标，激光结束的y坐标
-            deg: 200,
+            deg: 40,
             icon: imgBox['laserTransmitter'], // 发射器图标
             width: Config.laserTransmitterSize.width, // 发射器宽度
             height: Config.laserTransmitterSize.height // 发射器高度
@@ -50,10 +23,6 @@ var Game = {
         this.laserArr = [];
         
         this.laserArr.push(laserA);
-        this.laserArr.push(laserB);
-        this.laserArr.push(laserC);
-        this.laserArr.push(laserD);
-        
         
         this.update();
         this.bindTouchAction();
