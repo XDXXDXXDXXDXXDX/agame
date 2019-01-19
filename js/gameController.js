@@ -11,7 +11,7 @@ var GSctx = gameStage.getContext("2d");
 
 var Game = {
     start: function() {
-        let laserA = new laserTransmitter({
+        let laserA = new LaserTransmitter({
             x: 150, // 发射器x坐标，激光开始的x坐标
             y: 200, // 发射器y坐标，激光结束的y坐标
             deg: 40,

@@ -1,15 +1,9 @@
-// 坐标轴以canvas为准，向下为Y，向右为X
 // 激光发射器对象
-class laserTransmitter {
+class LaserTransmitter extends Element {
     constructor(opts) {
-        this.x = opts.x; // 发射器x坐标，激光开始的x坐标
-        this.y = opts.y; // 发射器y坐标，激光结束的y坐标
-        this.deg = opts.deg; // 角度值，转换成弧度需要 * deg
+        super(opts);
         this.endX = opts.endX; // 激光结束的x坐标
         this.endY = opts.endY; // 激光结束的y坐标
-        this.icon = opts.icon; // 发射器图标
-        this.width = opts.width; // 发射器宽度
-        this.height= opts.height; // 发射器高度
     }
     getEndXY() {
         // 根据角度确定射线的方向
