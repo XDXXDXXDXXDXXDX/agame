@@ -7,8 +7,6 @@ var stageHeight = gameStage.height;
 
 var GSctx = gameStage.getContext("2d");
 
-
-
 var Game = {
     start: function() {
         let laserA = new LaserTransmitter({
