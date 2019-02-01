@@ -20,7 +20,7 @@ var Game = {
             height: Config.laserTransmitterSize.height // 发射器高度
         });
 
-        let lightHomeA = new LaserTransmitter({
+        let lightHomeA = new LightHome({
             x: 150, // 发射器x坐标，激光开始的x坐标
             y: 400, // 发射器y坐标，激光结束的y坐标
             deg: 0,
@@ -31,7 +31,6 @@ var Game = {
         
         this.laserArr = [];
         this.homeArr = [];
-        aaaa=laserA;
         this.laserArr.push(laserA);
         this.homeArr.push(lightHomeA);
         
