@@ -44,6 +44,11 @@ function isIntersect(p0, p1, p2, p3) {
     let p2p3Xp2p0 = p2p3.x * p2p0.y - p2p3.y * p2p0.x;
     let p2p3Xp2p1 = p2p3.x * p2p1.y - p2p3.y * p2p1.x;
 
+    // == 0 的情况1、端点在另外一条线上 2、两线段共线（全部都为零）
+    // 共线判定为不相交
+    if(p0p2Xp0p1 == 0 && p0p3Xp0p1 == 0 && p2p3Xp2p0 == 0 && p2p3Xp2p1 == 0) {
+        return false;
+    }
     if(p0p2Xp0p1 * p0p3Xp0p1 <= 0 && p2p3Xp2p0 * p2p3Xp2p1 <= 0) {
         // 相交时计算交点
         let denominator = (p1.y - p0.y) * (p3.x - p2.x) - (p0.x - p1.x) * (p2.y - p3.y);
