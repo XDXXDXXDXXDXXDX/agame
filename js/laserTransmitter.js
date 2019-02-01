@@ -41,7 +41,7 @@ class LaserTransmitter extends Element {
                 this.endX = this.x - (stageHeight - this.y) / Math.tan(this.deg * deg);
             }
         }else if(270 < this.deg && this.deg < 360) {
-            let lx = this.x; // x2 - x1
+            let lx = stageWidth - this.x; // x2 - x1
             let ly = this.y - lx * Math.tan(this.deg * deg);
             // 不能超出边界
             if(ly < stageHeight) {
