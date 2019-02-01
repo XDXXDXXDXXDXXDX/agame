@@ -7,6 +7,8 @@ var stageHeight = gameStage.height;
 
 var GSctx = gameStage.getContext("2d");
 
+let aaaa ='';
+
 var Game = {
     start: function() {
         let laserA = new LaserTransmitter({
@@ -17,10 +19,21 @@ var Game = {
             width: Config.laserTransmitterSize.width, // 发射器宽度
             height: Config.laserTransmitterSize.height // 发射器高度
         });
+
+        let lightHomeA = new LaserTransmitter({
+            x: 150, // 发射器x坐标，激光开始的x坐标
+            y: 400, // 发射器y坐标，激光结束的y坐标
+            deg: 0,
+            icon: imgBox['lightHome'], // 发射器图标
+            width: Config.lightHomeSize.width, // 发射器宽度
+            height: Config.lightHomeSize.height // 发射器高度
+        });
         
         this.laserArr = [];
-        
+        this.homeArr = [];
+        aaaa=laserA;
         this.laserArr.push(laserA);
+        this.homeArr.push(lightHomeA);
         
         this.update();
         this.bindTouchAction();
@@ -40,6 +53,10 @@ var Game = {
     draw: function() {
         for(laser of this.laserArr) {
             laser.draw();
+        }
+
+        for(home of this.homeArr) {
+            home.draw();
         }
     },
     bindTouchAction: function() {

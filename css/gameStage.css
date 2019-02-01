@@ -23,7 +23,7 @@
 .deg_range::-webkit-slider-thumb {  
     appearance: none;
     -webkit-appearance: none;/*清除系统默认样式*/  
-    height:30px;/*拖动块高度*/  
+    height: 30px;/*拖动块高度*/  
     width: 30px;/*拖动块宽度*/  
     background: #fff;/*拖动块背景*/  
     border-radius: 50%; /*外观设置为圆形*/  
