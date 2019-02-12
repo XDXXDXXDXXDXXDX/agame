@@ -65,7 +65,7 @@ var Game = {
             for([i, laser] of laserArr.entries()) {
                 let d = Math.sqrt((e.touches[0].clientX - laser.x) ** 2 + (e.touches[0].clientY - laser.y) ** 2);
                 if(d < 20) {
-                    $('#uiGamming').append(`<div class="changeDeg" style="top:${laser.y + 50}px;left:${laser.x + 50}px"><input type="range" value="${laser.deg}" min="0" max="359" class="deg_range" oninput="Game.changeLDeg(this, ${i})"></div>`);
+                    $('#uiGamming').append(`<div class="changeDeg" style="top:${laser.y + 50}px;left:${laser.x + 50}px"><input type="range" value="${laser.deg}" min="0" max="360" class="deg_range" oninput="Game.changeLDeg(this, ${i})"></div>`);
                     $(".changeDeg").click((e) => {
                         e.stopPropagation();    //  阻止事件冒泡
                     });

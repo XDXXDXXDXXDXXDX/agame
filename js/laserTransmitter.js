@@ -40,7 +40,7 @@ class LaserTransmitter extends Element {
                 this.endY = stageHeight;
                 this.endX = this.x - (stageHeight - this.y) / Math.tan(this.deg * deg);
             }
-        }else if(270 < this.deg && this.deg < 360) {
+        }else if(270 < this.deg && this.deg <= 360) {
             let lx = stageWidth - this.x; // x2 - x1
             let ly = this.y - lx * Math.tan(this.deg * deg);
             // 不能超出边界
@@ -78,6 +78,19 @@ class LaserTransmitter extends Element {
         GSctx.lineWidth = 2; // 激光的宽度
         GSctx.stroke(); // 绘画路径
     }
+    // 判断与圆形的位置关系
+    shotCircle(target) {
+        // 圆心到直线的距离
+        let d = Math.abs(((this.endY - this.y) * target.x + (this.x - this.endX) * target.y + 
+                (this.endX - this.x) * this.y - (this.endY - this.y) * this.x) /
+                Math.sqrt(((this.endY - this.y) ** 2 + (this.x - this.endX) ** 2)));
+        
+        if(d < targrt.width / 2) {
+
+        }
+        
+    }
+
 }
 
 
