@@ -9,10 +9,12 @@ function(callback) {
     window.setTimeout(callback, 1000 / 30);
 };
 
-// 判断两线是否相交
-// 原理参考https://www.2cto.com/kf/201111/112304.html和https://blog.csdn.net/u012260672/article/details/51941262
-// p0p1第一条线段，p2p3第二条线段 p0p1p2p3均为一个坐标{x, y}
-// 相交时返回交点坐标，不相交返回false
+/**
+ * 判断两线是否相交
+ * 原理参考https://www.2cto.com/kf/201111/112304.html和https://blog.csdn.net/u012260672/article/details/51941262
+ * p0p1第一条线段，p2p3第二条线段 p0p1p2p3均为一个坐标{x, y}
+ * 相交时返回交点坐标，不相交返回false 
+ * */
 function isIntersect(p0, p1, p2, p3) {
     let p0p1 = {
         x: p1.x - p0.x, 
@@ -65,3 +67,23 @@ function isIntersect(p0, p1, p2, p3) {
     return false;
 }
 
+/**
+ * 判断线与圆的位置关系 待完成
+ * 
+*/
+function isIntersect(p0, p1, p2, p3) {
+    // 圆心到直线的距离
+    let d = Math.abs(((this.endY - this.y) * target.x + (this.x - this.endX) * target.y + 
+            (this.endX - this.x) * this.y - (this.endY - this.y) * this.x) /
+            Math.sqrt(((this.endY - this.y) ** 2 + (this.x - this.endX) ** 2)));
+    
+    if(d < targrt.width / 2) {
+
+    }
+
+    return false;
+}
+
+/**
+ * 判断直线与矩形的位置关系
+ */

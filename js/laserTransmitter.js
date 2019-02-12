@@ -80,14 +80,7 @@ class LaserTransmitter extends Element {
     }
     // 判断与圆形的位置关系
     shotCircle(target) {
-        // 圆心到直线的距离
-        let d = Math.abs(((this.endY - this.y) * target.x + (this.x - this.endX) * target.y + 
-                (this.endX - this.x) * this.y - (this.endY - this.y) * this.x) /
-                Math.sqrt(((this.endY - this.y) ** 2 + (this.x - this.endX) ** 2)));
-        
-        if(d < targrt.width / 2) {
 
-        }
         
     }
 
