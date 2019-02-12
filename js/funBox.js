@@ -70,7 +70,7 @@ function isIntersect(p0, p1, p2, p3) {
 /**
  * 判断线与圆的位置关系 待完成
  * 
-*/
+ */
 function isIntersect(p0, p1, p2, p3) {
     // 圆心到直线的距离
     let d = Math.abs(((this.endY - this.y) * target.x + (this.x - this.endX) * target.y + 
