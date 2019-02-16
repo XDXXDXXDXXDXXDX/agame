@@ -28,18 +28,37 @@ var Game = {
             width: Config.lightHomeSize.width, // 发射器宽度
             height: Config.lightHomeSize.height // 发射器高度
         });
+        let lightHomeB = new LightHome({
+            x: 250, // 发射器x坐标，激光开始的x坐标
+            y: 300, // 发射器y坐标，激光结束的y坐标
+            deg: 0,
+            icon: imgBox['lightHome'], // 发射器图标
+            width: Config.lightHomeSize.width, // 发射器宽度
+            height: Config.lightHomeSize.height // 发射器高度
+        });
         
         this.laserArr = [];
         this.homeArr = [];
         this.laserArr.push(laserA);
-        this.homeArr.push(lightHomeA);
+        this.homeArr.push(lightHomeA, lightHomeB);
         
         this.update();
         this.bindTouchAction();
     },
     update: function() {
         let self = this;
-
+        let laserArr = this.laserArr;
+        for(laser of laserArr) {
+            laser.getEndXY();
+            for(home of this.homeArr) {
+                let node = laser.isIntersect(home)
+                if(node) {
+                    laser.endX = node.x;
+                    laser.endY = node.y;
+                    break;
+                }
+            }
+        }
         // 先清理画布
         GSctx.clearRect(0, 0, stageWidth, stageHeight);
 

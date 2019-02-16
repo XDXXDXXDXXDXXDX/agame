@@ -53,6 +53,29 @@ class LaserTransmitter extends Element {
             }
         }
     }
+    isIntersect(target) {
+        let A = {
+            x: target.x - target.width / 2,
+            y: target.y - target.height / 2
+        }
+        let B = {
+            x: target.x - target.width / 2,
+            y: target.y + target.height / 2
+        }
+        let C = {
+            x: target.x + target.width / 2,
+            y: target.y + target.height / 2
+        }
+        let D = {
+            x: target.x + target.width / 2,
+            y: target.y - target.height / 2
+        }
+        return isIntersectRec(
+            {x:this.x, y:this.y}, 
+            {x:this.endX, y:this.endY}, 
+            A, B, C, D
+        )
+    }
     draw() {
         let drawX = 0 - this.width / 2;
         let drawY = 0 - this.height / 2;
@@ -61,11 +84,11 @@ class LaserTransmitter extends Element {
         GSctx.rotate(- this.deg * deg);
         GSctx.drawImage(this.icon, drawX, drawY, this.width, this.height);
         GSctx.restore();
+        // this.getEndXY();
         this.emitLaser(); 
     }
     emitLaser() {
         // console.log(this.endX)
-        this.getEndXY();
         GSctx.beginPath(); // 开始绘画路径
         GSctx.moveTo(this.x, this.y); // 将画笔移到发射器所在坐标
         // 创建渐变的激光色

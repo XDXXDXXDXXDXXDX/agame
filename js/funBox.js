@@ -71,19 +71,35 @@ function isIntersect(p0, p1, p2, p3) {
  * 判断线与圆的位置关系 待完成
  * 
  */
-function isIntersect(p0, p1, p2, p3) {
-    // 圆心到直线的距离
-    let d = Math.abs(((this.endY - this.y) * target.x + (this.x - this.endX) * target.y + 
-            (this.endX - this.x) * this.y - (this.endY - this.y) * this.x) /
-            Math.sqrt(((this.endY - this.y) ** 2 + (this.x - this.endX) ** 2)));
+// function isIntersect(p0, p1, p2, p3) {
+//     // 圆心到直线的距离
+//     let d = Math.abs(((this.endY - this.y) * target.x + (this.x - this.endX) * target.y + 
+//             (this.endX - this.x) * this.y - (this.endY - this.y) * this.x) /
+//             Math.sqrt(((this.endY - this.y) ** 2 + (this.x - this.endX) ** 2)));
     
-    if(d < targrt.width / 2) {
+//     if(d < targrt.width / 2) {
 
+//     }
+
+//     return false;
+// }
+
+/**
+ * 判断直线与矩形的位置关系
+ * p0p1为直线两点，p2p3p4p5为矩形的四个点(矩形逆时针取点)
+ */
+function isIntersectRec(p0, p1, p2, p3, p4, p5) {
+    let node = isIntersect(p0, p1, p2, p3);
+    if(node) {
+        return node;
+    }else if(node = isIntersect(p0, p1, p3, p4)) {
+        return node;
+    }else if(node = isIntersect(p0, p1, p4, p5)) {
+        return node;
+    }else if(node = isIntersect(p0, p1, p5, p2)) {
+        return node;
     }
 
     return false;
 }
 
-/**
- * 判断直线与矩形的位置关系
- */
