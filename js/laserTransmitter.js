@@ -70,10 +70,32 @@ class LaserTransmitter extends Element {
             x: target.x + target.width / 2,
             y: target.y - target.height / 2
         }
+        let usefulNode = {};
+        if(this.x <= C.x && this.y >= C.y) {
+            usefulNode = {
+                p2: A, p3: B, p5: D
+            }
+        }else if(this.x <= D.x && this.y < D.y) {
+            usefulNode = {
+                p2: A, p3: B, p4: C
+            }
+        }else if(this.x <= D.x && this.y < D.y) {
+            usefulNode = {
+                p2: A, p3: B, p4: C
+            }
+        }else if(this.x >= A.x && this.y >= A.y) {
+            usefulNode = {
+                p3: B, p4: C, p5: D
+            }
+        }else if(this.x >= B.x && this.y > B.y) {
+            usefulNode = {
+                p2: A, p4: C, p5: D
+            }
+        }
         return isIntersectRec(
             {x:this.x, y:this.y}, 
             {x:this.endX, y:this.endY}, 
-            A, B, C, D
+            usefulNode
         )
     }
     draw() {

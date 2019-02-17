@@ -16,6 +16,9 @@ function(callback) {
  * 相交时返回交点坐标，不相交返回false 
  * */
 function isIntersect(p0, p1, p2, p3) {
+    if(p2 == undefined || p3 == undefined) {
+        return false;
+    }
     let p0p1 = {
         x: p1.x - p0.x, 
         y: p1.y - p0.y
@@ -88,7 +91,7 @@ function isIntersect(p0, p1, p2, p3) {
  * 判断直线与矩形的位置关系
  * p0p1为直线两点，p2p3p4p5为矩形的四个点(矩形逆时针取点)
  */
-function isIntersectRec(p0, p1, p2, p3, p4, p5) {
+function isIntersectRec(p0, p1, {p2, p3, p4, p5}) {
     let node = isIntersect(p0, p1, p2, p3);
     if(node) {
         return node;
@@ -97,6 +100,7 @@ function isIntersectRec(p0, p1, p2, p3, p4, p5) {
     }else if(node = isIntersect(p0, p1, p4, p5)) {
         return node;
     }else if(node = isIntersect(p0, p1, p5, p2)) {
+        console.log(66666666)
         return node;
     }
 
