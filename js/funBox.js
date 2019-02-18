@@ -92,6 +92,7 @@ function isIntersect(p0, p1, p2, p3) {
  * p0p1为直线两点，p2p3p4p5为矩形的四个点(矩形逆时针取点)
  */
 function isIntersectRec(p0, p1, {p2, p3, p4, p5}) {
+    // console.log(p2, p3, p4, p5)
     let node = isIntersect(p0, p1, p2, p3);
     if(node) {
         return node;
@@ -100,7 +101,6 @@ function isIntersectRec(p0, p1, {p2, p3, p4, p5}) {
     }else if(node = isIntersect(p0, p1, p4, p5)) {
         return node;
     }else if(node = isIntersect(p0, p1, p5, p2)) {
-        console.log(66666666)
         return node;
     }
 
