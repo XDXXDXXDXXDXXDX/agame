@@ -36,9 +36,10 @@ function loadingAnim() {
 function loadDone() {
     if(parseInt($('.loadBg1').css('padding-top')) >= window.innerHeight && loadCount == totalCount) {
         $('#loadAssets').slideUp();
-        $('#uiIndex').fadeIn(500);
+        // $('#uiIndex').fadeIn(500);
     }
 }
+
 
 
 
