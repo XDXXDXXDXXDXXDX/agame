@@ -124,3 +124,10 @@ function emitLaser(startX, startY, endX, endY) {
     GSctx.stroke(); // 绘画路径
 }
 
+/**
+ * 计算反射角
+ */
+function calRefAngle(deg1, deg2) {
+    let refAngle = 2 * Math.PI - deg1 * deg + deg2 * deg;
+    return refAngle / deg;
+}
