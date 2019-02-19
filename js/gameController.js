@@ -40,11 +40,20 @@ var Game = {
             width: Config.lightHomeSize.width, // 发射器宽度
             height: Config.lightHomeSize.height // 发射器高度
         });
+        let lightHomeC = new LightHome({
+            name: 'lightHomeC',
+            x: 150, // 发射器x坐标，激光开始的x坐标
+            y: 100, // 发射器y坐标，激光结束的y坐标
+            deg: 0,
+            icon: imgBox['lightHome'], // 发射器图标
+            width: Config.lightHomeSize.width, // 发射器宽度
+            height: Config.lightHomeSize.height // 发射器高度
+        });
         
         this.laserArr = [];
         this.homeArr = [];
         this.laserArr.push(laserA);
-        this.homeArr.push(lightHomeA, lightHomeB);
+        this.homeArr.push(lightHomeA, lightHomeB, lightHomeC);
         
         this.update();
         this.bindTouchAction();
@@ -65,7 +74,7 @@ var Game = {
                             oriName: home.name,
                             x: node.x, // 发射器x坐标，激光开始的x坐标
                             y: node.y, // 发射器y坐标，激光结束的y坐标
-                            deg: calRefAngle(laser.deg, 0),
+                            deg: calRefAngle(laser.deg, 360),
                             icon: imgBox['lightStart'], // 发射器图标
                             width: Config.lightStartSize.width, // 发射器宽度
                             height: Config.lightStartSize.height // 发射器高度
