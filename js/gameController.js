@@ -49,11 +49,23 @@ var Game = {
             width: Config.lightHomeSize.width, // 发射器宽度
             height: Config.lightHomeSize.height // 发射器高度
         });
+
+        let mirrorA = new Mirror({
+            name: 'mirrorA',
+            x: 280, // 发射器x坐标，激光开始的x坐标
+            y: 200, // 发射器y坐标，激光结束的y坐标
+            deg: 0,
+            icon: imgBox['mirror'], // 发射器图标
+            width: Config.mirrorSize.width, // 发射器宽度
+            height: Config.mirrorSize.height // 发射器高度
+        });
         
         this.laserArr = [];
         this.homeArr = [];
+        this.mirrorArr = [];
         this.laserArr.push(laserA);
         this.homeArr.push(lightHomeA, lightHomeB, lightHomeC);
+        this.mirrorArr.push(mirrorA);
         
         this.update();
         this.bindTouchAction();
@@ -114,6 +126,10 @@ var Game = {
         for(home of this.homeArr) {
             home.draw();
         }
+        for(mirror of this.mirrorArr) {
+            mirror.draw();
+        }
+
 
         this.laserArr.splice(1, this.laserArr.length - 1)
     },

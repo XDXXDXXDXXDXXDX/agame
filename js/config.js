@@ -11,6 +11,10 @@ var Config = {
         width: 30,
         height: 30
     },
+    mirrorSize: {
+        width: 33,
+        height: 4
+    },
     resources: {
         // 格式 name : src
         images: {
@@ -19,6 +23,7 @@ var Config = {
             'laserTransmitter': './assets/img/laserTransmitter.png',
             'lightStart': './assets/img/lightStart.png',
             'lightHome': './assets/img/lightHome.png',
+            'mirror': './assets/img/mirror.png',
         }
     }
 }
