@@ -95,12 +95,16 @@ function isIntersectRec(p0, p1, {p2, p3, p4, p5}) {
     // console.log(p2, p3, p4, p5)
     let node = isIntersect(p0, p1, p2, p3);
     if(node) {
+        node.reg = 90;
         return node;
     }else if(node = isIntersect(p0, p1, p3, p4)) {
+        node.reg = 0;
         return node;
     }else if(node = isIntersect(p0, p1, p4, p5)) {
+        node.reg = 90;
         return node;
     }else if(node = isIntersect(p0, p1, p5, p2)) {
+        node.reg = 0;
         return node;
     }
 

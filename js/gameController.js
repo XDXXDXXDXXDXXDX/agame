@@ -74,7 +74,7 @@ var Game = {
                             oriName: home.name,
                             x: node.x, // 发射器x坐标，激光开始的x坐标
                             y: node.y, // 发射器y坐标，激光结束的y坐标
-                            deg: calRefAngle(laser.deg, 360),
+                            deg: calRefAngle(laser.deg, node.reg),
                             icon: imgBox['lightStart'], // 发射器图标
                             width: Config.lightStartSize.width, // 发射器宽度
                             height: Config.lightStartSize.height // 发射器高度
