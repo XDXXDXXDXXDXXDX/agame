@@ -15,7 +15,18 @@ $(() => {
         imgBox[key].onload = () => {
             loadCount++;
             loadDone();
-        } 
+        }; 
+    }
+
+    for(let jsSrc of Config.resources.levelJs) {
+        totalCount++;
+        let script = document.createElement('script')
+        script.src = jsSrc;
+        script.onload = () => {
+            loadCount++;
+            loadDone();
+        };
+        $('body').append(script);
     }
 });
 

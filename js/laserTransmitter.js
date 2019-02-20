@@ -53,40 +53,45 @@ class LaserTransmitter extends Element {
             }
         }
     }
-    isIntersect(target) {
-        let A = {
-            x: target.x - target.width / 2,
-            y: target.y - target.height / 2
-        }
-        let B = {
-            x: target.x - target.width / 2,
-            y: target.y + target.height / 2
-        }
-        let C = {
-            x: target.x + target.width / 2,
-            y: target.y + target.height / 2
-        }
-        let D = {
-            x: target.x + target.width / 2,
-            y: target.y - target.height / 2
-        }
-        let usefulNode = {
-            p2: A, p3: B, p4:C, p5: D
-        };
-        if(this.x <= C.x && this.y <= C.y) {
-            delete usefulNode.p4;
-        }else if(this.x <= D.x && this.y > D.y) {
-            delete usefulNode.p5;
-        }else if(this.x >= A.x && this.y >= A.y) {
-            delete usefulNode.p2;
-        }else if(this.x >= B.x && this.y < B.y) {
-            delete usefulNode.p3;
-        }
-        return isIntersectRec(
-            {x:this.x, y:this.y}, 
-            {x:this.endX, y:this.endY}, 
-            usefulNode
-        )
+    // 相交对象的类型type 0:line(线) 1:rec(矩形) 2:cir(圆形)
+    isIntersect(target, type = 0) {
+        if(type == 0) {
+            
+        }else if(type == 1) {
+            let A = {
+                x: target.x - target.width / 2,
+                y: target.y - target.height / 2
+            }
+            let B = {
+                x: target.x - target.width / 2,
+                y: target.y + target.height / 2
+            }
+            let C = {
+                x: target.x + target.width / 2,
+                y: target.y + target.height / 2
+            }
+            let D = {
+                x: target.x + target.width / 2,
+                y: target.y - target.height / 2
+            }
+            let usefulNode = {
+                p2: A, p3: B, p4:C, p5: D
+            };
+            if(this.x <= C.x && this.y <= C.y) {
+                delete usefulNode.p4;
+            }else if(this.x <= D.x && this.y > D.y) {
+                delete usefulNode.p5;
+            }else if(this.x >= A.x && this.y >= A.y) {
+                delete usefulNode.p2;
+            }else if(this.x >= B.x && this.y < B.y) {
+                delete usefulNode.p3;
+            }
+            return isIntersectRec(
+                {x:this.x, y:this.y}, 
+                {x:this.endX, y:this.endY}, 
+                usefulNode
+            )
+        }  
     }
     draw() {
         let drawX = 0 - this.width / 2;

@@ -11,61 +11,24 @@ let aaaa ='';
 
 var Game = {
     start: function() {
-        let laserA = new LaserTransmitter({
-            name: 'laserA',
-            oriName: 'laserA',
-            x: 150, // 发射器x坐标，激光开始的x坐标
-            y: 200, // 发射器y坐标，激光结束的y坐标
-            deg: 40,
-            icon: imgBox['laserTransmitter'], // 发射器图标
-            width: Config.laserTransmitterSize.width, // 发射器宽度
-            height: Config.laserTransmitterSize.height // 发射器高度
-        });
-
-        let lightHomeA = new LightHome({
-            name: 'lightHomeA',
-            x: 150, // 发射器x坐标，激光开始的x坐标
-            y: 400, // 发射器y坐标，激光结束的y坐标
-            deg: 0,
-            icon: imgBox['lightHome'], // 发射器图标
-            width: Config.lightHomeSize.width, // 发射器宽度
-            height: Config.lightHomeSize.height // 发射器高度
-        });
-        let lightHomeB = new LightHome({
-            name: 'lightHomeB',
-            x: 250, // 发射器x坐标，激光开始的x坐标
-            y: 300, // 发射器y坐标，激光结束的y坐标
-            deg: 0,
-            icon: imgBox['lightHome'], // 发射器图标
-            width: Config.lightHomeSize.width, // 发射器宽度
-            height: Config.lightHomeSize.height // 发射器高度
-        });
-        let lightHomeC = new LightHome({
-            name: 'lightHomeC',
-            x: 150, // 发射器x坐标，激光开始的x坐标
-            y: 100, // 发射器y坐标，激光结束的y坐标
-            deg: 0,
-            icon: imgBox['lightHome'], // 发射器图标
-            width: Config.lightHomeSize.width, // 发射器宽度
-            height: Config.lightHomeSize.height // 发射器高度
-        });
-
-        let mirrorA = new Mirror({
-            name: 'mirrorA',
-            x: 280, // 发射器x坐标，激光开始的x坐标
-            y: 200, // 发射器y坐标，激光结束的y坐标
-            deg: 0,
-            icon: imgBox['mirror'], // 发射器图标
-            width: Config.mirrorSize.width, // 发射器宽度
-            height: Config.mirrorSize.height // 发射器高度
-        });
-        
-        this.laserArr = [];
-        this.homeArr = [];
-        this.mirrorArr = [];
-        this.laserArr.push(laserA);
-        this.homeArr.push(lightHomeA, lightHomeB, lightHomeC);
-        this.mirrorArr.push(mirrorA);
+        if(Level1.laserTransmitter) {
+            this.laserArr = [];
+            for(let opts of Level1.laserTransmitter) {
+                this.laserArr.push(new LaserTransmitter(opts))
+            }
+        }
+        if(Level1.lightHome) {
+            this.homeArr = [];
+            for(let opts of Level1.lightHome) {
+                this.homeArr.push(new LightHome(opts))
+            }
+        }
+        if(Level1.mirror) {
+            this.mirrorArr = [];
+            for(let opts of Level1.mirror) {
+                this.mirrorArr.push(new Mirror(opts))
+            }
+        }
         
         this.update();
         this.bindTouchAction();
@@ -75,9 +38,43 @@ var Game = {
         let laserArr = this.laserArr;
         for(laser of laserArr) {
             laser.getEndXY();
+            for(mirror of this.mirrorArr) {
+                if(mirror.name != laser.oriName) {
+                    let node = laser.isIntersect(mirror)
+                    if(node) {
+                        laser.endX = node.x;
+                        laser.endY = node.y;
+                        let light = new LaserTransmitter({
+                            name: 'reflect' + Date.now(),
+                            oriName: home.name,
+                            x: node.x, // 发射器x坐标，激光开始的x坐标
+                            y: node.y, // 发射器y坐标，激光结束的y坐标
+                            deg: calRefAngle(laser.deg, node.reg),
+                            icon: imgBox['lightStart'], // 发射器图标
+                            width: Config.lightStartSize.width, // 发射器宽度
+                            height: Config.lightStartSize.height // 发射器高度
+                        });
+                        
+                        // console.log(light)
+                        // 剔除重复的反射线
+                        let canReflect = true;
+                        for(laser of laserArr) {
+                            if(laser.x == light.x && laser.y == light.y && laser.deg == light.deg) {
+                                canReflect = false;
+                                break;
+                            }
+                        }
+                        if(canReflect) {
+                            laserArr.push(light);
+                        }
+                        
+                        break;
+                    }
+                } 
+            }
             for(home of this.homeArr) {
                 if(home.name != laser.oriName) {
-                    let node = laser.isIntersect(home)
+                    let node = laser.isIntersect(home, 1)
                     if(node) {
                         laser.endX = node.x;
                         laser.endY = node.y;

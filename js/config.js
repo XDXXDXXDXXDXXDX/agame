@@ -12,8 +12,8 @@ var Config = {
         height: 30
     },
     mirrorSize: {
-        width: 33,
-        height: 4
+        width: 66,
+        height: 8
     },
     resources: {
         // 格式 name : src
@@ -24,7 +24,10 @@ var Config = {
             'lightStart': './assets/img/lightStart.png',
             'lightHome': './assets/img/lightHome.png',
             'mirror': './assets/img/mirror.png',
-        }
+        },
+        levelJs: [
+            'js/level/level1.js'
+        ]
     }
 }
 
