@@ -8,48 +8,48 @@ class LaserTransmitter extends Element {
     getEndXY() {
         // 根据角度确定射线的方向
         if(0 <= this.deg && this.deg <= 90) {
-            let lx = stageWidth - this.x; // x2 - x1
-            let ly = this.y - lx * Math.tan(this.deg * deg);
-            // 不能超出边界
-            if(ly > 0) {
-                this.endX = stageWidth;
-                this.endY = ly;
-            }else{
-                this.endY = 0;
-                this.endX = this.x + this.y / Math.tan(this.deg * deg);
-            }
-        }else if(90 < this.deg && this.deg < 180) {
             let lx = this.x; // x2 - x1
-            let ly = this.y + lx * Math.tan(this.deg * deg);
+            let ly = this.y - lx * Math.tan(this.deg * deg);
             // 不能超出边界
             if(ly > 0) {
                 this.endX = 0;
                 this.endY = ly;
             }else{
                 this.endY = 0;
-                this.endX = this.x + this.y / Math.tan(this.deg * deg);
+                this.endX = this.x - this.y / Math.tan(this.deg * deg);
+            }  
+        }else if(90 < this.deg && this.deg < 180) {
+            let lx = stageWidth - this.x; // x2 - x1
+            let ly = this.y - Math.abs(lx * Math.tan(this.deg * deg));
+            // 不能超出边界
+            if(ly > 0) {
+                this.endX = stageWidth;
+                this.endY = ly;
+            }else{
+                this.endY = 0;
+                this.endX = this.x + Math.abs(this.y / Math.tan(this.deg * deg));
             }
         }else if(180 <= this.deg && this.deg <= 270) {
-            let lx = this.x; // x2 - x1
-            let ly = this.y + lx * Math.tan(this.deg * deg);
-            // 不能超出边界
-            if(ly < stageHeight) {
-                this.endX = 0;
-                this.endY = ly;
-            }else{
-                this.endY = stageHeight;
-                this.endX = this.x - (stageHeight - this.y) / Math.tan(this.deg * deg);
-            }
-        }else if(270 < this.deg && this.deg <= 360) {
             let lx = stageWidth - this.x; // x2 - x1
-            let ly = this.y - lx * Math.tan(this.deg * deg);
+            let ly = this.y + lx * Math.tan(this.deg * deg);
             // 不能超出边界
             if(ly < stageHeight) {
                 this.endX = stageWidth;
                 this.endY = ly;
             }else{
                 this.endY = stageHeight;
-                this.endX = this.x - (stageHeight - this.y) / Math.tan(this.deg * deg);
+                this.endX = this.x + (stageHeight - this.y) / Math.tan(this.deg * deg);
+            } 
+        }else if(270 < this.deg && this.deg <= 360) {
+            let lx = this.x; // x2 - x1
+            let ly = this.y + Math.abs(lx * Math.tan(this.deg * deg));
+            // 不能超出边界
+            if(ly < stageHeight) {
+                this.endX = 0;
+                this.endY = ly;
+            }else{
+                this.endY = stageHeight;
+                this.endX = this.x - Math.abs((stageHeight - this.y) / Math.tan(this.deg * deg));
             }
         }
     }
@@ -102,7 +102,7 @@ class LaserTransmitter extends Element {
         let drawY = 0 - this.height / 2;
         GSctx.save();
         GSctx.translate(this.x, this.y); //移动坐标原点
-        GSctx.rotate(- this.deg * deg);
+        GSctx.rotate(this.deg * deg);
         GSctx.drawImage(this.icon, drawX, drawY, this.width, this.height);
         GSctx.restore();
         // this.getEndXY();
