@@ -54,9 +54,11 @@ class LaserTransmitter extends Element {
         }
     }
     // 相交对象的类型type 0:line(线) 1:rec(矩形) 2:cir(圆形)
-    isIntersect(target, type = 0) {
+    isIntersect(target, type) {
         if(type == 0) {
-            
+            let nodes = calNewXY(target);
+            let node = isIntersect({x:this.x, y:this.y}, {x:this.endX, y:this.endY}, nodes.start, nodes.end);
+            return node;
         }else if(type == 1) {
             let A = {
                 x: target.x - target.width / 2,
@@ -91,7 +93,9 @@ class LaserTransmitter extends Element {
                 {x:this.endX, y:this.endY}, 
                 usefulNode
             )
-        }  
+        } 
+        
+        return false;
     }
     draw() {
         let drawX = 0 - this.width / 2;

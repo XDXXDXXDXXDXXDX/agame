@@ -142,3 +142,33 @@ function calRefAngle(deg1, deg2) {
     }
     return refAngle / deg;
 }
+
+/**
+ * 计算旋转后绘画的起始点和结束点
+ */
+function calNewXY(target) {
+    let halfWidth = target.width / 2
+    let tdeg = target.deg;
+    let x = target.x;
+    let y = target.y;
+    if(tdeg > 180) {
+        tdeg = tdeg - 180;
+    }
+    let sx = x - halfWidth * Math.cos(tdeg * deg);
+    let sy = y - halfWidth * Math.sin(tdeg * deg);
+    let ex = x + halfWidth * Math.cos(tdeg * deg);
+    let ey = y + halfWidth * Math.sin(tdeg * deg);
+
+    return {
+        start: {
+            x: sx,
+            y: sy
+        },
+        end: {
+            x: ex,
+            y: ey
+        },
+    }
+
+
+}
