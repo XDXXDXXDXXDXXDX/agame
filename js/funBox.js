@@ -135,7 +135,8 @@ function calRefAngle(deg1, deg2) {
     let refAngle = 0;
     if(deg1 <= 90) {
         deg2 = deg2 <= 180 ? deg2 : deg2 - 180;
-        refAngle = deg2 <= 90 ? 2 * deg2 - deg1 : 180 - deg1 + deg2; // 360 - deg1 + deg2
+        refAngle = deg1 <= 2 * deg2 ? 2 * deg2 - deg1 : 360 - deg1 - 2 * deg2;   
+        // refAngle = deg2 <= 90 ? 2 * deg2 - deg1 : 180 - deg1 + deg2; // 360 - deg1 + deg2
     }else{
         refAngle = 0;
     }
