@@ -5,7 +5,7 @@ let Level1 = {
             oriName: 'laserA',
             x: 150, // 发射器x坐标，激光开始的x坐标
             y: 200, // 发射器y坐标，激光结束的y坐标
-            deg: 40,
+            deg: 90,
             icon: imgBox['laserTransmitter'], // 发射器图标
             width: Config.laserTransmitterSize.width, // 发射器宽度
             height: Config.laserTransmitterSize.height // 发射器高度
@@ -29,15 +29,6 @@ let Level1 = {
             icon: imgBox['lightHome'], // 发射器图标
             width: Config.lightHomeSize.width, // 发射器宽度
             height: Config.lightHomeSize.height // 发射器高度
-        },
-        {
-            name: 'lightHomeC',
-            x: 150, // 发射器x坐标，激光开始的x坐标
-            y: 100, // 发射器y坐标，激光结束的y坐标
-            deg: 0,
-            icon: imgBox['lightHome'], // 发射器图标
-            width: Config.lightHomeSize.width, // 发射器宽度
-            height: Config.lightHomeSize.height // 发射器高度
         }
     ],
     mirror: [
@@ -55,6 +46,15 @@ let Level1 = {
             x: 180, // 发射器x坐标，激光开始的x坐标
             y: 400, // 发射器y坐标，激光结束的y坐标
             deg: 20,
+            icon: imgBox['mirror'], // 发射器图标
+            width: Config.mirrorSize.width, // 发射器宽度
+            height: Config.mirrorSize.height // 发射器高度
+        },
+        {
+            name: 'mirrorC',
+            x: 150, // 发射器x坐标，激光开始的x坐标
+            y: 100, // 发射器y坐标，激光结束的y坐标
+            deg: 50,
             icon: imgBox['mirror'], // 发射器图标
             width: Config.mirrorSize.width, // 发射器宽度
             height: Config.mirrorSize.height // 发射器高度

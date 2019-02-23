@@ -132,15 +132,14 @@ function emitLaser(startX, startY, endX, endY) {
  * 计算反射角
  */
 function calRefAngle(deg1, deg2) {
-    // let refAngle = 2 * Math.PI - deg1 * deg + deg2 * deg;
-    let refAngle = 2 * Math.PI - deg1 * deg + 2 * deg2 * deg;
-    if(refAngle > 2 * Math.PI) {
-        refAngle = refAngle - 2 * Math.PI;
+    let refAngle = 0;
+    if(deg1 <= 90) {
+        deg2 = deg2 <= 180 ? deg2 : deg2 - 180;
+        refAngle = deg2 <= 90 ? 2 * deg2 - deg1 : 180 - deg1 + deg2; // 360 - deg1 + deg2
+    }else{
+        refAngle = 0;
     }
-    if(refAngle > 2 * Math.PI) {
-        refAngle = refAngle - 2 * Math.PI;
-    }
-    return refAngle / deg;
+    return refAngle;
 }
 
 /**

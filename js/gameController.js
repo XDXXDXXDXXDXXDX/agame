@@ -46,7 +46,7 @@ var Game = {
                         laser.endY = node.y;
                         let light = new LaserTransmitter({
                             name: 'reflect' + Date.now(),
-                            oriName: home.name,
+                            oriName: mirror.name,
                             x: node.x, // 发射器x坐标，激光开始的x坐标
                             y: node.y, // 发射器y坐标，激光结束的y坐标
                             deg: calRefAngle(laser.deg, mirror.deg + 180),
@@ -72,40 +72,40 @@ var Game = {
                     }
                 } 
             }
-            for(home of this.homeArr) {
-                if(home.name != laser.oriName) {
-                    let node = laser.isIntersect(home, 1)
-                    if(node) {
-                        laser.endX = node.x;
-                        laser.endY = node.y;
-                        let light = new LaserTransmitter({
-                            name: 'reflect' + Date.now(),
-                            oriName: home.name,
-                            x: node.x, // 发射器x坐标，激光开始的x坐标
-                            y: node.y, // 发射器y坐标，激光结束的y坐标
-                            deg: calRefAngle(laser.deg, node.reg),
-                            icon: imgBox['lightStart'], // 发射器图标
-                            width: Config.lightStartSize.width, // 发射器宽度
-                            height: Config.lightStartSize.height // 发射器高度
-                        });
+            // for(home of this.homeArr) {
+            //     if(home.name != laser.oriName) {
+            //         let node = laser.isIntersect(home, 1)
+            //         if(node) {
+            //             laser.endX = node.x;
+            //             laser.endY = node.y;
+            //             let light = new LaserTransmitter({
+            //                 name: 'reflect' + Date.now(),
+            //                 oriName: home.name,
+            //                 x: node.x, // 发射器x坐标，激光开始的x坐标
+            //                 y: node.y, // 发射器y坐标，激光结束的y坐标
+            //                 deg: calRefAngle(laser.deg, node.reg),
+            //                 icon: imgBox['lightStart'], // 发射器图标
+            //                 width: Config.lightStartSize.width, // 发射器宽度
+            //                 height: Config.lightStartSize.height // 发射器高度
+            //             });
                         
-                        // console.log(light)
-                        // 剔除重复的反射线
-                        let canReflect = true;
-                        for(laser of laserArr) {
-                            if(laser.x == light.x && laser.y == light.y && laser.deg == light.deg) {
-                                canReflect = false;
-                                break;
-                            }
-                        }
-                        if(canReflect) {
-                            laserArr.push(light);
-                        }
+            //             // console.log(light)
+            //             // 剔除重复的反射线
+            //             let canReflect = true;
+            //             for(laser of laserArr) {
+            //                 if(laser.x == light.x && laser.y == light.y && laser.deg == light.deg) {
+            //                     canReflect = false;
+            //                     break;
+            //                 }
+            //             }
+            //             if(canReflect) {
+            //                 laserArr.push(light);
+            //             }
                         
-                        break;
-                    }
-                } 
-            }
+            //             break;
+            //         }
+            //     } 
+            // }
         }
         // 先清理画布
         GSctx.clearRect(0, 0, stageWidth, stageHeight);
@@ -117,14 +117,15 @@ var Game = {
         });
     },
     draw: function() {
-        for(laser of this.laserArr) {
-            laser.draw();
-        }
+      
         for(home of this.homeArr) {
             home.draw();
         }
         for(mirror of this.mirrorArr) {
             mirror.draw();
+        }
+        for(laser of this.laserArr) {
+            laser.draw();
         }
 
 
@@ -151,7 +152,7 @@ var Game = {
     },
     changeLDeg: function(thisInput, i) {
         let laserArr = this.laserArr;
-        laserArr[i].deg = thisInput.value;
+        laserArr[i].deg = Number(thisInput.value);
     },
 
 }
