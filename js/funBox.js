@@ -148,18 +148,7 @@ function calRefAngle(deg1, deg2) {
             refAngle = 2 * deg2 - deg1;
         }
     }else{
-        if(deg1 <= 90) {
-            let delta = 2 * deg2 - 180;
-            if(deg1 == delta) {
-                refAngle = 180;
-            }else{
-                refAngle = 2 * deg2 - deg1;
-            }
-        }else if(deg1 < 180) {
-            refAngle = 2 * deg2 - deg1;
-            
-        }
-   
+        refAngle = 2 * deg2 - deg1;
     }
     return refAngle;
 }
