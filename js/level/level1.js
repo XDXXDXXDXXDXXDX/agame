@@ -36,7 +36,7 @@ let Level1 = {
             name: 'mirrorA',
             x: 280, // 发射器x坐标，激光开始的x坐标
             y: 200, // 发射器y坐标，激光结束的y坐标
-            deg: 40,
+            deg: 45,
             icon: imgBox['mirror'], // 发射器图标
             width: Config.mirrorSize.width, // 发射器宽度
             height: Config.mirrorSize.height // 发射器高度
@@ -45,7 +45,7 @@ let Level1 = {
             name: 'mirrorB',
             x: 180, // 发射器x坐标，激光开始的x坐标
             y: 400, // 发射器y坐标，激光结束的y坐标
-            deg: 20,
+            deg: 320,
             icon: imgBox['mirror'], // 发射器图标
             width: Config.mirrorSize.width, // 发射器宽度
             height: Config.mirrorSize.height // 发射器高度

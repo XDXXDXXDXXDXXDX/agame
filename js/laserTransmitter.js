@@ -7,7 +7,7 @@ class LaserTransmitter extends Element {
     }
     getEndXY() {
         // 根据角度确定射线的方向
-        if(0 <= this.deg && this.deg <= 90) {
+        if(0 <= this.deg && this.deg <= 90 ) {
             let lx = this.x; // x2 - x1
             let ly = this.y - lx * Math.tan(this.deg * deg);
             // 不能超出边界

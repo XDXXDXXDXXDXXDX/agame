@@ -133,6 +133,8 @@ function emitLaser(startX, startY, endX, endY) {
  */
 function calRefAngle(deg1, deg2) {
     let refAngle = 0;
+    let extraDeg = deg1 < 180 ? 0 : 180;
+    deg1 = deg1 < 180 ? deg1 : deg1 - 180;
     deg2 = deg2 < 180 ? deg2 : deg2 - 180; 
     if(deg2 < 90) {
         if(deg1 > deg2) {
@@ -150,6 +152,7 @@ function calRefAngle(deg1, deg2) {
     }else{
         refAngle = 2 * deg2 - deg1;
     }
+    refAngle = refAngle + extraDeg < 360 ? refAngle + extraDeg : refAngle + extraDeg - 360;
     return refAngle;
 }
 
