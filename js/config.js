@@ -23,7 +23,11 @@ var Config = {
             'laserTransmitter': './assets/img/laserTransmitter.png',
             'lightStart': './assets/img/lightStart.png',
             'lightHome': './assets/img/lightHome.png',
+            'lightInHome': './assets/img/lightInHome.png',
             'mirror': './assets/img/mirror.png',
+        },
+        musics: {
+            'bgMusic1': './assets/sound/bgMusic1.mp3',
         },
         levelJs: [
             'js/level/level1.js'

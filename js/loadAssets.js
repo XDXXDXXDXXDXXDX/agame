@@ -7,12 +7,23 @@ let loadCount = 0; // 已加载资源个数
 let totalCount = 0;
 
 let imgBox = {}; // 图片容器 获取图片的方式：imgBox.imgName
+let soundBox = {};
 $(() => {
     for(let key in Config.resources.images) {
         totalCount++;
         imgBox[key] = new Image();
         imgBox[key].src = Config.resources.images[key];
         imgBox[key].onload = () => {
+            loadCount++;
+            loadDone();
+        }; 
+    }
+
+    for(let key in Config.resources.musics) {
+        totalCount++;
+        soundBox[key] =  new Audio();
+        soundBox[key].src = Config.resources.musics[key];
+        soundBox[key].onload = () => {
             loadCount++;
             loadDone();
         }; 

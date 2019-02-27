@@ -11,18 +11,17 @@ let aaaa ='';
 
 var Game = {
     start: function() {
+        soundBox[Level1.bgMusic].loop = 'loop';
+        soundBox[Level1.bgMusic].play();
+        
         if(Level1.laserTransmitter) {
             this.laserArr = [];
             for(let opts of Level1.laserTransmitter) {
                 this.laserArr.push(new LaserTransmitter(opts))
             }
         }
-        if(Level1.lightHome) {
-            this.homeArr = [];
-            for(let opts of Level1.lightHome) {
-                this.homeArr.push(new LightHome(opts))
-            }
-        }
+        this.home = new LightHome(Level1.lightHome);
+        
         if(Level1.mirror) {
             this.mirrorArr = [];
             for(let opts of Level1.mirror) {
@@ -33,7 +32,7 @@ var Game = {
         this.update();
         this.bindTouchAction();
     },
-    update: function() {
+    updateElement: function() {
         let self = this;
         let laserArr = this.laserArr;
         for(laser of laserArr) {
@@ -72,43 +71,26 @@ var Game = {
                     }
                 } 
             }
-            // for(home of this.homeArr) {
-            //     if(home.name != laser.oriName) {
-            //         let node = laser.isIntersect(home, 1)
-            //         if(node) {
-            //             laser.endX = node.x;
-            //             laser.endY = node.y;
-            //             let light = new LaserTransmitter({
-            //                 name: 'reflect' + Date.now(),
-            //                 oriName: home.name,
-            //                 x: node.x, // 发射器x坐标，激光开始的x坐标
-            //                 y: node.y, // 发射器y坐标，激光结束的y坐标
-            //                 deg: calRefAngle(laser.deg, node.reg),
-            //                 icon: imgBox['lightStart'], // 发射器图标
-            //                 width: Config.lightStartSize.width, // 发射器宽度
-            //                 height: Config.lightStartSize.height // 发射器高度
-            //             });
-                        
-            //             // console.log(light)
-            //             // 剔除重复的反射线
-            //             let canReflect = true;
-            //             for(laser of laserArr) {
-            //                 if(laser.x == light.x && laser.y == light.y && laser.deg == light.deg) {
-            //                     canReflect = false;
-            //                     break;
-            //                 }
-            //             }
-            //             if(canReflect) {
-            //                 laserArr.push(light);
-            //             }
-                        
-            //             break;
-            //         }
-            //     } 
-            // }
+           
         }
+    
+        let node = laser.isIntersect(this.home, 1)
+        if(node) {
+            laser.endX = node.x;
+            laser.endY = node.y;
+
+            self.home.icon = imgBox['lightInHome'];
+        }else{
+            self.home.icon = imgBox['lightHome'];
+        }
+    },
+    update: function() {
+        let self = this;
+        
         // 先清理画布
         GSctx.clearRect(0, 0, stageWidth, stageHeight);
+
+        this.updateElement();
 
         this.draw();
 
@@ -117,10 +99,8 @@ var Game = {
         });
     },
     draw: function() {
-      
-        for(home of this.homeArr) {
-            home.draw();
-        }
+        this.home.draw();
+
         for(mirror of this.mirrorArr) {
             mirror.draw();
         }
