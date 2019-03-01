@@ -204,6 +204,7 @@ function toggleSound() {
 
 function vibrateT(time) {
     if (navigator.vibrate) {
+        alert(navigator.vibrate(time));
         navigator.vibrate(time);
     }else if(navigator.webkitVibrate) {
         navigator.webkitVibrate(time);
