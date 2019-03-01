@@ -14,17 +14,17 @@ var Game = {
         playSound(Level1.bgMusic, true);
         
         if(Level1.laserTransmitter) {
-            this.laserArr = [];
+            this.lasers = [];
             for(let opts of Level1.laserTransmitter) {
-                this.laserArr.push(new LaserTransmitter(opts))
+                this.lasers.push(new LaserTransmitter(opts))
             }
         }
         this.home = new LightHome(Level1.lightHome);
         
         if(Level1.mirror) {
-            this.mirrorArr = [];
+            this.mirrors = [];
             for(let opts of Level1.mirror) {
-                this.mirrorArr.push(new Mirror(opts))
+                this.mirrors.push(new Mirror(opts))
             }
         }
         
@@ -33,10 +33,10 @@ var Game = {
     },
     updateElement: function() {
         let self = this;
-        let laserArr = this.laserArr;
-        for(laser of laserArr) {
+        let lasers = this.lasers;
+        for(laser of lasers) {
             laser.getEndXY();
-            for(mirror of this.mirrorArr) {
+            for(mirror of this.mirrors) {
                 if(mirror.name != laser.oriName) {
                     let node = laser.isIntersect(mirror, 0)
                     if(node) {
@@ -56,14 +56,14 @@ var Game = {
                         // console.log(light)
                         // 剔除重复的反射线
                         let canReflect = true;
-                        for(laser of laserArr) {
+                        for(laser of lasers) {
                             if(laser.x == light.x && laser.y == light.y && laser.deg == light.deg) {
                                 canReflect = false;
                                 break;
                             }
                         }
                         if(canReflect) {
-                            laserArr.push(light);
+                            lasers.push(light);
                         }
                         
                         break;
@@ -100,25 +100,35 @@ var Game = {
     draw: function() {
         this.home.draw();
 
-        for(mirror of this.mirrorArr) {
+        for(mirror of this.mirrors) {
             mirror.draw();
         }
-        for(laser of this.laserArr) {
+        for(laser of this.lasers) {
             laser.draw();
         }
 
 
-        this.laserArr.splice(1, this.laserArr.length - 1)
+        this.lasers.splice(1, this.lasers.length - 1)
     },
     bindTouchAction: function() {
-        let laserArr = this.laserArr;
+        let lasers = this.lasers;
+        let mirrors = this.mirrors;
         let timeOutEvent = '';
+
+        let startX = 0,
+            startY = 0,
+            endX = 0,
+            endY = 0,
+            activeMirror = '';
+
         gameStage.addEventListener('touchstart', (e) => {
+            startX = e.targetTouches[0].pageX;
+            startY = e.targetTouches[0].pageY;
             e.preventDefault();
             // 每次点击都去除页面中的已存在的控制器
             $('.changeDeg').remove();
 
-            for([i, laser] of laserArr.entries()) {
+            for([i, laser] of lasers.entries()) {
                 let d = Math.sqrt((e.touches[0].clientX - laser.x) ** 2 + (e.touches[0].clientY - laser.y) ** 2);
                 if(d < 20) {
                     $('#uiGamming').append(`<div class="changeDeg" style="top:${laser.y + 50}px;left:${laser.x + 50}px"><input type="range" value="${laser.deg}" min="0" max="360" class="deg_range" oninput="Game.changeLDeg(this, ${i})"></div>`);
@@ -129,16 +139,34 @@ var Game = {
                 }
             }
 
+            activeMirror = '';
             timeOutEvent = setTimeout(function(){
-                // 振动2秒
-                vibrateT(2000)
+                for([i, mirror] of mirrors.entries()) {
+                    let d = Math.sqrt((e.touches[0].clientX - mirror.x) ** 2 + (e.touches[0].clientY - mirror.y) ** 2);
+                    if(d < mirror.width / 2) {
+                        activeMirror = mirror;
+                        break;
+                    }
+                }
             },500);
             
         });     
 
         gameStage.addEventListener('touchmove', (e) => {
+            endX = e.targetTouches[0].pageX;
+            endY = e.targetTouches[0].pageY;
+
             e.preventDefault();
             clearTimeout(timeOutEvent);
+
+            if(activeMirror) {
+                activeMirror.x += endX - startX;
+                activeMirror.y += endY - startY;
+            }
+
+            // 将滑动的位置作为初始值
+            startX = e.targetTouches[0].pageX;
+            startY = e.targetTouches[0].pageY;
         });     
 
         gameStage.addEventListener('touchend', (e) => {
@@ -149,8 +177,8 @@ var Game = {
         
     },
     changeLDeg: function(thisInput, i) {
-        let laserArr = this.laserArr;
-        laserArr[i].deg = Number(thisInput.value);
+        let lasers = this.lasers;
+        lasers[i].deg = Number(thisInput.value);
     },
 
 }

@@ -201,12 +201,3 @@ function playSound(name, loop) {
 function toggleSound() {
     Config.playSound = !Config.playSound;
 }
-
-function vibrateT(time) {
-    if (navigator.vibrate) {
-        alert(navigator.vibrate(time));
-        navigator.vibrate(time);
-    }else if(navigator.webkitVibrate) {
-        navigator.webkitVibrate(time);
-    }
-}
