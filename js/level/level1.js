@@ -22,6 +22,7 @@ let Level1 = {
             y: 400, // 发射器y坐标，激光结束的y坐标
             deg: 0,
             icon: imgBox['lightHome'], // 发射器图标
+            activeIcon: imgBox['lightInHome'],
             width: Config.lightHomeSize.width, // 发射器宽度
             height: Config.lightHomeSize.height // 发射器高度
     },
@@ -46,7 +47,7 @@ let Level1 = {
         },    
         {
             name: 'mirrorB',
-            x: 180, // 发射器x坐标，激光开始的x坐标
+            x: 280, // 发射器x坐标，激光开始的x坐标
             y: 400, // 发射器y坐标，激光结束的y坐标
             deg: 320,
             icon: imgBox['mirror'], // 发射器图标

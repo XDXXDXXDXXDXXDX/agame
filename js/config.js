@@ -1,4 +1,5 @@
 var Config = {
+    playSound: false,
     laserTransmitterSize: {
         width: 50,
         height: 50

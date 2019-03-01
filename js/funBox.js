@@ -182,6 +182,30 @@ function calNewXY(target) {
             y: ey
         },
     }
+}
 
+/**
+ * 
+ * @param {string} name 曲目名
+ * @param {boolean} loop 是否循环
+ */
+function playSound(name, loop) {
+    if(Config.playSound == true) {
+        if(loop) {
+            soundBox[name].loop = 'loop'; 
+        }
+        soundBox[name].play();
+    }
+}
 
+function toggleSound() {
+    Config.playSound = !Config.playSound;
+}
+
+function vibrateT(time) {
+    if (navigator.vibrate) {
+        navigator.vibrate(time);
+    }else if(navigator.webkitVibrate) {
+        navigator.webkitVibrate(time);
+    }
 }

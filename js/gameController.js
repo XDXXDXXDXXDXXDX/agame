@@ -11,8 +11,7 @@ let aaaa ='';
 
 var Game = {
     start: function() {
-        soundBox[Level1.bgMusic].loop = 'loop';
-        soundBox[Level1.bgMusic].play();
+        playSound(Level1.bgMusic, true);
         
         if(Level1.laserTransmitter) {
             this.laserArr = [];
@@ -79,9 +78,9 @@ var Game = {
             laser.endX = node.x;
             laser.endY = node.y;
 
-            self.home.icon = imgBox['lightInHome'];
+            self.home.status = 'active';
         }else{
-            self.home.icon = imgBox['lightHome'];
+            self.home.status = 'inactive';
         }
     },
     update: function() {
@@ -113,8 +112,12 @@ var Game = {
     },
     bindTouchAction: function() {
         let laserArr = this.laserArr;
+        let timeOutEvent = '';
         gameStage.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            // 每次点击都去除页面中的已存在的控制器
             $('.changeDeg').remove();
+
             for([i, laser] of laserArr.entries()) {
                 let d = Math.sqrt((e.touches[0].clientX - laser.x) ** 2 + (e.touches[0].clientY - laser.y) ** 2);
                 if(d < 20) {
@@ -125,8 +128,23 @@ var Game = {
                     break;
                 }
             }
+
+            timeOutEvent = setTimeout(function(){
+                // 振动2秒
+                vibrateT(2000)
+            },500);
             
         });     
+
+        gameStage.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            clearTimeout(timeOutEvent);
+        });     
+
+        gameStage.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            clearTimeout(timeOutEvent);
+        });   
 
         
     },
