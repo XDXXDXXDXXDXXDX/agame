@@ -1,20 +1,27 @@
 var Config = {
+    window: {
+        width: 375,
+        height: 667,
+        scale: 1
+    },
     playSound: false,
-    laserTransmitterSize: {
-        width: 50,
-        height: 50
-    },
-    lightStartSize: {
-        width: 10,
-        height: 10
-    },
-    lightHomeSize: {
-        width: 30,
-        height: 30
-    },
-    mirrorSize: {
-        width: 66,
-        height: 8
+    objSize: {
+        laserTransmitter: {
+            width: 50,
+            height: 50
+        },
+        lightStart: {
+            width: 10,
+            height: 10
+        },
+        lightHome: {
+            width: 30,
+            height: 30
+        },
+        mirror: {
+            width: 66,
+            height: 8
+        }
     },
     resources: {
         // 格式 name : src

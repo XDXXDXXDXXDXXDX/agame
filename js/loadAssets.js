@@ -1,3 +1,6 @@
+/**
+ * 页面初始化的各种操作
+ */
 window.onload = (() => {
     loadingAnim(); // 加载资源时展示动画
 })
@@ -60,6 +63,30 @@ function loadDone() {
         $('#loadAssets').slideUp();
         // $('#uiIndex').fadeIn(500);
     }
+}
+
+var gameStage = document.getElementById('gameStage');
+let xScale = window.innerWidth / Config.window.width;
+let yScale = window.innerHeight / Config.window.height;
+console.log(xScale)
+console.log(yScale)
+Config.window.scale = xScale >= yScale ? yScale : xScale;
+// 按照缩放比设置游戏画布的宽高
+gameStage.width = Config.window.width * Config.window.scale;
+gameStage.height = Config.window.height * Config.window.scale;
+// 将画布居中
+gameStage.style.marginLeft = `-${gameStage.width / 2}px`;
+gameStage.style.marginTop = `-${gameStage.height / 2}px`;
+
+var stageWidth = gameStage.width;
+var stageHeight = gameStage.height;
+
+var GSctx = gameStage.getContext("2d");
+
+// 按照缩放比调整物体的尺寸
+for(let obj of Object.values(Config.objSize)) {
+    obj.width *= Config.window.scale;
+    obj.height *= Config.window.scale;
 }
 
 

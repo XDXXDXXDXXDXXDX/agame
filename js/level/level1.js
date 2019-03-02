@@ -11,8 +11,8 @@ let Level1 = {
             y: 200, // 发射器y坐标，激光结束的y坐标
             deg: 90,
             icon: imgBox['laserTransmitter'], // 发射器图标
-            width: Config.laserTransmitterSize.width, // 发射器宽度
-            height: Config.laserTransmitterSize.height // 发射器高度
+            width: Config.objSize.laserTransmitter.width, // 发射器宽度
+            height: Config.objSize.laserTransmitter.height // 发射器高度
         }
     ],
     // 终点限制一个
@@ -23,8 +23,8 @@ let Level1 = {
             deg: 0,
             icon: imgBox['lightHome'], // 发射器图标
             activeIcon: imgBox['lightInHome'],
-            width: Config.lightHomeSize.width, // 发射器宽度
-            height: Config.lightHomeSize.height // 发射器高度
+            width: Config.objSize.lightHome.width, // 发射器宽度
+            height: Config.objSize.lightHome.height // 发射器高度
     },
     mirror: [   
         {
@@ -33,8 +33,8 @@ let Level1 = {
             y: 200, // 发射器y坐标，激光结束的y坐标
             deg: 45,
             icon: imgBox['mirror'], // 发射器图标
-            width: Config.mirrorSize.width, // 发射器宽度
-            height: Config.mirrorSize.height // 发射器高度
+            width: Config.objSize.mirror.width, // 发射器宽度
+            height: Config.objSize.mirror.height // 发射器高度
         },   
         {
             name: 'mirrorAA',
@@ -42,8 +42,8 @@ let Level1 = {
             y: 220, // 发射器y坐标，激光结束的y坐标
             deg: 60,
             icon: imgBox['mirror'], // 发射器图标
-            width: Config.mirrorSize.width, // 发射器宽度
-            height: Config.mirrorSize.height // 发射器高度
+            width: Config.objSize.mirror.width, // 发射器宽度
+            height: Config.objSize.mirror.height // 发射器高度
         },    
         {
             name: 'mirrorB',
@@ -51,8 +51,8 @@ let Level1 = {
             y: 400, // 发射器y坐标，激光结束的y坐标
             deg: 320,
             icon: imgBox['mirror'], // 发射器图标
-            width: Config.mirrorSize.width, // 发射器宽度
-            height: Config.mirrorSize.height // 发射器高度
+            width: Config.objSize.mirror.width, // 发射器宽度
+            height: Config.objSize.mirror.height // 发射器高度
         },
         {
             name: 'mirrorC',
@@ -60,8 +60,8 @@ let Level1 = {
             y: 100, // 发射器y坐标，激光结束的y坐标
             deg: 180,
             icon: imgBox['mirror'], // 发射器图标
-            width: Config.mirrorSize.width, // 发射器宽度
-            height: Config.mirrorSize.height // 发射器高度
+            width: Config.objSize.mirror.width, // 发射器宽度
+            height: Config.objSize.mirror.height // 发射器高度
         }
     ]
 }

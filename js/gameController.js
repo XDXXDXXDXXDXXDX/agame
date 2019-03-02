@@ -1,14 +1,3 @@
-var gameStage = document.getElementById('gameStage');
-gameStage.width = window.innerWidth;
-gameStage.height = window.innerHeight;
-
-var stageWidth = gameStage.width;
-var stageHeight = gameStage.height;
-
-var GSctx = gameStage.getContext("2d");
-
-let aaaa ='';
-
 var Game = {
     start: function() {
         playSound(Level1.bgMusic, true);
@@ -57,8 +46,8 @@ var Game = {
                                     y: node.y, // 发射器y坐标，激光结束的y坐标
                                     deg: calRefAngle(laser.deg, aim.deg),
                                     icon: imgBox['lightStart'], // 发射器图标
-                                    width: Config.lightStartSize.width, // 发射器宽度
-                                    height: Config.lightStartSize.height // 发射器高度
+                                    width: Config.objSize.lightStart.width, // 发射器宽度
+                                    height: Config.objSize.lightStart.height // 发射器高度
                                 });
                                 
                                 // console.log(light)
@@ -141,7 +130,7 @@ var Game = {
 
             for([i, laser] of lasers.entries()) {
                 let d = nodesD({x:e.touches[0].clientX, y: e.touches[0].clientY}, {x: laser.x, y: laser.y});   
-                if(d < 20) {
+                if(d < laser.width / 2) {
                     $('#uiGamming').append(`<div class="changeDeg" style="top:${laser.y + 50}px;left:${laser.x + 50}px"><input type="range" value="${laser.deg}" min="0" max="360" class="deg_range" oninput="Game.changeLDeg(this, ${i})"></div>`);
                     $(".changeDeg").click((e) => {
                         e.stopPropagation();    //  阻止事件冒泡

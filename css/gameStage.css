@@ -1,7 +1,8 @@
 #gameStage {
     position: absolute;
-    left: 0;
-    top: 0;
+    background-color: #faebd7;
+    top: 50%;
+    left: 50%;
 }
 
 .changeDeg {
