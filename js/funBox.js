@@ -201,3 +201,10 @@ function playSound(name, loop) {
 function toggleSound() {
     Config.playSound = !Config.playSound;
 }
+
+/**
+ * 两点间距离
+ */
+function nodesD(p0, p1) {
+    return Math.sqrt((p0.x - p1.x) ** 2 + (p0.y - p1.y) ** 2);
+}

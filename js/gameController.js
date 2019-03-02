@@ -34,40 +34,51 @@ var Game = {
     updateElement: function() {
         let self = this;
         let lasers = this.lasers;
+         
+        // 将所有可能反射的目标汇成一个数组
+        let aims = this.crashOrder(lasers[0], this.mirrors);
         for(laser of lasers) {
             laser.getEndXY();
-            for(mirror of this.mirrors) {
-                if(mirror.name != laser.oriName) {
-                    let node = laser.isIntersect(mirror, 0)
-                    if(node) {
-                        laser.endX = node.x;
-                        laser.endY = node.y;
-                        let light = new LaserTransmitter({
-                            name: 'reflect' + Date.now(),
-                            oriName: mirror.name,
-                            x: node.x, // 发射器x坐标，激光开始的x坐标
-                            y: node.y, // 发射器y坐标，激光结束的y坐标
-                            deg: calRefAngle(laser.deg, mirror.deg),
-                            icon: imgBox['lightStart'], // 发射器图标
-                            width: Config.lightStartSize.width, // 发射器宽度
-                            height: Config.lightStartSize.height // 发射器高度
-                        });
-                        
-                        // console.log(light)
-                        // 剔除重复的反射线
-                        let canReflect = true;
-                        for(laser of lasers) {
-                            if(laser.x == light.x && laser.y == light.y && laser.deg == light.deg) {
-                                canReflect = false;
-                                break;
+
+            crashAims:
+            for(aim of aims) {
+                if(aim.name != laser.oriName) {
+                    // 不同目标反射规则不同
+                    switch(aim.constructor.name) {
+                        case 'Mirror':
+                            let node = laser.isIntersect(aim, 0)
+                            if(node) {
+                                laser.endX = node.x;
+                                laser.endY = node.y;
+                                let light = new LaserTransmitter({
+                                    name: 'reflect' + Date.now(),
+                                    oriName: aim.name,
+                                    x: node.x, // 发射器x坐标，激光开始的x坐标
+                                    y: node.y, // 发射器y坐标，激光结束的y坐标
+                                    deg: calRefAngle(laser.deg, aim.deg),
+                                    icon: imgBox['lightStart'], // 发射器图标
+                                    width: Config.lightStartSize.width, // 发射器宽度
+                                    height: Config.lightStartSize.height // 发射器高度
+                                });
+                                
+                                // console.log(light)
+                                // 剔除重复的反射线
+                                let canReflect = true;
+                                for(laser of lasers) {
+                                    if(laser.x == light.x && laser.y == light.y && laser.deg == light.deg) {
+                                        canReflect = false;
+                                        break;
+                                    }
+                                }
+                                if(canReflect) {
+                                    lasers.push(light);
+                                }
+                                
+                                break crashAims;
                             }
-                        }
-                        if(canReflect) {
-                            lasers.push(light);
-                        }
-                        
-                        break;
+                        break; 
                     }
+                    
                 } 
             }
            
@@ -129,7 +140,7 @@ var Game = {
             $('.changeDeg').remove();
 
             for([i, laser] of lasers.entries()) {
-                let d = Math.sqrt((e.touches[0].clientX - laser.x) ** 2 + (e.touches[0].clientY - laser.y) ** 2);
+                let d = nodesD({x:e.touches[0].clientX, y: e.touches[0].clientY}, {x: laser.x, y: laser.y});   
                 if(d < 20) {
                     $('#uiGamming').append(`<div class="changeDeg" style="top:${laser.y + 50}px;left:${laser.x + 50}px"><input type="range" value="${laser.deg}" min="0" max="360" class="deg_range" oninput="Game.changeLDeg(this, ${i})"></div>`);
                     $(".changeDeg").click((e) => {
@@ -142,7 +153,7 @@ var Game = {
             activeMirror = '';
             timeOutEvent = setTimeout(function(){
                 for([i, mirror] of mirrors.entries()) {
-                    let d = Math.sqrt((e.touches[0].clientX - mirror.x) ** 2 + (e.touches[0].clientY - mirror.y) ** 2);
+                    let d = nodesD({x:e.touches[0].clientX, y: e.touches[0].clientY}, {x: mirror.x, y: mirror.y});
                     if(d < mirror.width / 2) {
                         activeMirror = mirror;
                         break;
@@ -180,6 +191,26 @@ var Game = {
         let lasers = this.lasers;
         lasers[i].deg = Number(thisInput.value);
     },
+    crashOrder: function(main, items) {
+        // 根据目标到中心目标的距离来判断碰撞的先后顺序
+        let sortItems = [];
+        let mainX = main.x;
+        let mainY = main.y;
+        for(let item of items) {
+            item.d = nodesD({x: item.x, y: item.y}, {x: mainX, y: mainY});
+            sortItems.push(item);
+        }
+
+        sortItems.sort((item1, item2) => {
+            return item1.d - item2.d;
+        });
+
+        for(let item of sortItems) {
+            delete item.d
+        }
+
+        return sortItems;
+    }
 
 }
 
