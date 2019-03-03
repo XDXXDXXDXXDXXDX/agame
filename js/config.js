@@ -2,7 +2,9 @@ var Config = {
     window: {
         width: 375,
         height: 667,
-        scale: 1
+        scale: 1,
+        offectX: 0,
+        offectY: 0
     },
     playSound: false,
     objSize: {

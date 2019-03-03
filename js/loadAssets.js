@@ -67,13 +67,14 @@ function loadDone() {
 
 var gameStage = document.getElementById('gameStage');
 let xScale = window.innerWidth / Config.window.width;
-let yScale = window.innerHeight / Config.window.height;
-console.log(xScale)
-console.log(yScale)
+let yScale = window.innerHeight / Config.window.height
 Config.window.scale = xScale >= yScale ? yScale : xScale;
 // 按照缩放比设置游戏画布的宽高
 gameStage.width = Config.window.width * Config.window.scale;
 gameStage.height = Config.window.height * Config.window.scale;
+// 画布偏移
+Config.window.offectX = window.innerWidth / 2 - gameStage.width / 2;
+Config.window.offectY = window.innerHeight / 2 - gameStage.height / 2;
 // 将画布居中
 gameStage.style.marginLeft = `-${gameStage.width / 2}px`;
 gameStage.style.marginTop = `-${gameStage.height / 2}px`;
