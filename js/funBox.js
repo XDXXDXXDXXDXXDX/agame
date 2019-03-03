@@ -200,6 +200,7 @@ function playSound(name, loop) {
 
 function toggleSound() {
     Config.playSound = !Config.playSound;
+    $('.volume').html(Config.playSound ? '<i class="fas fa-volume-up">' : '<i class="fas fa-volume-mute"></i>');
 }
 
 /**

@@ -65,6 +65,14 @@ function loadDone() {
     }
 }
 
+/**
+ * 初始化音量播放按钮
+ */
+$('.volume').html(Config.playSound ? '<i class="fas fa-volume-up">' : '<i class="fas fa-volume-mute"></i>');
+
+/**
+ * 初始化画布
+ */
 var gameStage = document.getElementById('gameStage');
 let xScale = window.innerWidth / Config.window.width;
 let yScale = window.innerHeight / Config.window.height
