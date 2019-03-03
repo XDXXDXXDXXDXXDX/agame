@@ -91,20 +91,23 @@
     padding-top: 10%;
     box-sizing: border-box;
 }
-.game-menu {
-    width: 90%;
-    margin: 0 auto;
-    text-align: center;
-    border: 1px solid #000;
-    border-radius: 12px;
-    padding: 10px;
+.levelBox {
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    background-color: #1d47d1;
+    transform: rotate(45deg);
+    -ms-transform: rotate(45deg); 	/* IE 9 */
+    -moz-transform: rotate(45deg); 	/* Firefox */
+    -webkit-transform: rotate(45deg); /* Safari 和 Chrome */
+    -o-transform: rotate(45deg); 	/* Opera */ 
 }
-
-.game-menu ul li {
-    height: 60px;
-    border: 1px solid #000;
-    border-radius: 12px;
-    margin-top: 20px;
+.levelCtn {
+    transform: none;
+    -ms-transform: rotate(-45deg); 	/* IE 9 */
+    -moz-transform: rotate(-45deg); 	/* Firefox */
+    -webkit-transform: rotate(-45deg); /* Safari 和 Chrome */
+    -o-transform: rotate(-45deg); 	/* Opera */ 
 }
 
 /* 统计页面 */
