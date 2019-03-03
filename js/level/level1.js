@@ -63,5 +63,10 @@ let Level1 = {
             width: Config.objSize.mirror.width, // 发射器宽度
             height: Config.objSize.mirror.height // 发射器高度
         }
-    ]
+    ],
+    init: function() {
+        playSound(this.bgMusic, true);
+
+        return 
+    }
 }

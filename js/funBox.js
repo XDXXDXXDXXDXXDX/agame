@@ -197,6 +197,9 @@ function playSound(name, loop) {
         soundBox[name].play();
     }
 }
+function pauseSound(name) {
+    soundBox[name].pause();
+}
 
 function toggleSound() {
     Config.playSound = !Config.playSound;

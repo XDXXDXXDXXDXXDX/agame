@@ -92,8 +92,8 @@
     box-sizing: border-box;
 }
 
+/* 等级选择页面 */
 .levelBox {
-    display: inline-block;
     position: absolute;
     text-align: center;
 }
@@ -117,10 +117,12 @@
     width: 50px;
 }
 .lv5 h3 {
+    font-size: 20px;
     height: 40px;
     line-height: 40px;
 }
 .lv5 {
+    z-index: 1;
     top: 50%;
     left: 50%;
     margin: -75px 0 0 -75px;
@@ -133,8 +135,12 @@
     width: 40px;
 }
 .s-lv h3 {
+    font-size: 16px;
     height: 20px;
     line-height: 20px;
+}
+.s-lv {
+    z-index: 2;
 }
 .lv1 {
     top: 50%;

@@ -23,3 +23,26 @@ $('.go2index').click(() => {
     $('#uiGamming').fadeOut();
     $('#uiIndex').slideDown();
 })
+
+$('.levelBox').bind('click', function(){
+    $('.selectLevel').slideUp();
+    $('#Game').fadeIn(500);
+    switch(this.id) {
+        case 'Level1': 
+            Game.start(Level1);
+        break;
+        case 'Level2': 
+            Game.start(Level2);
+        break;
+        case 'Level3': 
+            Game.start(Level3);
+        break;
+        case 'Level4': 
+            Game.start(Level4);
+        break;
+        case 'Level5': 
+            Game.start(Level5);
+        break;
+    }
+})
+

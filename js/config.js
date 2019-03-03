@@ -38,9 +38,17 @@ var Config = {
         },
         musics: {
             'bgMusic1': './assets/sound/bgMusic1.mp3',
+            'bgMusic2': './assets/sound/bgMusic2.mp3',
+            'bgMusic3': './assets/sound/bgMusic3.mp3',
+            'bgMusic4': './assets/sound/bgMusic4.mp3',
+            'bgMusic5': './assets/sound/bgMusic5.mp3',
         },
         levelJs: [
-            'js/level/level1.js'
+            'js/level/level1.js',
+            'js/level/level2.js',
+            'js/level/level3.js',
+            'js/level/level4.js',
+            'js/level/level5.js'
         ]
     }
 }

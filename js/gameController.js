@@ -1,18 +1,19 @@
 var Game = {
-    start: function() {
-        playSound(Level1.bgMusic, true);
+    start: function(level) {
+        this.level = level;
+        level.init();
         
-        if(Level1.laserTransmitter) {
+        if(level.laserTransmitter) {
             this.lasers = [];
-            for(let opts of Level1.laserTransmitter) {
+            for(let opts of level.laserTransmitter) {
                 this.lasers.push(new LaserTransmitter(opts))
             }
         }
-        this.home = new LightHome(Level1.lightHome);
+        this.home = new LightHome(level.lightHome);
         
-        if(Level1.mirror) {
+        if(level.mirror) {
             this.mirrors = [];
-            for(let opts of Level1.mirror) {
+            for(let opts of level.mirror) {
                 this.mirrors.push(new Mirror(opts))
             }
         }
@@ -199,6 +200,12 @@ var Game = {
         }
 
         return sortItems;
+    },
+    end: function() {
+        // 先清理画布
+        context.clearRect(0, 0, canvasWidth, canvasHeight);
+        // 清除声音
+        pauseSound(this.level.bgMusic);
     }
 
 }
