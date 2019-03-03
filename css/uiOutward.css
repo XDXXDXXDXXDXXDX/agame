@@ -91,23 +91,70 @@
     padding-top: 10%;
     box-sizing: border-box;
 }
+
 .levelBox {
-    width: 200px;
-    height: 200px;
     display: inline-block;
-    background-color: #1d47d1;
+    position: absolute;
+    text-align: center;
+}
+.level-bg {
+    position: absolute;
+    background-color: antiquewhite;
     transform: rotate(45deg);
-    -ms-transform: rotate(45deg); 	/* IE 9 */
-    -moz-transform: rotate(45deg); 	/* Firefox */
-    -webkit-transform: rotate(45deg); /* Safari 和 Chrome */
-    -o-transform: rotate(45deg); 	/* Opera */ 
+    -ms-transform: rotate(45deg); 	
+    -moz-transform: rotate(45deg); 
+    -webkit-transform: rotate(45deg); 
+    -o-transform: rotate(45deg); 
 }
 .levelCtn {
-    transform: none;
-    -ms-transform: rotate(-45deg); 	/* IE 9 */
-    -moz-transform: rotate(-45deg); 	/* Firefox */
-    -webkit-transform: rotate(-45deg); /* Safari 和 Chrome */
-    -o-transform: rotate(-45deg); 	/* Opera */ 
+    position: relative;
+}
+.lv5, .lv5 .level-bg, .lv5 .levelCtn {
+    width: 150px;
+    height: 150px;
+}
+.lv5 .star-img {
+    width: 50px;
+}
+.lv5 h3 {
+    height: 40px;
+    line-height: 40px;
+}
+.lv5 {
+    top: 50%;
+    left: 50%;
+    margin: -75px 0 0 -75px;
+}
+.s-lv, .s-lv .level-bg, .s-lv .levelCtn {
+    width: 110px;
+    height: 110px;
+}
+.s-lv .star-img {
+    width: 40px;
+}
+.s-lv h3 {
+    height: 20px;
+    line-height: 20px;
+}
+.lv1 {
+    top: 50%;
+    left: 50%;
+    margin: -155px 0 0 -155px;
+}
+.lv2 {
+    top: 50%;
+    right: 50%;
+    margin: -155px -155px 0 0;
+}
+.lv3 {
+    bottom: 50%;
+    left: 50%;
+    margin: 0 0 -155px -155px;
+}
+.lv4 {
+    bottom: 50%;
+    right: 50%;
+    margin: 0 -155px -155px 0;
 }
 
 /* 统计页面 */
