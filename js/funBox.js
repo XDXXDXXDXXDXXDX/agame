@@ -124,7 +124,7 @@ function emitLaser(startX, startY, endX, endY) {
     GSctx.strokeStyle = gradient;
 
     GSctx.lineTo(endX, endY); // 激光结束的坐标
-    GSctx.lineWidth = 2; // 激光的宽度
+    GSctx.lineWidth = 2 * Config.window.scale; // 激光的宽度
     GSctx.stroke(); // 绘画路径
 }
 
