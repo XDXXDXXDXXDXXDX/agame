@@ -91,9 +91,10 @@ var Game = {
         GSctx.clearRect(0, 0, stageWidth, stageHeight);
 
         GSctx.save();
+        GSctx.drawImage(imgBox['wall2'], 0, 0, stageWidth, stageHeight);
+        GSctx.globalCompositeOperation = 'destination-in';
         GSctx.lineWidth ="20";
         GSctx.lineJoin = 'round';
-        // ctx.globalCompositeOperation = '';
         GSctx.beginPath();
         GSctx.moveTo(150, 200);
         GSctx.lineTo(150, 400);

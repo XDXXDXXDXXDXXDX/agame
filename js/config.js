@@ -35,6 +35,8 @@ var Config = {
             'lightHome': './assets/img/lightHome.png',
             'lightInHome': './assets/img/lightInHome.png',
             'mirror': './assets/img/mirror.png',
+            'wall': './assets/img/wallCut.jpg',
+            'wall2': './assets/img/wallCut2.jpg',
         },
         musics: {
             'bgMusic1': './assets/sound/bgMusic1.mp3',
