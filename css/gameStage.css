@@ -30,3 +30,13 @@
     border-radius: 50%; /*外观设置为圆形*/  
     border: solid 1px #ddd; /*设置边框*/  
 }
+
+/* 游戏内菜单样式 */
+.game-menu {
+    position: absolute;
+    width: 80%;
+    height: 40%;
+    left: 10%;
+    top: 30%;
+    z-index: 6;
+}
