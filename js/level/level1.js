@@ -26,6 +26,10 @@ let Level1 = {
             width: Config.objSize.lightHome.width, // 发射器宽度
             height: Config.objSize.lightHome.height // 发射器高度
     },
+    wall: {
+        name: 'wallA',
+        lines: [{x:150, y:200}, {x:280, y:200}, {x:150, y:400}, {x:280, y:400}]
+    },  
     mirror: [   
         {
             name: 'mirrorA',

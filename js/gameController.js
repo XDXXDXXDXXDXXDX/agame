@@ -10,6 +10,7 @@ var Game = {
             }
         }
         this.home = new LightHome(level.lightHome);
+        this.wall = new Wall(level.wall)
         
         if(level.mirror) {
             this.mirrors = [];
@@ -90,19 +91,6 @@ var Game = {
         // 先清理画布
         GSctx.clearRect(0, 0, stageWidth, stageHeight);
 
-        GSctx.save();
-        GSctx.drawImage(imgBox['wall2'], 0, 0, stageWidth, stageHeight);
-        GSctx.globalCompositeOperation = 'destination-in';
-        GSctx.lineWidth ="2";
-        GSctx.lineJoin = 'round';
-        GSctx.beginPath();
-        GSctx.moveTo(150, 200);
-        GSctx.lineTo(150, 400);
-        GSctx.lineTo(280, 200);
-        GSctx.fill()
-        // GSctx.stroke();
-        GSctx.restore();
-
         this.updateElement();
 
         this.draw();
@@ -112,6 +100,7 @@ var Game = {
         });
     },
     draw: function() {
+        this.wall.draw();
         this.home.draw();
 
         for(mirror of this.mirrors) {
