@@ -39,4 +39,14 @@
     left: 10%;
     top: 30%;
     z-index: 6;
+    text-align: center;
+    background-color: #7fffd4;
+    border-radius: 12px;
+}
+
+.game-menu li {
+    border: 1px solid #000;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 6px;
 }

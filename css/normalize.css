@@ -17,3 +17,47 @@ button {
 ul, li {
     list-style: none;
 }
+
+.toast-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgb(127, 127, 127, 0.5);
+    z-index: 66;
+    width: 100%;
+    height: 100%;
+}
+
+.toast {
+    position: absolute;
+    width: 80%;
+    height: 40%;
+    left: 10%;
+    top: 30%;
+    background-color: #ffffff;
+    border-radius: 6px;
+}
+.toast-header {
+    height: 30%;
+}
+.toast-body {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    height: 40%;
+    overflow: auto;
+}
+.toast-footer {
+    height: 30%;
+    display: flex;
+    display: -webkit-flex; /* Safari */
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.toast-btn {
+    border: 2px solid #000000;
+    border-radius: 6px;
+    width: 80px;
+    height: 40px;
+}

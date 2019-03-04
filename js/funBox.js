@@ -196,6 +196,7 @@ function playSound(name, loop) {
         if(loop) {
             soundBox[name].loop = 'loop'; 
         }
+        soundBox[name].currentTime = 0;  
         soundBox[name].play();
     }
 }
@@ -213,4 +214,33 @@ function toggleSound() {
  */
 function nodesD(p0, p1) {
     return Math.sqrt((p0.x - p1.x) ** 2 + (p0.y - p1.y) ** 2);
+}
+
+/**
+ * 提示工具
+ */
+function Xtoast({
+    type,
+    message,
+    callback
+}) {
+    if(type == 'alert') {
+        $('body').append(`
+        <div class="toast-mask" onclick="$('.toast-mask').remove()">
+            <div class="toast">
+                <div class="toast-header"></div>
+                <div class="toast-body">
+                    <p>${message}</p>
+                </div>
+                <div class="toast-footer">
+                    <button class="toast-btn" onclick="(${callback})()">确定</button>
+                </div>
+            </div>
+        </div>
+        `);
+    }
+
+    $('.toast').click((e) => {
+        e.stopPropagation();  
+    })
 }

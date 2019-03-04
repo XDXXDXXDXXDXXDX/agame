@@ -1,5 +1,9 @@
+var nowLv = {};
 var Game = {
     start: function(level) {
+        // 先清理画布
+        GSctx.clearRect(0, 0, stageWidth, stageHeight);
+        
         this.level = level;
         level.init();
         
@@ -205,7 +209,7 @@ var Game = {
     },
     end: function() {
         // 先清理画布
-        context.clearRect(0, 0, canvasWidth, canvasHeight);
+        GSctx.clearRect(0, 0, stageWidth, stageHeight);
         // 清除声音
         pauseSound(this.level.bgMusic);
     }
