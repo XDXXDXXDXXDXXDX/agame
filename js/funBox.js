@@ -115,6 +115,7 @@ function isIntersectRec(p0, p1, {p2, p3, p4, p5}) {
  * 发出射线
  */
 function emitLaser(startX, startY, endX, endY) {
+    GSctx.save();
     GSctx.beginPath(); // 开始绘画路径
     GSctx.moveTo(startX, startY); // 将画笔移到发射器所在坐标
     // 创建渐变的激光色
@@ -126,6 +127,7 @@ function emitLaser(startX, startY, endX, endY) {
     GSctx.lineTo(endX, endY); // 激光结束的坐标
     GSctx.lineWidth = 2 * Config.window.scale; // 激光的宽度
     GSctx.stroke(); // 绘画路径
+    GSctx.restore();
 }
 
 /**

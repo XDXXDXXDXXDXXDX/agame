@@ -90,6 +90,19 @@ var Game = {
         // 先清理画布
         GSctx.clearRect(0, 0, stageWidth, stageHeight);
 
+        GSctx.save();
+        GSctx.lineWidth ="20";
+        GSctx.lineJoin = 'round';
+        // ctx.globalCompositeOperation = '';
+        GSctx.beginPath();
+        GSctx.moveTo(150, 200);
+        GSctx.lineTo(150, 400);
+        GSctx.lineTo(280, 200);
+        GSctx.lineTo(200, 100);
+        GSctx.lineTo(250, 50);
+        GSctx.stroke();
+        GSctx.restore();
+
         this.updateElement();
 
         this.draw();
