@@ -25,7 +25,7 @@ $('.go2index').click(() => {
 })
 
 $('.levelBox').bind('click', function(){
-    $('.selectLevel').slideUp();
+    $('.selectLevel').hide();
     $('#Game').fadeIn(500);
     switch(this.id) {
         case 'Level1': 
