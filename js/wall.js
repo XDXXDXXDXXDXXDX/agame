@@ -15,7 +15,6 @@ class Wall extends Element {
         for(let line of this.lines) {
             GSctx.lineTo(line.x, line.y);
         }
-        GSctx.moveTo(150, 200);
         GSctx.fill()
         GSctx.restore();
     }
