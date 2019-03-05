@@ -13,8 +13,12 @@ var Game = {
                 this.lasers.push(new LaserTransmitter(opts))
             }
         }
+
         this.home = new LightHome(level.lightHome);
-        this.wall = new Wall(level.wall)
+
+
+        this.walls = new Wall(level.wall);
+
         
         if(level.mirror) {
             this.mirrors = [];
@@ -104,16 +108,18 @@ var Game = {
         });
     },
     draw: function() {
-        this.wall.draw();
+        this.walls.draw()
+
         this.home.draw();
 
-        for(mirror of this.mirrors) {
+        for(let mirror of this.mirrors) {
             mirror.draw();
         }
-        for(laser of this.lasers) {
+        for(let laser of this.lasers) {
             laser.draw();
         }
 
+       
 
         this.lasers.splice(1, this.lasers.length - 1)
     },

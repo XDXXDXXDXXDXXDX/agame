@@ -25,23 +25,40 @@ $('.go2index').click(() => {
 });
 // 从游戏中返回关卡选择
 $('.back2select-lv').click(() => {
-    $('.game-menu').hide();
-    Game.end();
-    $('#uiGamming').fadeOut();
-    $('#uiSelectLv').slideDown();
+    Xtoast({
+        type: 'confirm',
+        message: '选择别的关卡吗？当前关卡游戏记录将不会保存！',
+        callback: function(){
+            $('.game-menu').hide();
+            Game.end();
+            $('#uiGamming').fadeOut();
+            $('#uiSelectLv').slideDown();
+        }
+    });
 });
 // 从游戏中返回首页
 $('.back2main-menu').click(() => {
-    $('.game-menu').hide();
-    Game.end();
-    $('#uiGamming').fadeOut();
-    $('#uiIndex').slideDown();
+    Xtoast({
+        type: 'confirm',
+        message: '确认返回主菜单吗？当前关卡游戏记录将不会保存！',
+        callback: function(){
+            $('.game-menu').hide();
+            Game.end();
+            $('#uiGamming').fadeOut();
+            $('#uiIndex').slideDown();
+        }
+    });
 });
 // 重新开始当前关卡
 $('.replay').click(() => {
-    console.log(8888)
-    $('.game-menu').hide();
-    Game.start(nowLv); 
+    Xtoast({
+        type: 'confirm',
+        message: '确认重新开始当前关卡吗？当前记录将不会保存！',
+        callback: function(){
+            $('.game-menu').hide();
+            Game.start(nowLv); 
+        }
+    });
 });
 // 关卡选择
 $('.levelBox').bind('click', function(){

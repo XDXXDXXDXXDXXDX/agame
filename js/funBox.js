@@ -226,21 +226,45 @@ function Xtoast({
 }) {
     if(type == 'alert') {
         $('body').append(`
-        <div class="toast-mask" onclick="$('.toast-mask').remove()">
-            <div class="toast">
-                <div class="toast-header"></div>
-                <div class="toast-body">
-                    <p>${message}</p>
-                </div>
-                <div class="toast-footer">
-                    <button class="toast-btn" onclick="(${callback})()">确定</button>
+            <div class="toast-mask" onclick="$('.toast-mask').remove()">
+                <div class="toast" style="display:none">
+                    <div class="toast-header"></div>
+                    <div class="toast-body">
+                        <p>${message}</p>
+                    </div>
+                    <div class="toast-footer">
+                        <button class="toast-btn" onclick="(${callback})();$('.toast-mask').remove();">确定</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        `);
+    }else if(type == 'confirm'){
+        $('body').append(`
+            <div class="toast-mask" onclick="$('.toast-mask').remove()">
+                <div class="toast" style="display:none">
+                    <div class="toast-header"></div>
+                    <div class="toast-body">
+                        <p>${message}</p>
+                    </div>
+                    <div class="toast-footer">
+                        <button class="toast-btn" onclick="$('.toast-mask').remove()">取消</button>
+                        <button class="toast-btn" onclick="(${callback})();$('.toast-mask').remove();">确定</button>
+                    </div>
+                </div>
+            </div>
         `);
     }
-
+    // 屏幕过大时重新定位
+    if(window.innerWidth > 375) {
+        $('.toast').css({
+            left: '50%',
+            top: '50%',
+            marginLeft: '-150px',
+            marginTop: '-135px'
+        })
+    }
+    $('.toast').fadeIn();
     $('.toast').click((e) => {
         e.stopPropagation();  
-    })
+    });
 }
