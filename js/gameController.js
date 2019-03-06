@@ -49,30 +49,32 @@ var Game = {
                             if(node) {
                                 laser.endX = node.x;
                                 laser.endY = node.y;
-                                let light = new LaserTransmitter({
-                                    name: 'reflect' + Date.now(),
-                                    oriName: aim.name,
-                                    x: node.x / Config.window.scale, // 发射器x坐标，激光开始的x坐标
-                                    y: node.y / Config.window.scale, // 发射器y坐标，激光结束的y坐标
-                                    deg: calRefAngle(laser.deg, aim.deg),
-                                    icon: imgBox['lightStart'], // 发射器图标
-                                    width: Config.objSize.lightStart.width, // 发射器宽度
-                                    height: Config.objSize.lightStart.height // 发射器高度
-                                });
-                                
-                                // console.log(light)
-                                // 剔除重复的反射线
-                                let canReflect = true;
-                                for(laser of lasers) {
-                                    if(laser.x == light.x && laser.y == light.y && laser.deg == light.deg) {
-                                        canReflect = false;
-                                        break;
+                                if(aim.canReflect(laser.deg)) {
+                                    let light = new LaserTransmitter({
+                                        name: 'reflect' + Date.now(),
+                                        oriName: aim.name,
+                                        x: node.x / Config.window.scale, // 发射器x坐标，激光开始的x坐标
+                                        y: node.y / Config.window.scale, // 发射器y坐标，激光结束的y坐标
+                                        deg: calRefAngle(laser.deg, aim.deg),
+                                        icon: imgBox['lightStart'], // 发射器图标
+                                        width: Config.objSize.lightStart.width, // 发射器宽度
+                                        height: Config.objSize.lightStart.height // 发射器高度
+                                    });
+                                    
+                                    // console.log(light)
+                                    // 剔除重复的反射线
+                                    let canReflect = true;
+                                    for(laser of lasers) {
+                                        if(laser.x == light.x && laser.y == light.y && laser.deg == light.deg) {
+                                            canReflect = false;
+                                            break;
+                                        }
+                                    }
+                                    if(canReflect) {
+                                        lasers.push(light);
                                     }
                                 }
-                                if(canReflect) {
-                                    lasers.push(light);
-                                }
-                                
+                    
                                 break crashAims;
                             }
                         break; 
