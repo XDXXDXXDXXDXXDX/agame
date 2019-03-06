@@ -3,7 +3,7 @@ class Brick extends Element {
     constructor(opts) {
         super(opts);
         this.endX = opts.endX;
-        this.endY = opts.endX;
+        this.endY = opts.endY;
     }
     // draw() {
     //     GSctx.save();
