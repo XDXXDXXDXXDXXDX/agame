@@ -3,6 +3,20 @@ class Wall {
     constructor(opts) {
         this.walls = opts; //[{name,line},{},{}] 墙体位置数组，每一个墙都是多条线闭合而成
     }
+    makeBricks() {
+        let bricks = [];
+        for(let wall of this.walls) {
+            let line = wall.line;
+            for(let [i, path] of line.entries()) {
+                let i2 = i + 1 == line.length ? 0 : i + 1;
+                let dx = path.x - line[i2].x;
+                let dy = path.y - line[i2].y;
+                if(dx >= 0 && dy >= 0) {
+                    bricks.push(new )
+                }
+            }
+        }
+    }
     draw() {
         GSctx.save();
         GSctx.lineWidth ="1";

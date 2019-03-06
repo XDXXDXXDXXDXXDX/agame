@@ -16,9 +16,9 @@ var Game = {
 
         this.home = new LightHome(level.lightHome);
 
-
         this.walls = new Wall(level.wall);
 
+        this.bricks = this.walls.makeBricks();
         
         if(level.mirror) {
             this.mirrors = [];
