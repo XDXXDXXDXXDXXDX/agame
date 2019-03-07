@@ -17,16 +17,21 @@ var Game = {
         this.home = new LightHome(level.lightHome);
 
         this.walls = new Wall(level.wall);
+        this.wallBricks = this.walls.makeBricks();
 
-        this.bricks = this.walls.makeBricks();
+        this.bricks = this.wallBricks;
         // console.log(this.bricks)
         
         if(level.mirror) {
             this.mirrors = [];
             for(let opts of level.mirror) {
-                this.mirrors.push(new Mirror(opts))
+                let newMirror = new Mirror(opts);
+                this.mirrors.push(newMirror);
+                this.bricks = this.bricks.concat(newMirror.makeBricks());
             }
         }
+      
+        // console.log(this.mirrors[0].makeBricks())
         
         this.update();
         this.bindTouchAction();
@@ -34,31 +39,37 @@ var Game = {
     updateElement: function() {
         let self = this;
         let lasers = this.lasers;
+        // 重新计算碎片位置
+        this.bricks = this.wallBricks;
+        for(let mirror of this.mirrors) {
+            this.bricks = this.bricks.concat(mirror.makeBricks());
+        }
          
-        
         for(laser of lasers) {
             // 将所有可能反射的目标汇成一个数组
-            let aimArr = [];
-            let aims = this.crashOrder(laser, aimArr.concat(this.mirrors, this.bricks));
+            // let aimArr = [];
+            let aims = this.crashOrder(laser, this.bricks);
             laser.getEndXY();
-
             crashAims:
             for(aim of aims) {
-                if(aim.name != laser.oriName) {
+                let oriAim = aim.ori;
+                let oriAimClass = oriAim.constructor.name;
+                let oriAimName = oriAim.name;
+                if(oriAimName != laser.oriName) {
                     // 不同目标反射规则不同
-                    let oriAim = aim.constructor.name;
-                    if(oriAim == 'Mirror') {
-                        let node = laser.isIntersect(aim, 3)
+                    if(oriAimClass == 'Mirror') {
+                        let node = laser.isIntersect(aim, 0)
                         if(node) {
                             laser.endX = node.x;
                             laser.endY = node.y;
-                            if(aim.canReflect(laser.deg)) {
+                            // console.log(oriAim)
+                            if(oriAim.canReflect(laser.deg)) {
                                 let light = new LaserTransmitter({
                                     name: 'reflect' + Date.now(),
-                                    oriName: aim.name,
+                                    oriName: oriAimName,
                                     x: node.x / Config.window.scale, // 发射器x坐标，激光开始的x坐标
                                     y: node.y / Config.window.scale, // 发射器y坐标，激光结束的y坐标
-                                    deg: calRefAngle(laser.deg, aim.deg),
+                                    deg: calRefAngle(laser.deg, oriAim.deg),
                                     icon: imgBox['lightStart'], // 发射器图标
                                     width: Config.objSize.lightStart.width, // 发射器宽度
                                     height: Config.objSize.lightStart.height // 发射器高度
@@ -80,7 +91,7 @@ var Game = {
                 
                             break crashAims;
                         }
-                    }else if(oriAim == 'Brick') {
+                    }else if(oriAimClass == 'Wall') {
                         let node = laser.isIntersect(aim, 0)
                         if(node) {
                             laser.endX = node.x;

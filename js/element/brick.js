@@ -1,9 +1,10 @@
-// 砖头 组成墙壁
+// 砖头 组成墙壁/镜子的例子
 class Brick extends Element {
     constructor(opts) {
         super(opts);
         this.endX = opts.endX;
         this.endY = opts.endY;
+        this.ori = opts.ori; // 源头 从哪里拆分出来
     }
     // draw() {
     //     GSctx.save();

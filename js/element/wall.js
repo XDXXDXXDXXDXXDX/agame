@@ -26,6 +26,7 @@ class Wall {
                             y: path.y + d * i * _y,
                             endX: path.x + (i + 1) * _x,
                             endY: path.y + d * (i + 1) * _y,
+                            ori: this
                         }));
                     }
                 }else{
@@ -36,6 +37,7 @@ class Wall {
                             y: path.y + i * _y,
                             endX: path.x + d * (i + 1) * _x,
                             endY: path.y + (i + 1) * _y,
+                            ori: this
                         }));
                     }
                 }
