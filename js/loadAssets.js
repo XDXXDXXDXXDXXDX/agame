@@ -92,13 +92,6 @@ var stageHeight = gameStage.height;
 
 var GSctx = gameStage.getContext("2d");
 
-// 按照缩放比调整物体的尺寸
-for(let obj of Object.values(Config.objSize)) {
-    obj.width *= Config.window.scale;
-    obj.height *= Config.window.scale;
-}
-
-
 
 
 

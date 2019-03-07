@@ -31,7 +31,7 @@ var Game = {
             }
         }
       
-        // console.log(this.mirrors[0].makeBricks())
+        console.log(this.mirrors[3].makeBricks())
         
         this.update();
         this.bindTouchAction();
