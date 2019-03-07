@@ -20,7 +20,6 @@ var Game = {
         this.wallBricks = this.walls.makeBricks();
 
         this.bricks = this.wallBricks;
-        // console.log(this.bricks)
         
         if(level.mirror) {
             this.mirrors = [];
@@ -30,8 +29,6 @@ var Game = {
                 this.bricks = this.bricks.concat(newMirror.makeBricks());
             }
         }
-      
-        console.log(this.mirrors[3].makeBricks())
         
         this.update();
         this.bindTouchAction();

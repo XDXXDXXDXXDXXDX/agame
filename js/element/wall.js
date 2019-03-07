@@ -9,8 +9,8 @@ class Wall {
             let line = wall.line;
             for(let [i, path] of line.entries()) {
                 let i2 = i + 1 == line.length ? 0 : i + 1;
-                let dx = line[i2].x - path.x;
-                let dy = line[i2].y - path.y;
+                let dx = (line[i2].x - path.x) * Config.window.scale;
+                let dy = (line[i2].y - path.y) * Config.window.scale;
                 let adx = Math.abs(dx);
                 let ady = Math.abs(dy);
                 let _x = dx == 0 ? 1 : dx / adx; // x轴是否递增
@@ -22,10 +22,10 @@ class Wall {
                     for(let i = 0; i < adx; i++) {
                         bricks.push(new Brick({
                             name: wall.name + i,
-                            x: path.x + i * _x,
-                            y: path.y + d * i * _y,
-                            endX: path.x + (i + 1) * _x,
-                            endY: path.y + d * (i + 1) * _y,
+                            x: path.x * Config.window.scale + i * _x,
+                            y: path.y * Config.window.scale + d * i * _y,
+                            endX: path.x * Config.window.scale + (i + 1) * _x,
+                            endY: path.y * Config.window.scale + d * (i + 1) * _y,
                             ori: this
                         }));
                     }
@@ -33,10 +33,10 @@ class Wall {
                     for(let i = 0; i < ady; i++) {
                         bricks.push(new Brick({
                             name: wall.name + i,
-                            x: path.x + d * i * _x,
-                            y: path.y + i * _y,
-                            endX: path.x + d * (i + 1) * _x,
-                            endY: path.y + (i + 1) * _y,
+                            x: path.x * Config.window.scale + d * i * _x,
+                            y: path.y * Config.window.scale + i * _y,
+                            endX: path.x * Config.window.scale + d * (i + 1) * _x,
+                            endY: path.y * Config.window.scale + (i + 1) * _y,
                             ori: this
                         }));
                     }
