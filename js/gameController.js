@@ -19,7 +19,7 @@ var Game = {
         this.walls = new Wall(level.wall);
 
         this.bricks = this.walls.makeBricks();
-        console.log(this.bricks)
+        // console.log(this.bricks)
         
         if(level.mirror) {
             this.mirrors = [];
@@ -35,52 +35,60 @@ var Game = {
         let self = this;
         let lasers = this.lasers;
          
-        // 将所有可能反射的目标汇成一个数组
-        let aims = this.crashOrder(lasers[0], this.mirrors);
+        
         for(laser of lasers) {
+            // 将所有可能反射的目标汇成一个数组
+            let aimArr = [];
+            let aims = this.crashOrder(laser, aimArr.concat(this.mirrors, this.bricks));
             laser.getEndXY();
 
             crashAims:
             for(aim of aims) {
                 if(aim.name != laser.oriName) {
                     // 不同目标反射规则不同
-                    switch(aim.constructor.name) {
-                        case 'Mirror':
-                            let node = laser.isIntersect(aim, 0)
-                            if(node) {
-                                laser.endX = node.x;
-                                laser.endY = node.y;
-                                if(aim.canReflect(laser.deg)) {
-                                    let light = new LaserTransmitter({
-                                        name: 'reflect' + Date.now(),
-                                        oriName: aim.name,
-                                        x: node.x / Config.window.scale, // 发射器x坐标，激光开始的x坐标
-                                        y: node.y / Config.window.scale, // 发射器y坐标，激光结束的y坐标
-                                        deg: calRefAngle(laser.deg, aim.deg),
-                                        icon: imgBox['lightStart'], // 发射器图标
-                                        width: Config.objSize.lightStart.width, // 发射器宽度
-                                        height: Config.objSize.lightStart.height // 发射器高度
-                                    });
-                                    
-                                    // console.log(light)
-                                    // 剔除重复的反射线
-                                    let canReflect = true;
-                                    for(laser of lasers) {
-                                        if(laser.x == light.x && laser.y == light.y && laser.deg == light.deg) {
-                                            canReflect = false;
-                                            break;
-                                        }
-                                    }
-                                    if(canReflect) {
-                                        lasers.push(light);
+                    let oriAim = aim.constructor.name;
+                    if(oriAim == 'Mirror') {
+                        let node = laser.isIntersect(aim, 3)
+                        if(node) {
+                            laser.endX = node.x;
+                            laser.endY = node.y;
+                            if(aim.canReflect(laser.deg)) {
+                                let light = new LaserTransmitter({
+                                    name: 'reflect' + Date.now(),
+                                    oriName: aim.name,
+                                    x: node.x / Config.window.scale, // 发射器x坐标，激光开始的x坐标
+                                    y: node.y / Config.window.scale, // 发射器y坐标，激光结束的y坐标
+                                    deg: calRefAngle(laser.deg, aim.deg),
+                                    icon: imgBox['lightStart'], // 发射器图标
+                                    width: Config.objSize.lightStart.width, // 发射器宽度
+                                    height: Config.objSize.lightStart.height // 发射器高度
+                                });
+                                
+                                // console.log(light)
+                                // 剔除重复的反射线
+                                let canReflect = true;
+                                for(laser of lasers) {
+                                    if(laser.x == light.x && laser.y == light.y && laser.deg == light.deg) {
+                                        canReflect = false;
+                                        break;
                                     }
                                 }
-                    
-                                break crashAims;
+                                if(canReflect) {
+                                    lasers.push(light);
+                                }
                             }
-                        break; 
+                
+                            break crashAims;
+                        }
+                    }else if(oriAim == 'Brick') {
+                        let node = laser.isIntersect(aim, 0)
+                        if(node) {
+                            laser.endX = node.x;
+                            laser.endY = node.y;
+                
+                            break crashAims;
+                        }
                     }
-                    
                 } 
             }
            

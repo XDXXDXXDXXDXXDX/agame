@@ -53,11 +53,10 @@ class LaserTransmitter extends Element {
             }
         }
     }
-    // 相交对象的类型type 0:line(线) 1:rec(矩形) 2:cir(圆形)
+    // 相交对象的类型type 0:line(线) 1:rec(矩形) 2:cir(圆形) 3:line2(需要重新计算端点值的对象)
     isIntersect(target, type) {
         if(type == 0) {
-            let nodes = calNewXY(target);
-            let node = isIntersect({x:this.x, y:this.y}, {x:this.endX, y:this.endY}, nodes.start, nodes.end);
+            let node = isIntersect({x:this.x, y:this.y}, {x:this.endX, y:this.endY}, {x:target.x, y:target.y}, {x:target.endX, y:target.endY});
             return node;
         }else if(type == 1) {
             let A = {
@@ -93,7 +92,11 @@ class LaserTransmitter extends Element {
                 {x:this.endX, y:this.endY}, 
                 usefulNode
             )
-        } 
+        }else if(type == 3) {
+            let nodes = calNewXY(target);
+            let node = isIntersect({x:this.x, y:this.y}, {x:this.endX, y:this.endY}, nodes.start, nodes.end);
+            return node;
+        }  
         
         return false;
     }
