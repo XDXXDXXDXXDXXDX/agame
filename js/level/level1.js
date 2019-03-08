@@ -80,7 +80,7 @@ let Level1 = {
     ],
     init: function() {
         playSound(this.bgMusic, true);
-
+        this.asd = '8989';
         return 
     }
 }

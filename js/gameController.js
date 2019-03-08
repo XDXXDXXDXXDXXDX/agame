@@ -50,11 +50,11 @@ var Game = {
             crashAims:
             for(aim of aims) {
                 let oriAim = aim.ori;
-                let oriAimClass = oriAim.constructor.name;
+                let oriAimClass = oriAim.constructor;
                 let oriAimName = oriAim.name;
                 if(oriAimName != laser.oriName) {
                     // 不同目标反射规则不同
-                    if(oriAimClass == 'Mirror') {
+                    if(oriAimClass == Mirror) {
                         let node = laser.isIntersect(aim, 0)
                         if(node) {
                             laser.endX = node.x;
@@ -88,7 +88,7 @@ var Game = {
                 
                             break crashAims;
                         }
-                    }else if(oriAimClass == 'Wall') {
+                    }else if(oriAimClass == Wall) {
                         let node = laser.isIntersect(aim, 0)
                         if(node) {
                             laser.endX = node.x;
