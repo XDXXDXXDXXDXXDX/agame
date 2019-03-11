@@ -10,7 +10,7 @@ let Level1 = {
             x: 150, // 发射器x坐标，激光开始的x坐标
             y: 200, // 发射器y坐标，激光结束的y坐标
             deg: 90,
-            icon: imgBox['laserTransmitter'], // 发射器图标
+            icon: imgBox['moon'], // 发射器图标
             width: Config.objSize.laserTransmitter.width, // 发射器宽度
             height: Config.objSize.laserTransmitter.height // 发射器高度
         }
@@ -18,8 +18,8 @@ let Level1 = {
     // 终点限制一个
     lightHome: {
             name: 'lightHomeA',
-            x: 150, // 发射器x坐标，激光开始的x坐标
-            y: 400, // 发射器y坐标，激光结束的y坐标
+            x: 250, // 发射器x坐标，激光开始的x坐标
+            y: 600, // 发射器y坐标，激光结束的y坐标
             deg: 0,
             icon: imgBox['lightHome'], // 发射器图标
             activeIcon: imgBox['lightInHome'],
@@ -29,7 +29,12 @@ let Level1 = {
     wall: [
         {
             name: 'wallA',
-            line: [{x:250, y:200}, {x:280, y:200}, {x:280, y:400}, {x:150, y:400}]
+            line: [{x:250, y:200}, {x:280, y:200}, {x:280, y:400}, {x:150, y:400}],
+            move: {
+                x: 140,
+                y: 160,
+                speed: 4
+            }
         },
         {
             name: 'wallB',

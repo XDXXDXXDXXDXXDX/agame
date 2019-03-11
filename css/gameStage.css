@@ -1,6 +1,8 @@
 #gameStage {
     position: absolute;
-    background-color: #faebd7;
+    /* background-color: #faebd7; */
+    background-image: url(../assets/img/lv1bg.png);
+    background-size: 100% 100%;
     top: 50%;
     left: 50%;
 }

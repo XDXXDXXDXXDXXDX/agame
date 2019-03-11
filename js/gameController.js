@@ -36,6 +36,8 @@ var Game = {
     updateElement: function() {
         let self = this;
         let lasers = this.lasers;
+        this.walls.move();
+        this.wallBricks = this.walls.makeBricks();
         // 重新计算碎片位置
         this.bricks = this.wallBricks;
         for(let mirror of this.mirrors) {
@@ -50,7 +52,7 @@ var Game = {
             crashAims:
             for(aim of aims) {
                 let oriAim = aim.ori;
-                let oriAimClass = oriAim.constructor;
+                let oriAimClass = oriAim.constructor; //到原型中查这个属性
                 let oriAimName = oriAim.name;
                 if(oriAimName != laser.oriName) {
                     // 不同目标反射规则不同

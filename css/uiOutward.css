@@ -185,35 +185,3 @@
     padding: 4px 12px;
     z-index: 6;
 }
-
-/* @keyframes btmToTop {
-    from {
-        transform: translate(0px, 100%);
-        -ms-transform: translate(0px, 100%);
-        -webkit-transform: translate(0px, 100%);
-        -o-transform: translate(0px, 100%);
-        -moz-transform: translate(0px, 100%);
-    }to {
-        transform: translate(0px, 0px);
-        -ms-transform: translate(0px, 0px);
-        -webkit-transform: translate(0px, 0px);
-        -o-transform: translate(0px, 0px);
-        -moz-transform: translate(0px, 0px);
-    }
-}
-
-@keyframes topToBtm {
-    from {
-        transform: translate(0px, -100%);
-        -ms-transform: translate(0px, -100%);
-        -webkit-transform: translate(0px, -100%);
-        -o-transform: translate(0px, -100%);
-        -moz-transform: translate(0px, -100%);
-    }to {
-        transform: translate(0px, 0px);
-        -ms-transform: translate(0px, 0px);
-        -webkit-transform: translate(0px, 0px);
-        -o-transform: translate(0px, 0px);
-        -moz-transform: translate(0px, 0px);
-    }
-} */

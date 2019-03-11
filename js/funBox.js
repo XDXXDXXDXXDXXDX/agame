@@ -6,7 +6,7 @@ window.mozRequestAnimationFrame ||
 window.oRequestAnimationFrame ||
 window.msRequestAnimationFrame ||
 function(callback) {
-    window.setTimeout(callback, 1000 / 30);
+    window.setTimeout(callback, 1000 / 60); // 每秒多少帧
 };
 
 /**
@@ -120,8 +120,10 @@ function emitLaser(startX, startY, endX, endY) {
     GSctx.moveTo(startX, startY); // 将画笔移到发射器所在坐标
     // 创建渐变的激光色
     let gradient = GSctx.createLinearGradient(startX, startY, endX, endY);
-    gradient.addColorStop("0","#ffcfcc");
-    gradient.addColorStop("1","#ff1000");
+    // gradient.addColorStop("0","#ffcfcc");
+    // gradient.addColorStop("1","#ff1000");
+    gradient.addColorStop("0","#fffcce");
+    gradient.addColorStop("1","#ffeb5f");
     GSctx.strokeStyle = gradient;
 
     GSctx.lineTo(endX, endY); // 激光结束的坐标

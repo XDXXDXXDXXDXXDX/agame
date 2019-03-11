@@ -30,6 +30,8 @@ var Config = {
         images: {
             'indexBg1': './assets/img/index/loadBg1.png',
             'indexBg2': './assets/img/index/loadBg2.png',
+            'moon': './assets/img/moon.png',
+            'lv1bg': './assets/img/lv1bg.png',
             'laserTransmitter': './assets/img/laserTransmitter.png',
             'lightStart': './assets/img/lightStart.png',
             'lightHome': './assets/img/lightHome.png',

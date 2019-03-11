@@ -2,6 +2,14 @@
 class Wall {
     constructor(opts) {
         this.walls = opts; //[{name,line},{},{}] 墙体位置数组，每一个墙都是多条线闭合而成
+        this.start = []; //每条线的起始位置
+        for(let wall of this.walls) {
+            let line = wall.line;
+            this.start.push({
+                x: line[0].x,
+                y: line[0].y
+            });
+        }
     }
     makeBricks() {
         let bricks = [];
@@ -44,6 +52,19 @@ class Wall {
             }
         }
         return bricks;
+    }
+    move() {
+        for(let [i, wall] of this.walls.entries()) {
+            if(wall.move && wall.line[0].x < this.start[0].x + wall.move.x) {
+                let m = wall.move;
+                let dx = m.x > m.y ? 1 : m.x / m.y;
+                let dy = dx == 1 ? m.y / m.x :  1;
+                for(let dot of wall.line) {
+                    dot.x += dx * m.speed;
+                    dot.y += dy * m.speed;
+                }
+            }
+        }
     }
     draw() {
         GSctx.save();
