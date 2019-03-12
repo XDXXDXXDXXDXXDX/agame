@@ -125,6 +125,7 @@ function emitLaser(startX, startY, endX, endY) {
     gradient.addColorStop("0","#fffcce");
     gradient.addColorStop("1","#ffeb5f");
     GSctx.strokeStyle = gradient;
+    GSctx.lineCap = "round";
 
     GSctx.lineTo(endX, endY); // 激光结束的坐标
     GSctx.lineWidth = 2 * Config.window.scale; // 激光的宽度

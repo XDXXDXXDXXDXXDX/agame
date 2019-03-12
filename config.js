@@ -6,6 +6,7 @@ var Config = {
         offectX: 0,
         offectY: 0
     },
+    winTime: 100,
     playSound: false,
     objSize: {
         laserTransmitter: {
@@ -35,6 +36,8 @@ var Config = {
             'laserTransmitter': './assets/img/laserTransmitter.png',
             'lightStart': './assets/img/lightStart.png',
             'lightHome': './assets/img/lightHome.png',
+            'homeDark': './assets/img/homeDark.png',
+            'homeLight': './assets/img/homeLight.png',
             'lightInHome': './assets/img/lightInHome.png',
             'mirror': './assets/img/mirror.png',
             'wall': './assets/img/wallCut.jpg',

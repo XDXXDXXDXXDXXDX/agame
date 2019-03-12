@@ -19,10 +19,10 @@ let Level1 = {
     lightHome: {
             name: 'lightHomeA',
             x: 250, // 发射器x坐标，激光开始的x坐标
-            y: 600, // 发射器y坐标，激光结束的y坐标
+            y: 620, // 发射器y坐标，激光结束的y坐标
             deg: 0,
-            icon: imgBox['lightHome'], // 发射器图标
-            activeIcon: imgBox['lightInHome'],
+            icon: imgBox['homeDark'], // 发射器图标
+            activeIcon: imgBox['homeLight'],
             width: Config.objSize.lightHome.width, // 发射器宽度
             height: Config.objSize.lightHome.height // 发射器高度
     }, 
@@ -73,7 +73,7 @@ let Level1 = {
                 line: [{x:250, y:200}, {x:280, y:200}, {x:280, y:400}, {x:150, y:400}],
                 move: {
                     x: 140,
-                    y: 160,
+                    y: 0,
                     speed: 1,
                     regular: 'reverse', //reverse动画会反向播放
                     dir: true // true为正向, false为反向
