@@ -25,26 +25,7 @@ let Level1 = {
             activeIcon: imgBox['lightInHome'],
             width: Config.objSize.lightHome.width, // 发射器宽度
             height: Config.objSize.lightHome.height // 发射器高度
-    },
-    wall: [
-        {
-            name: 'wallA',
-            line: [{x:250, y:200}, {x:280, y:200}, {x:280, y:400}, {x:150, y:400}],
-            move: {
-                x: 140,
-                y: 160,
-                speed: 4
-            }
-        },
-        {
-            name: 'wallB',
-            line: [{x:10, y:100}, {x:20, y:200}, {x:50, y:200}, {x:50, y:40}]
-        },
-        {
-            name: 'wallC',
-            line: [{x:20, y:300}, {x:140, y:300}, {x:50, y:400}, {x:20, y:500}]
-        },
-    ],  
+    }, 
     mirror: [   
         {
             name: 'mirrorA',
@@ -85,7 +66,28 @@ let Level1 = {
     ],
     init: function() {
         playSound(this.bgMusic, true);
-        this.asd = '8989';
+        // 墙面初始化，墙体数据会在游戏过程中改变，所以每次在初始化函数中进行
+        this.wall = [
+            {
+                name: 'wallA',
+                line: [{x:250, y:200}, {x:280, y:200}, {x:280, y:400}, {x:150, y:400}],
+                move: {
+                    x: 140,
+                    y: 160,
+                    speed: 1,
+                    regular: 'reverse', //reverse动画会反向播放
+                    dir: true // true为正向, false为反向
+                }
+            },
+            {
+                name: 'wallB',
+                line: [{x:10, y:100}, {x:20, y:200}, {x:50, y:200}, {x:50, y:40}]
+            },
+            {
+                name: 'wallC',
+                line: [{x:20, y:300}, {x:140, y:300}, {x:50, y:400}, {x:20, y:500}]
+            },
+        ];
         return 
     }
 }

@@ -55,13 +55,28 @@ class Wall {
     }
     move() {
         for(let [i, wall] of this.walls.entries()) {
-            if(wall.move && wall.line[0].x < this.start[0].x + wall.move.x) {
+            if(wall.move ) {
                 let m = wall.move;
                 let dx = m.x > m.y ? 1 : m.x / m.y;
                 let dy = dx == 1 ? m.y / m.x :  1;
-                for(let dot of wall.line) {
-                    dot.x += dx * m.speed;
-                    dot.y += dy * m.speed;
+                if(m.dir && wall.line[0].x < this.start[0].x + wall.move.x) {
+                    for(let dot of wall.line) {
+                        dot.x += dx * m.speed;
+                        dot.y += dy * m.speed;
+                    }
+
+                    if(wall.line[0].x >= this.start[0].x + wall.move.x) {
+                        m.dir = !m.dir; // 到尽头时反转方向
+                    }
+                }else if(m.regular == 'reverse' && !m.dir) {
+                    for(let dot of wall.line) {
+                        dot.x -= dx * m.speed;
+                        dot.y -= dy * m.speed;
+                    }
+
+                    if(wall.line[0].x <= this.start[0].x) {
+                        m.dir = !m.dir; // 到尽头时反转方向
+                    }
                 }
             }
         }
