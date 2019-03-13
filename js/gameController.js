@@ -114,16 +114,6 @@ var Game = {
             }
            
         }
-    
-        // let node = laser.isIntersect(this.home, 1)
-        // if(node) {
-        //     laser.endX = node.x;
-        //     laser.endY = node.y;
-
-        //     self.home.status = 'active';
-        // }else{
-        //     self.home.status = 'inactive';
-        // }
     },
     update: function() {
         let self = this;
