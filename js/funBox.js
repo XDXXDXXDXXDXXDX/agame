@@ -275,7 +275,7 @@ function Xtoast({
 /**
  * 制作砖块 传两个端点值 needZoom是否需要缩放
  */
-function bricksFactory(node1, node2, needZoom) {
+function bricksFactory(node1, node2, needZoom, deg) {
     let bricks = [];
     if(needZoom) {
         node1.x *= Config.window.scale;
@@ -300,6 +300,7 @@ function bricksFactory(node1, node2, needZoom) {
                 y: node1.y + d * i * _y,
                 endX: node1.x + (i + 1) * _x,
                 endY: node1.y + d * (i + 1) * _y,
+                deg: deg,
                 ori: this
             }));
         }

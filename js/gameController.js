@@ -43,6 +43,7 @@ var Game = {
         for(let mirror of this.mirrors) {
             this.bricks = this.bricks.concat(mirror.makeBricks());
         }
+        this.bricks = this.bricks.concat(this.home.makeBricks());
          
         for(laser of lasers) {
             // 将所有可能反射的目标汇成一个数组
@@ -98,21 +99,31 @@ var Game = {
                 
                             break crashAims;
                         }
+                    }else if(oriAimClass == LightHome) {
+                        let node = laser.isIntersect(aim, 0)
+                        if(node) {
+                            laser.endX = node.x;
+                            laser.endY = node.y;
+                            self.home.status = 'active';
+                            break crashAims;
+                        }else{
+                            self.home.status = 'inactive';
+                        }
                     }
                 } 
             }
            
         }
     
-        let node = laser.isIntersect(this.home, 1)
-        if(node) {
-            laser.endX = node.x;
-            laser.endY = node.y;
+        // let node = laser.isIntersect(this.home, 1)
+        // if(node) {
+        //     laser.endX = node.x;
+        //     laser.endY = node.y;
 
-            self.home.status = 'active';
-        }else{
-            self.home.status = 'inactive';
-        }
+        //     self.home.status = 'active';
+        // }else{
+        //     self.home.status = 'inactive';
+        // }
     },
     update: function() {
         let self = this;

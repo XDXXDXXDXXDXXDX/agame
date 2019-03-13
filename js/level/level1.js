@@ -18,8 +18,8 @@ let Level1 = {
     // 终点限制一个
     lightHome: {
             name: 'lightHomeA',
-            x: 50, // 发射器x坐标，激光开始的x坐标
-            y: 220, // 发射器y坐标，激光结束的y坐标
+            x: 250, // 发射器x坐标，激光开始的x坐标
+            y: 320, // 发射器y坐标，激光结束的y坐标
             deg: 0,
             icon: imgBox['homeDark'], // 发射器图标
             activeIcon: imgBox['homeLight'],
