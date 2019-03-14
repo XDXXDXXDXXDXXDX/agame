@@ -24,6 +24,10 @@ var Config = {
         mirror: {
             width: 66,
             height: 8
+        },
+        cloud: {
+            width: 96,
+            height: 55
         }
     },
     resources: {
@@ -42,6 +46,9 @@ var Config = {
             'mirror': './assets/img/mirror.png',
             'wall': './assets/img/wallCut.jpg',
             'wall2': './assets/img/wallCut2.jpg',
+            'cloud': './assets/img/cloud.png',
+            'cloud2': './assets/img/cloud2.png',
+            'cloud3': './assets/img/cloud3.png',
         },
         musics: {
             'bgMusic1': './assets/sound/bgMusic1.mp3',

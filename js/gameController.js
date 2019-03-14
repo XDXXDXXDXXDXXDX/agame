@@ -20,6 +20,16 @@ var Game = {
         this.wallBricks = this.walls.makeBricks();
 
         this.bricks = this.wallBricks;
+
+        this.cloud = new Cloud({
+            name: 'cloudA',
+            x: 250, // 发射器x坐标，激光开始的x坐标
+            y: 400, // 发射器y坐标，激光结束的y坐标
+            icon: imgBox['cloud3'], // 发射器图标
+            width: Config.objSize.cloud.width , // 发射器宽度
+            height: Config.objSize.cloud.height, // 发射器高度
+            cut: [10, 10, 10, 10]
+        });
         
         if(level.mirror) {
             this.mirrors = [];
@@ -44,6 +54,7 @@ var Game = {
             this.bricks = this.bricks.concat(mirror.makeBricks());
         }
         this.bricks = this.bricks.concat(this.home.makeBricks());
+        this.bricks = this.bricks.concat(this.cloud.makeBricks());
          
         for(laser of lasers) {
             // 将所有可能反射的目标汇成一个数组
@@ -109,6 +120,14 @@ var Game = {
                         }else{
                             self.home.status = 'inactive';
                         }
+                    }else if(oriAimClass == Cloud) {
+                        let node = laser.isIntersect(aim, 0)
+                        if(node) {
+                            laser.endX = node.x;
+                            laser.endY = node.y;
+                
+                            break crashAims;
+                        }
                     }
                 } 
             }
@@ -134,12 +153,16 @@ var Game = {
 
         this.home.draw();
 
+        
         for(let mirror of this.mirrors) {
             mirror.draw();
         }
         for(let laser of this.lasers) {
             laser.draw();
         }
+
+        this.cloud.draw();
+
 
        
 
