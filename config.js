@@ -22,8 +22,8 @@ var Config = {
             height: 50
         },
         mirror: {
-            width: 66,
-            height: 8
+            width: 44,
+            height: 5
         },
         cloud: {
             width: 96,

@@ -45,6 +45,7 @@ class LightHome extends Element {
             let dy =  this.keep * rate;
             GSctx.drawImage(this.activeIcon, 0, oriH - dy, this.activeIcon.width, dy, drawX, -drawY - this.keep, this.width, this.keep);
             this.keep += this.height / Config.winTime;
+            this.status = 'inactive'; //将状态充值为未激活，等待下一次更新元素
             if(this.keep >= this.height) {
                 console.log('恭喜你照亮了明天！');
             }

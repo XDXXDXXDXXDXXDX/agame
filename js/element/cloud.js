@@ -2,9 +2,41 @@
 class Cloud extends Element {
     constructor(opts) {
         super(opts);
+        // 四周需要切掉的距离
         this.cut = opts.cut.map((val) => {
             return val * Config.window.scale;
         });
+        this.mv = opts.move;
+        if(this.mv) {
+            let m = this.mv;
+            m.x = m.x * Config.window.scale - this.x; //云移动的x距离
+            m.y = m.y * Config.window.scale - this.y; //云移动的y距离
+            m.speed *= Config.window.scale;
+            let amx = Math.abs(m.x);
+            let amy = Math.abs(m.y);
+            m.dx = amx > amy ? 1 : amx / amy;
+            m.dy = m.dx == 1 ? amy / amx :  1;
+            m._x = m.x >= 0 ? 1 : -1;
+            m._y = m.y >= 0 ? 1 : -1;   
+        }  
+        this.start = {
+            x: this.x,
+            y: this.y
+        }
+    }
+    move() {
+        if(this.mv) {
+            let m = this.mv;
+            let xChange = Math.abs(this.x - this.start.x);
+            if(xChange < Math.abs(m.x)) {
+                this.x += m.dx * m.speed * m._x;
+                this.y += m.dy * m.speed * m._y;
+            }else if(m.regular == 'reverse') {
+                this.start.x = this.x;
+                m._x *= -1;
+                m._y *= -1;
+            }
+        }
     }
     makeBricks() {
         let bricks = [];

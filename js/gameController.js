@@ -1,67 +1,95 @@
 var nowLv = {};
 var Game = {
     start: function(level) {
-        // 先清理画布
-        GSctx.clearRect(0, 0, stageWidth, stageHeight);
+        GSctx.clearRect(0, 0, stageWidth, stageHeight); // 先清理画布
         
+        this.init(level); //初始化
+        
+        this.update(); // 更新画面
+        this.bindTouchAction(); // 绑定触摸操作
+    },
+    init: function(level) {
+        level.init(); //关卡文件初始化
         this.level = level;
-        level.init();
-        
+        // 激光初始化
         if(level.laserTransmitter) {
             this.lasers = [];
             for(let opts of level.laserTransmitter) {
                 this.lasers.push(new LaserTransmitter(opts))
             }
         }
-
-        this.home = new LightHome(level.lightHome);
-        this.wolf = new Wolf(level.wolf);
-
-        this.walls = new Wall(level.wall);
-        this.wallBricks = this.walls.makeBricks();
-
-        this.bricks = this.wallBricks;
-
-        this.cloud = new Cloud({
-            name: 'cloudA',
-            x: 250, // 发射器x坐标，激光开始的x坐标
-            y: 400, // 发射器y坐标，激光结束的y坐标
-            icon: imgBox['cloud3'], // 发射器图标
-            width: Config.objSize.cloud.width , // 发射器宽度
-            height: Config.objSize.cloud.height, // 发射器高度
-            cut: [10, 10, 10, 10]
-        });
-        
+        // 目标点初始化
+        if(level.lightHome) {
+            this.home = new LightHome(level.lightHome);
+        }
+        // 狼初始化
+        if(level.wolf) {
+            this.wolf = new Wolf(level.wolf);
+        }
+        // 墙体初始化
+        if(level.wall) {
+            this.walls = new Wall(level.wall);
+        }
         if(level.mirror) {
             this.mirrors = [];
             for(let opts of level.mirror) {
                 let newMirror = new Mirror(opts);
                 this.mirrors.push(newMirror);
-                this.bricks = this.bricks.concat(newMirror.makeBricks());
             }
         }
-        
-        this.update();
-        this.bindTouchAction();
+        if(level.cloud) {
+            this.clouds = [];
+            for(let opts of level.cloud) {
+                let newMirror = new Cloud(opts);
+                this.clouds.push(newMirror);
+            }
+        }
+        // 制作碎块
+        this.makeBricks();
+
+    },
+    makeBricks() {
+        this.bricks = [];
+        if(this.walls) {
+            this.bricks = this.bricks.concat(this.walls.makeBricks());
+        }
+        if(this.mirrors) {
+            for(let mirror of this.mirrors) {
+                this.bricks = this.bricks.concat(mirror.makeBricks());
+            }
+        }
+        if(this.home) {
+            this.bricks = this.bricks.concat(this.home.makeBricks());
+        }
+        if(this.clouds) {
+            for(let cloud of this.clouds) {
+                this.bricks = this.bricks.concat(cloud.makeBricks());
+            }
+        }
+    },
+    move() {
+        if(this.walls) {
+            this.walls.move();
+        }
+        if(this.wolf) {
+            this.wolf.move();
+        }   
+        if(this.clouds) {
+            for(let cloud of this.clouds) {
+                cloud.move();
+            }
+        }  
+
     },
     updateElement: function() {
         let self = this;
         let lasers = this.lasers;
-        this.walls.move();
-        this.wolf.move();
-        this.wallBricks = this.walls.makeBricks();
-        // 重新计算碎片位置
-        this.bricks = this.wallBricks;
-        for(let mirror of this.mirrors) {
-            this.bricks = this.bricks.concat(mirror.makeBricks());
-        }
-        this.bricks = this.bricks.concat(this.home.makeBricks());
-        this.bricks = this.bricks.concat(this.cloud.makeBricks());
-         
+        this.move(); // 运动的物体更新位置
+  
+        this.makeBricks(); // 重新计算碎片
+
         for(laser of lasers) {
-            // 将所有可能反射的目标汇成一个数组
-            // let aimArr = [];
-            let aims = this.crashOrder(laser, this.bricks);
+            let aims = this.crashOrder(laser, this.bricks); // 将碎片依照射线中心重新排序
             laser.getEndXY();
             crashAims:
             for(aim of aims) {
@@ -113,14 +141,12 @@ var Game = {
                             break crashAims;
                         }
                     }else if(oriAimClass == LightHome) {
-                        let node = laser.isIntersect(aim, 0)
+                        let node = laser.isIntersect(aim, 0);
                         if(node) {
                             laser.endX = node.x;
                             laser.endY = node.y;
                             self.home.status = 'active';
                             break crashAims;
-                        }else{
-                            self.home.status = 'inactive';
                         }
                     }else if(oriAimClass == Cloud) {
                         let node = laser.isIntersect(aim, 0)
@@ -145,30 +171,36 @@ var Game = {
         this.updateElement();
 
         this.draw();
-
+        this.lasers.splice(1, this.lasers.length - 1); //绘画结束后删除所有的反射光线
         this.updateAnim = requestAnimFrame(function() {
             self.update()
         });
     },
     draw: function() {
-        this.walls.draw()
-
-        this.home.draw();
-
-        
-        for(let mirror of this.mirrors) {
-            mirror.draw();
+        if(this.walls) {
+            this.walls.draw();
         }
-        for(let laser of this.lasers) {
-            laser.draw();
+        if(this.home) {
+            this.home.draw();
         }
-
-        this.cloud.draw();
-        this.wolf.draw();
-
-       
-
-        this.lasers.splice(1, this.lasers.length - 1)
+        if(this.mirrors) {
+            for(let mirror of this.mirrors) {
+                mirror.draw();
+            }
+        }
+        if(this.lasers) {
+            for(let laser of this.lasers) {
+                laser.draw();
+            }
+        }
+        if(this.clouds) {
+            for(let cloud of this.clouds) {
+                cloud.draw();
+            }
+        }
+        if(this.wolf) {
+            this.wolf.draw();  
+        }     
     },
     bindTouchAction: function() {
         let lasers = this.lasers;
@@ -267,6 +299,14 @@ var Game = {
         cancelAnimFrame(this.updateAnim);
         // 清除声音
         pauseSound(this.level.bgMusic);
+        // 清空使用过的变量
+        this.lasers = undefined;
+        this.home = undefined;
+        this.wolf = undefined;
+        this.walls = undefined;
+        this.mirrors = undefined;
+        this.bricks = undefined;
+        this.clouds = undefined;
     }
 
 }

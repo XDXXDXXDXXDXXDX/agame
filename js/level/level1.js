@@ -7,9 +7,9 @@ let Level1 = {
         {
             name: 'laserA',
             oriName: 'laserA',
-            x: 150, // 发射器x坐标，激光开始的x坐标
-            y: 200, // 发射器y坐标，激光结束的y坐标
-            deg: 90,
+            x: 50, // 发射器x坐标，激光开始的x坐标
+            y: 50, // 发射器y坐标，激光结束的y坐标
+            deg: 208,
             icon: imgBox['moon'], // 发射器图标
             width: Config.objSize.laserTransmitter.width, // 发射器宽度
             height: Config.objSize.laserTransmitter.height // 发射器高度
@@ -18,94 +18,114 @@ let Level1 = {
     // 终点限制一个
     lightHome: {
         name: 'lightHomeA',
-        x: 250, // 发射器x坐标，激光开始的x坐标
-        y: 320, // 发射器y坐标，激光结束的y坐标
+        x: 300, // 发射器x坐标，激光开始的x坐标
+        y: 620, // 发射器y坐标，激光结束的y坐标
         deg: 0,
         icon: imgBox['homeDark'], // 发射器图标
         activeIcon: imgBox['homeLight'],
         width: Config.objSize.lightHome.width, // 发射器宽度
         height: Config.objSize.lightHome.height // 发射器高度
     }, 
-    wolf: {
-        name: 'wolf',
-        x: 150, // 发射器x坐标，激光开始的x坐标
-        y: 420, // 发射器y坐标，激光结束的y坐标
-        icon: imgBox['wolfMove'], // 发射器图标
-        width: Config.objSize.wolf.width, // 发射器宽度
-        height: Config.objSize.wolf.height, // 发射器高度
-        move: {
-            x: 100,
-            y: 480,
-            speed: 1,
-        }
-    },
-    mirror: [   
+    cloud: [
+        {
+            name: 'cloudA',
+            x: 270, // 发射器x坐标，激光开始的x坐标
+            y: 400, // 发射器y坐标，激光结束的y坐标
+            icon: imgBox['cloud3'], // 发射器图标
+            width: Config.objSize.cloud.width * 1.5, // 发射器宽度
+            height: Config.objSize.cloud.height, // 发射器高度
+            cut: [10, 10, 10, 10],
+            move: {
+                x: 240,
+                y: 400,
+                speed: 0.5,
+                regular: 'reverse', //reverse动画会反向播放
+            }
+        },
+        {
+            name: 'cloudB',
+            x: 50, // 发射器x坐标，激光开始的x坐标
+            y: 200, // 发射器y坐标，激光结束的y坐标
+            icon: imgBox['cloud3'], // 发射器图标
+            width: Config.objSize.cloud.width , // 发射器宽度
+            height: Config.objSize.cloud.height, // 发射器高度
+            cut: [10, 10, 10, 10],
+            move: {
+                x: 30,
+                y: 200,
+                speed: 1,
+                regular: 'reverse', //reverse动画会反向播放
+            }
+        },
+        {
+            name: 'cloudC',
+            x: 170, // 发射器x坐标，激光开始的x坐标
+            y: 300, // 发射器y坐标，激光结束的y坐标
+            icon: imgBox['cloud3'], // 发射器图标
+            width: Config.objSize.cloud.width, // 发射器宽度
+            height: Config.objSize.cloud.height, // 发射器高度
+            cut: [10, 10, 10, 10],
+        },
+    ],
+    mirror: [  
         {
             name: 'mirrorA',
-            x: 280, // 发射器x坐标，激光开始的x坐标
-            y: 200, // 发射器y坐标，激光结束的y坐标
-            deg: 45,
-            icon: imgBox['mirror'], // 发射器图标
-            width: Config.objSize.mirror.width, // 发射器宽度
-            height: Config.objSize.mirror.height // 发射器高度
-        },   
-        {
-            name: 'mirrorAA',
-            x: 320, // 发射器x坐标，激光开始的x坐标
-            y: 220, // 发射器y坐标，激光结束的y坐标
-            deg: 60,
+            x: 155, // 发射器x坐标，激光开始的x坐标
+            y: 191, // 发射器y坐标，激光结束的y坐标
+            deg: 330,
             icon: imgBox['mirror'], // 发射器图标
             width: Config.objSize.mirror.width, // 发射器宽度
             height: Config.objSize.mirror.height // 发射器高度
         },    
         {
             name: 'mirrorB',
-            x: 280, // 发射器x坐标，激光开始的x坐标
-            y: 400, // 发射器y坐标，激光结束的y坐标
-            deg: 315,
+            x: 229, // 发射器x坐标，激光开始的x坐标
+            y: 188, // 发射器y坐标，激光结束的y坐标
+            deg: 180,
+            icon: imgBox['mirror'], // 发射器图标
+            width: Config.objSize.mirror.width, // 发射器宽度
+            height: Config.objSize.mirror.height // 发射器高度
+        },   
+        {
+            name: 'mirrorC',
+            x: 191, // 发射器x坐标，激光开始的x坐标
+            y: 185, // 发射器y坐标，激光结束的y坐标
+            deg: 10,
+            icon: imgBox['mirror'], // 发射器图标
+            width: Config.objSize.mirror.width, // 发射器宽度
+            height: Config.objSize.mirror.height // 发射器高度
+        },    
+        {
+            name: 'mirrorD',
+            x: 262, // 发射器x坐标，激光开始的x坐标
+            y: 204, // 发射器y坐标，激光结束的y坐标
+            deg: 45,
             icon: imgBox['mirror'], // 发射器图标
             width: Config.objSize.mirror.width, // 发射器宽度
             height: Config.objSize.mirror.height // 发射器高度
         },
         {
-            name: 'mirrorC',
-            x: 150, // 发射器x坐标，激光开始的x坐标
-            y: 100, // 发射器y坐标，激光结束的y坐标
-            deg: 180,
+            name: 'mirrorE',
+            x: 294, // 发射器x坐标，激光开始的x坐标
+            y: 210, // 发射器y坐标，激光结束的y坐标
+            deg: 330,
             icon: imgBox['mirror'], // 发射器图标
             width: Config.objSize.mirror.width, // 发射器宽度
             height: Config.objSize.mirror.height // 发射器高度
-        }
+        },   
+        {
+            name: 'mirrorF',
+            x: 311, // 发射器x坐标，激光开始的x坐标
+            y: 181, // 发射器y坐标，激光结束的y坐标
+            deg: 270,
+            icon: imgBox['mirror'], // 发射器图标
+            width: Config.objSize.mirror.width, // 发射器宽度
+            height: Config.objSize.mirror.height // 发射器高度
+        },    
     ],
     init: function() {
         playSound(this.bgMusic, true);
-        // 墙面初始化，墙体数据会在游戏过程中改变，所以每次在初始化函数中进行
-        this.wall = [
-            {
-                name: 'wallA',
-                line: [{x:250, y:200}, {x:280, y:200}, {x:280, y:400}, {x:150, y:400}],
-                move: {
-                    x: -160,
-                    y: 0,
-                    speed: 1,
-                    regular: 'reverse', //reverse动画会反向播放
-                }
-            },
-            {
-                name: 'wallB',
-                line: [{x:10, y:100}, {x:20, y:200}, {x:50, y:200}, {x:50, y:40}],
-                move: {
-                    x: 160,
-                    y: 0,
-                    speed: 1,
-                    regular: 'reverse', //reverse动画会反向播放
-                }
-            },
-            {
-                name: 'wallC',
-                line: [{x:20, y:300}, {x:140, y:300}, {x:50, y:400}, {x:20, y:500}]
-            },
-        ];
-        return 
+
+        return true;
     }
 }
