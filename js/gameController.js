@@ -15,6 +15,7 @@ var Game = {
         }
 
         this.home = new LightHome(level.lightHome);
+        this.wolf = new Wolf(level.wolf);
 
         this.walls = new Wall(level.wall);
         this.wallBricks = this.walls.makeBricks();
@@ -47,6 +48,7 @@ var Game = {
         let self = this;
         let lasers = this.lasers;
         this.walls.move();
+        this.wolf.move();
         this.wallBricks = this.walls.makeBricks();
         // 重新计算碎片位置
         this.bricks = this.wallBricks;
@@ -144,7 +146,7 @@ var Game = {
 
         this.draw();
 
-        requestAnimFrame(function() {
+        this.updateAnim = requestAnimFrame(function() {
             self.update()
         });
     },
@@ -162,7 +164,7 @@ var Game = {
         }
 
         this.cloud.draw();
-
+        this.wolf.draw();
 
        
 
@@ -261,6 +263,8 @@ var Game = {
     end: function() {
         // 先清理画布
         GSctx.clearRect(0, 0, stageWidth, stageHeight);
+        // 清除动画更新
+        cancelAnimFrame(this.updateAnim);
         // 清除声音
         pauseSound(this.level.bgMusic);
     }

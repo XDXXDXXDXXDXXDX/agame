@@ -9,6 +9,9 @@ function(callback) {
     window.setTimeout(callback, 1000 / 60); // 每秒多少帧
 };
 
+// 清除requestAnimationFrame 方法
+window.cancelAnimFrame  = window.requestAnimationFrame ? cancelAnimationFrame : clearTimeout;
+
 /**
  * 判断两线是否相交
  * 原理参考https://www.2cto.com/kf/201111/112304.html和https://blog.csdn.net/u012260672/article/details/51941262
@@ -277,14 +280,22 @@ function Xtoast({
  */
 function bricksFactory(node1, node2, needZoom, deg) {
     let bricks = [];
+    let n1 = {
+        x: node1.x,
+        y: node1.y,
+    };
+    let n2 = {
+        x: node2.x,
+        y: node2.y,
+    };
     if(needZoom) {
-        node1.x *= Config.window.scale;
-        node1.y *= Config.window.scale;
-        node2.x *= Config.window.scale;
-        node2.y *= Config.window.scale;
+        n1.x *= Config.window.scale;
+        n1.y *= Config.window.scale;
+        n2.x *= Config.window.scale;
+        n2.y *= Config.window.scale;
     }
-    let dx = node2.x - node1.x;
-    let dy = node2.y - node1.y; 
+    let dx = n2.x - n1.x;
+    let dy = n2.y - n1.y; 
     let adx = Math.abs(dx);
     let ady = Math.abs(dy);
     let _x = dx == 0 ? 1 : dx / adx; // x轴是否递增 为0的话则为1不影响计算，否则得到1为递增，-1为递减

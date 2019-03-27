@@ -56,6 +56,7 @@ $('.replay').click(() => {
         message: '确认重新开始当前关卡吗？当前记录将不会保存！',
         callback: function(){
             $('.game-menu').hide();
+            Game.end();
             Game.start(nowLv); 
         }
     });

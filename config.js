@@ -28,6 +28,11 @@ var Config = {
         cloud: {
             width: 96,
             height: 55
+        },
+        // 单只狼的尺寸
+        wolf: {
+            width: 44,
+            height: 35
         }
     },
     resources: {
@@ -49,6 +54,8 @@ var Config = {
             'cloud': './assets/img/cloud.png',
             'cloud2': './assets/img/cloud2.png',
             'cloud3': './assets/img/cloud3.png',
+            'wolf': './assets/img/wolf.gif',
+            'wolfMove': './assets/img/wolfMove.png',
         },
         musics: {
             'bgMusic1': './assets/sound/bgMusic1.mp3',

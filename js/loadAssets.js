@@ -26,28 +26,17 @@ $(() => {
         totalCount++;
         soundBox[key] =  new Audio();
         soundBox[key].src = Config.resources.musics[key];
-        soundBox[key].onload = () => {
+        soundBox[key].addEventListener('canplaythrough', () => {
             loadCount++;
             loadDone();
-        }; 
-    }
-
-    for(let jsSrc of Config.resources.levelJs) {
-        totalCount++;
-        let script = document.createElement('script')
-        script.src = jsSrc;
-        script.onload = () => {
-            loadCount++;
-            loadDone();
-        };
-        $('body').append(script);
+        });
     }
 });
 
 
 function loadingAnim() {
     $('.loadBg1').css('padding-top', (index, value) => {
-        return (parseInt(value) + window.innerHeight / 150) + 'px';
+        return (parseInt(value) + window.innerHeight / (100 * Config.window.scale)) + 'px';
     });
     $('.load-percent').html(Math.floor(parseInt($('.loadBg1').css('padding-top')) / window.innerHeight * 100) + '%');
     loadDone();
@@ -61,7 +50,11 @@ function loadingAnim() {
 function loadDone() {
     if(parseInt($('.loadBg1').css('padding-top')) >= window.innerHeight && loadCount == totalCount) {
         $('#loadAssets').slideUp();
-        // $('#uiIndex').fadeIn(500);
+        $('#uiIndex').fadeIn(500);
+        // 加载关卡文件
+        for(let jsSrc of Config.resources.levelJs) {
+            $('body').append(`<script src="${jsSrc}"></script>`)
+        }
     }
 }
 

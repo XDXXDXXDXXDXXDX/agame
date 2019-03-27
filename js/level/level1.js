@@ -17,15 +17,28 @@ let Level1 = {
     ],
     // 终点限制一个
     lightHome: {
-            name: 'lightHomeA',
-            x: 250, // 发射器x坐标，激光开始的x坐标
-            y: 320, // 发射器y坐标，激光结束的y坐标
-            deg: 0,
-            icon: imgBox['homeDark'], // 发射器图标
-            activeIcon: imgBox['homeLight'],
-            width: Config.objSize.lightHome.width, // 发射器宽度
-            height: Config.objSize.lightHome.height // 发射器高度
+        name: 'lightHomeA',
+        x: 250, // 发射器x坐标，激光开始的x坐标
+        y: 320, // 发射器y坐标，激光结束的y坐标
+        deg: 0,
+        icon: imgBox['homeDark'], // 发射器图标
+        activeIcon: imgBox['homeLight'],
+        width: Config.objSize.lightHome.width, // 发射器宽度
+        height: Config.objSize.lightHome.height // 发射器高度
     }, 
+    wolf: {
+        name: 'wolf',
+        x: 150, // 发射器x坐标，激光开始的x坐标
+        y: 420, // 发射器y坐标，激光结束的y坐标
+        icon: imgBox['wolfMove'], // 发射器图标
+        width: Config.objSize.wolf.width, // 发射器宽度
+        height: Config.objSize.wolf.height, // 发射器高度
+        move: {
+            x: 100,
+            y: 480,
+            speed: 1,
+        }
+    },
     mirror: [   
         {
             name: 'mirrorA',
@@ -72,16 +85,21 @@ let Level1 = {
                 name: 'wallA',
                 line: [{x:250, y:200}, {x:280, y:200}, {x:280, y:400}, {x:150, y:400}],
                 move: {
-                    x: 140,
+                    x: -160,
                     y: 0,
                     speed: 1,
                     regular: 'reverse', //reverse动画会反向播放
-                    dir: true // true为正向, false为反向
                 }
             },
             {
                 name: 'wallB',
-                line: [{x:10, y:100}, {x:20, y:200}, {x:50, y:200}, {x:50, y:40}]
+                line: [{x:10, y:100}, {x:20, y:200}, {x:50, y:200}, {x:50, y:40}],
+                move: {
+                    x: 160,
+                    y: 0,
+                    speed: 1,
+                    regular: 'reverse', //reverse动画会反向播放
+                }
             },
             {
                 name: 'wallC',
