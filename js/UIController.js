@@ -63,8 +63,10 @@ $('.replay').click(() => {
 });
 // 关卡选择
 $('.levelBox').bind('click', function(){
-    $('#uiSelectLv').hide();
-    $('#uiGamming').fadeIn(500);
+    if(!$(`#${this.id}`).hasClass("cant-play")) {
+        $('#uiSelectLv').hide();
+        $('#uiGamming').fadeIn(500);
+    }
     switch(this.id) {
         case 'Level1': 
             Game.start(Level1);
@@ -75,16 +77,22 @@ $('.levelBox').bind('click', function(){
             nowLv = Level2;
         break;
         case 'Level3': 
-            Game.start(Level3);
-            nowLv = Level2;
+            if(!$('#Level3').hasClass("cant-play")) {
+                Game.start(Level3);
+                nowLv = Level3;
+            }
         break;
         case 'Level4': 
-            Game.start(Level4);
-            nowLv = Level2;
+            if(!$('#Level4').hasClass("cant-play")) {
+                Game.start(Level4);
+                nowLv = Level4;    
+            }
         break;
         case 'Level5': 
-            Game.start(Level5);
-            nowLv = Level2;
+            if(!$('#Level5').hasClass("cant-play")) {
+                Game.start(Level5);
+                nowLv = Level5;
+            }  
         break;
     }
 })

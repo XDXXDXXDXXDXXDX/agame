@@ -292,6 +292,9 @@ var Game = {
 
         return sortItems;
     },
+    win() {
+        
+    },
     end: function() {
         // 先清理画布
         GSctx.clearRect(0, 0, stageWidth, stageHeight);

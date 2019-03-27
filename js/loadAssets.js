@@ -85,6 +85,34 @@ var stageHeight = gameStage.height;
 
 var GSctx = gameStage.getContext("2d");
 
+// 初始等级和星星数量
+// 如果是第一次打开则创建这个数据记录
+if(localStorage.level == undefined) {
+    let level = [];
+    for(let i = 0; i < 5; i++) {
+        level.push({
+            lv: i + 1,
+            pass: false,
+            star: 0,
+            canPlay: i < 2 ? true : false
+        })
+    }
+    localStorage.level = JSON.stringify(level);
+}
+let levelInfo = JSON.parse(localStorage.level);
+for(let lv of levelInfo) {
+    if(lv.canPlay) {
+        $(`#Level${lv.lv}`).removeClass("cant-play");
+    }
+    if(lv.pass) {
+        for(let i = 0; i < lv.star; i++) {
+            $(`#Level${lv.lv} .star img`)[i].src = "assets/img/starFill.png"
+        }
+    }
+    
+}
+
+localStorage.level = JSON.stringify(levelInfo);
 
 
 
