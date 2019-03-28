@@ -329,3 +329,55 @@ function bricksFactory(node1, node2, needZoom, deg) {
     }
     return bricks;
 }
+
+// 更行选择关卡的菜单页面
+function updateStar() {
+    let levelInfo = JSON.parse(localStorage.level);
+    for(let lv of levelInfo) {
+        if(lv.canPlay) {
+            $(`#Level${lv.lv}`).removeClass("cant-play");
+        }
+        if(lv.pass) {
+            for(let i = 0; i < lv.star; i++) {
+                $(`#Level${lv.lv} .star img`)[i].src = "assets/img/starFill.png";
+            }
+        }else{
+            $(`#Level${lv.lv} .star img`).attr('src', 'assets/img/starEmpty.png');
+        }
+        
+    } 
+}
+
+// 初始化关卡等级
+function initLevel() {
+    let level = [];
+    for(let i = 0; i < 5; i++) {
+        level.push({
+            lv: i + 1,
+            pass: false,
+            star: 0,
+            canPlay: i < 2 ? true : false
+        })
+    }
+    localStorage.level = JSON.stringify(level);
+}
+
+// 更新关卡信息
+function updateLvInfo({lv, pass, star, canPlay}) {
+    let levelInfo = JSON.parse(localStorage.level);
+    for(let level of levelInfo) {
+        if(level.lv == lv) {
+            level.pass = pass ? pass : level.pass;
+            level.star = (star != undefined) && (star > level.star) ? star : level.star;
+            level.canPlay = canPlay ? canPlay : level.canPlay;
+        }
+    }
+
+    localStorage.level = JSON.stringify(levelInfo);
+    
+}
+
+// 生成n~m的随机数,可以取n,m
+function random(n, m) {
+    return Math.floor(Math.random() * (m - n + 1) + n);
+}

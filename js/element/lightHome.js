@@ -47,7 +47,7 @@ class LightHome extends Element {
             this.keep += this.height / Config.winTime;
             this.status = 'inactive'; //将状态充值为未激活，等待下一次更新元素
             if(this.keep >= this.height) {
-                console.log('恭喜你照亮了明天！');
+                this.status = 'done'; // 小屋充电完成
             }
         }else{
             this.keep = 0;

@@ -33,13 +33,14 @@
                 <img src="assets/img/index/gameName.png" alt="game name's img">
             </div>
             <div class="start-game"><p class="begin-test">开始游戏</p></div>
-            <div class="start-game-customize"><p class="begin-test">自由创作</p></div>
+            <!-- <div class="start-game-customize"><p class="begin-test">自由创作</p></div> -->
         </div>
         <div class="auto-fill">
             <div class="foot-features">
                 <button class="volume" onclick="toggleSound()"><i class="fas fa-volume-up"></i></button>
-                <button class="statistic"><i class="fas fa-torah"></i></button>
-                <button class="related-info"><i class="fas fa-exclamation-circle"></i></button>
+                <!-- <button class="statistic"><i class="fas fa-torah"></i></button> -->
+                <!-- <button class="related-info"><i class="fas fa-exclamation-circle"></i></button> -->
+                <button class="related-info"><i class="fas fa-torah"></i></button>
             </div>
         </div>
     </div>
@@ -49,11 +50,34 @@
     <div id="uiInfo" style="display:none">
         <button class="go2index">返回首页</button>
         <div class="help-info">  
+            <div class="tur-cta first">
+                <img src="assets/img/tutorial/turMoon.gif" alt="控制月亮">
+                <p>点击月亮，滑动滚动条可以调整月亮发射光线的角度。</p>
+            </div>
+            <div class="tur-cta">
+                <img src="assets/img/tutorial/turMirror.gif" alt="控制镜子">
+                <p>长按镜子，可以拖动改变镜子的位置。</p>
+            </div>
+            <div class="tur-cta">
+                <img src="assets/img/tutorial/turWin.gif" alt="获得胜利">
+                <p>使光线持续照射目标一定时长，给目标充满能量即可通关。</p>
+            </div>
+            <div class="tur-cta">
+                <img src="assets/img/tutorial/mi.png" alt="秘密">
+                <p>还有几个隐藏操作，待你去发现！</p>
+            </div>
         </div>
         <div class="version-info">
+            <p>version:1.0.0</p>
         </div>
     </div>
     <div id="uiSelectLv" style="display:none">
+        <div class="star-tur">
+            <button>关卡三星要求</button>
+        </div>
+        <div class="reset-level">
+            <button>重置所有关卡</button>
+        </div>
         <div class='selectLevel'>
             <div id="Level1" class="levelBox lv1 s-lv">
                 <div class="level-bg"></div>
@@ -112,17 +136,69 @@
             </div>
         </div>
     </div>
+    <div id="uiStarTur" style="display:none">
+        <button class="go2Select">返回</button>
+        <table>
+            <tr>
+                <th></th>
+                <th>一星</th>
+                <th>两星</th>
+                <th>三星</th>
+            </tr>
+            <tr>
+                <td>第一关</td>
+                <td>光线数量大于5</td>
+                <td>光线数量不大于5</td>
+                <td>光线数量不大于3</td>
+            </tr>
+            <tr>
+                <td>第二关</td>
+                <td>光线数量大于5</td>
+                <td>光线数量不大于5</td>
+                <td>光线数量不大于3</td>
+            </tr>
+            <tr>
+                <td>第三关</td>
+                <td>两只狼都入侵了家园</td>
+                <td>只有一只狼入侵家园</td>
+                <td>没有狼入侵家园</td>
+            </tr>
+            <tr>
+                <td>第四关</td>
+                <td>不止一只狼入侵家园</td>
+                <td>只有一只狼入侵家园</td>
+                <td>没有狼入侵家园</td>
+            </tr>
+            <tr>
+                <td>第五关</td>
+                <td>秘</td>
+                <td>秘</td>
+                <td>发挥想象力</td>
+            </tr>
+             
+        </table>
+    </div>
     <div id="uiGamming" style="display:none">
         <button class="show-game-menu" onclick="$('.game-menu').fadeIn()">菜单</button>
-        <div class="game-menu" style="display:none">
+        <div class="game-menu menu" style="display:none">
             <ul>
                 <li class="replay">重新开始</li>
                 <li class="back2select-lv">选择关卡</li>
                 <li class="back2main-menu">返回主菜单</li>
             </ul>
         </div>
-        <div class="win-level">
-
+        <div class="win-level menu" style="display:none">
+            <h2>恭喜通关</h2>
+            <div class="star">
+                <img src="assets/img/starEmpty.png" alt="star" class="star-img">
+                <img src="assets/img/starEmpty.png" alt="star" class="star-img">
+                <img src="assets/img/starEmpty.png" alt="star" class="star-img">
+            </div>
+            <div class="win-btn">
+                <button class="replay">重新开始</button>
+                <button class="back2select-lv">选择关卡</button>
+                <button class="next-lv">下一关</button>
+            </div>
         </div>
         <canvas id="gameStage" width="100px" height="100px"></canvas>
     </div>

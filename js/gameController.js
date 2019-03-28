@@ -1,16 +1,17 @@
-var nowLv = {};
+var nowLv = {}; // 当前运行中的关卡
 var Game = {
     start: function(level) {
+        this.status = 'gaming'; // 游戏进行中
         GSctx.clearRect(0, 0, stageWidth, stageHeight); // 先清理画布
-        
-        this.init(level); //初始化
+        nowLv = level;
+        this.init(); //初始化
         
         this.update(); // 更新画面
         this.bindTouchAction(); // 绑定触摸操作
     },
-    init: function(level) {
+    init: function() {
+        let level = nowLv;
         level.init(); //关卡文件初始化
-        this.level = level;
         // 激光初始化
         if(level.laserTransmitter) {
             this.lasers = [];
@@ -24,7 +25,11 @@ var Game = {
         }
         // 狼初始化
         if(level.wolf) {
-            this.wolf = new Wolf(level.wolf);
+            this.wolves = [];
+            for(let opts of level.wolf) {
+                let newWolf = new Wolf(opts);
+                this.wolves.push(newWolf);
+            }
         }
         // 墙体初始化
         if(level.wall) {
@@ -71,8 +76,10 @@ var Game = {
         if(this.walls) {
             this.walls.move();
         }
-        if(this.wolf) {
-            this.wolf.move();
+        if(this.wolves) {
+            for(let wolf of this.wolves) {
+                wolf.move();
+            }
         }   
         if(this.clouds) {
             for(let cloud of this.clouds) {
@@ -82,6 +89,10 @@ var Game = {
 
     },
     updateElement: function() {
+        if(this.home.status == 'done') {
+            this.win();
+            return false;
+        }
         let self = this;
         let lasers = this.lasers;
         this.move(); // 运动的物体更新位置
@@ -161,20 +172,22 @@ var Game = {
             }
            
         }
+
+        return true;
     },
     update: function() {
         let self = this;
-        
-        // 先清理画布
-        GSctx.clearRect(0, 0, stageWidth, stageHeight);
+        let gameFlag = this.updateElement(); // 更新元素状态，gameFlag如果为false的话说明游戏应该结束了
 
-        this.updateElement();
-
-        this.draw();
-        this.lasers.splice(1, this.lasers.length - 1); //绘画结束后删除所有的反射光线
-        this.updateAnim = requestAnimFrame(function() {
-            self.update()
-        });
+        if(gameFlag) {
+            GSctx.clearRect(0, 0, stageWidth, stageHeight); //先清理画布
+            this.draw();
+            this.lasersLength =  this.lasers.length; //记录当前反射线的数量
+            this.lasers.splice(1, this.lasers.length - 1); //绘画结束后删除所有的反射光线
+            this.updateAnim = requestAnimFrame(function() {
+                self.update();
+            });
+        }
     },
     draw: function() {
         if(this.walls) {
@@ -198,8 +211,10 @@ var Game = {
                 cloud.draw();
             }
         }
-        if(this.wolf) {
-            this.wolf.draw();  
+        if(this.wolves) {
+            for(let wolf of this.wolves) {
+                wolf.draw();
+            }
         }     
     },
     bindTouchAction: function() {
@@ -223,7 +238,8 @@ var Game = {
             for([i, laser] of lasers.entries()) {
                 let d = nodesD({x:startX, y: startY}, {x: laser.x, y: laser.y});   
                 if(d < laser.width / 2) {
-                    $('#uiGamming').append(`<div class="changeDeg" style="top:${laser.y + 50}px;left:${laser.x + 50}px"><input type="range" value="${laser.deg}" min="0" max="360" class="deg_range" oninput="Game.changeLDeg(this, ${i})"></div>`);
+                    // $('#uiGamming').append(`<div class="changeDeg" style="top:${laser.y + 50}px;left:${laser.x + 50}px"><input type="range" value="${laser.deg}" min="0" max="360" class="deg_range" oninput="Game.changeLDeg(this, ${i})"></div>`);
+                    $('#uiGamming').append(`<div class="changeDeg" style="bottom:100px;left:30%"><input type="range" value="${laser.deg}" min="0" max="360" class="deg_range" oninput="Game.changeLDeg(this, ${i})"></div>`);
                     $(".changeDeg").click((e) => {
                         e.stopPropagation();    //  阻止事件冒泡
                     });
@@ -241,7 +257,27 @@ var Game = {
                     }
                 }
             },500);
-            
+            // 如果是狼的话，第四关可以通关点击杀掉
+            if(nowLv.level == 4) {
+                for(let wolf of this.wolves) {
+                    if(wolf.alive) {
+                        let d = nodesD({x:startX, y: startY}, {x: wolf.x, y: wolf.y});
+                        if(d < wolf.width / 2) {
+                            wolf.alive = false;
+                            break;
+                        }
+                    }
+     
+                }
+            }
+
+            // 第五关长按可以移动房子
+            if(nowLv.level == 5) {
+                let d = nodesD({x:startX, y: startY}, {x: this.home.x, y: this.home.y});
+                if(d < this.home.width / 2) {
+                    activeMirror = this.home;
+                }
+            }
         });     
 
         gameStage.addEventListener('touchmove', (e) => {
@@ -293,23 +329,46 @@ var Game = {
         return sortItems;
     },
     win() {
-        
+        let wolfNum = 0;
+        if(this.wolves) {
+            for(let wolf of this.wolves) {
+                if(wolf.arrive) {
+                    wolfNum++;
+                }
+            }
+        }
+        let starNum = nowLv.win({
+            lasersNum: this.lasersLength,
+            wolfNum: wolfNum
+        });
+        $(`.win-level .star img`).attr('src', 'assets/img/starEmpty.png');
+        for(let i = 0; i < starNum; i++) {
+            $('.win-level .star img')[i].src = "assets/img/starFill.png";
+        }
+        if(nowLv.level == 5) {
+            $('.next-lv').hide();
+        }else{
+            $('.next-lv').show();
+        }
+        $('.win-level').slideDown();
+
+        this.end(); //结束游戏
+        return true;
     },
     end: function() {
-        // 先清理画布
-        GSctx.clearRect(0, 0, stageWidth, stageHeight);
-        // 清除动画更新
-        cancelAnimFrame(this.updateAnim);
-        // 清除声音
-        pauseSound(this.level.bgMusic);
-        // 清空使用过的变量
+        this.status = 'end'; // 游戏结束
+        cancelAnimFrame(this.updateAnim); // 清除动画更新
+        pauseSound(nowLv.bgMusic);  // 清除声音
+        //清空使用过的变量
         this.lasers = undefined;
         this.home = undefined;
-        this.wolf = undefined;
+        this.wolves = undefined;
         this.walls = undefined;
         this.mirrors = undefined;
         this.bricks = undefined;
         this.clouds = undefined;
+
+        return true;
     }
 
 }

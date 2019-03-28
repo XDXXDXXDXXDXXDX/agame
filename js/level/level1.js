@@ -2,6 +2,7 @@
  * 反射物体需要按照可能性存入数组中
  */
 let Level1 = {
+    level: 1,
     bgMusic: 'bgMusic1',
     laserTransmitter: [
         {
@@ -26,47 +27,6 @@ let Level1 = {
         width: Config.objSize.lightHome.width, // 发射器宽度
         height: Config.objSize.lightHome.height // 发射器高度
     }, 
-    cloud: [
-        {
-            name: 'cloudA',
-            x: 270, // 发射器x坐标，激光开始的x坐标
-            y: 400, // 发射器y坐标，激光结束的y坐标
-            icon: imgBox['cloud3'], // 发射器图标
-            width: Config.objSize.cloud.width * 1.5, // 发射器宽度
-            height: Config.objSize.cloud.height, // 发射器高度
-            cut: [10, 10, 10, 10],
-            move: {
-                x: 240,
-                y: 400,
-                speed: 0.5,
-                regular: 'reverse', //reverse动画会反向播放
-            }
-        },
-        {
-            name: 'cloudB',
-            x: 50, // 发射器x坐标，激光开始的x坐标
-            y: 200, // 发射器y坐标，激光结束的y坐标
-            icon: imgBox['cloud3'], // 发射器图标
-            width: Config.objSize.cloud.width , // 发射器宽度
-            height: Config.objSize.cloud.height, // 发射器高度
-            cut: [10, 10, 10, 10],
-            move: {
-                x: 30,
-                y: 200,
-                speed: 1,
-                regular: 'reverse', //reverse动画会反向播放
-            }
-        },
-        {
-            name: 'cloudC',
-            x: 170, // 发射器x坐标，激光开始的x坐标
-            y: 300, // 发射器y坐标，激光结束的y坐标
-            icon: imgBox['cloud3'], // 发射器图标
-            width: Config.objSize.cloud.width, // 发射器宽度
-            height: Config.objSize.cloud.height, // 发射器高度
-            cut: [10, 10, 10, 10],
-        },
-    ],
     mirror: [  
         {
             name: 'mirrorA',
@@ -125,7 +85,68 @@ let Level1 = {
     ],
     init: function() {
         playSound(this.bgMusic, true);
+        this.cloud = [
+            {
+                name: 'cloudA',
+                x: 270, // 发射器x坐标，激光开始的x坐标
+                y: 400, // 发射器y坐标，激光结束的y坐标
+                icon: imgBox['cloud3'], // 发射器图标
+                width: Config.objSize.cloud.width * 1.5, // 发射器宽度
+                height: Config.objSize.cloud.height, // 发射器高度
+                cut: [5, 5, 5, 5],
+                move: {
+                    x: 240,
+                    y: 400,
+                    speed: 0.5,
+                    regular: 'reverse', //reverse动画会反向播放
+                }
+            },
+            {
+                name: 'cloudB',
+                x: 50, // 发射器x坐标，激光开始的x坐标
+                y: 200, // 发射器y坐标，激光结束的y坐标
+                icon: imgBox['cloud3'], // 发射器图标
+                width: Config.objSize.cloud.width , // 发射器宽度
+                height: Config.objSize.cloud.height, // 发射器高度
+                cut: [10, 10, 10, 10],
+                move: {
+                    x: 30,
+                    y: 200,
+                    speed: 1,
+                    regular: 'reverse', //reverse动画会反向播放
+                }
+            },
+            {
+                name: 'cloudC',
+                x: 170, // 发射器x坐标，激光开始的x坐标
+                y: 300, // 发射器y坐标，激光结束的y坐标
+                icon: imgBox['cloud3'], // 发射器图标
+                width: Config.objSize.cloud.width, // 发射器宽度
+                height: Config.objSize.cloud.height, // 发射器高度
+                cut: [5, 5, 5, 5],
+            },
+        ];
 
         return true;
+    },
+    win: function({lasersNum}) {
+        let starNum = 1;
+        if(lasersNum <= 3) {
+            starNum = 3;
+        }else if(lasersNum <= 5) {
+            starNum = 2;
+        }
+        updateLvInfo({
+            lv: 1,
+            pass: true,
+            star: starNum
+        });
+        updateLvInfo({
+            lv: 3,
+            canPlay: true
+        });
+        updateStar();
+
+        return starNum;
     }
 }

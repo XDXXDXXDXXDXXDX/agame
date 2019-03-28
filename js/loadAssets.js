@@ -27,9 +27,16 @@ $(() => {
         soundBox[key] =  new Audio();
         soundBox[key].src = Config.resources.musics[key];
         soundBox[key].addEventListener('canplaythrough', () => {
-            loadCount++;
-            loadDone();
+            // loadCount++;
+            // loadDone();
         });
+        loadCount++; //苹果不支持canplaythrough
+        loadDone();
+    }
+
+     // 加载关卡文件
+     for(let jsSrc of Config.resources.levelJs) {
+        $('body').append(`<script src="${jsSrc}"></script>`)
     }
 });
 
@@ -51,9 +58,14 @@ function loadDone() {
     if(parseInt($('.loadBg1').css('padding-top')) >= window.innerHeight && loadCount == totalCount) {
         $('#loadAssets').slideUp();
         $('#uiIndex').fadeIn(500);
-        // 加载关卡文件
-        for(let jsSrc of Config.resources.levelJs) {
-            $('body').append(`<script src="${jsSrc}"></script>`)
+        if(localStorage.firstTime == undefined) {
+            Xtoast({
+                type: 'alert',
+                message: '初次进行游戏请点击右下角的小书本查看教程！',
+                callback: function(){
+                    localStorage.firstTime = 1;
+                }
+            });
         }
     }
 }
@@ -88,43 +100,7 @@ var GSctx = gameStage.getContext("2d");
 // 初始等级和星星数量
 // 如果是第一次打开则创建这个数据记录
 if(localStorage.level == undefined) {
-    let level = [];
-    for(let i = 0; i < 5; i++) {
-        level.push({
-            lv: i + 1,
-            pass: false,
-            star: 0,
-            canPlay: i < 2 ? true : false
-        })
-    }
-    localStorage.level = JSON.stringify(level);
-}
-let levelInfo = JSON.parse(localStorage.level);
-for(let lv of levelInfo) {
-    if(lv.canPlay) {
-        $(`#Level${lv.lv}`).removeClass("cant-play");
-    }
-    if(lv.pass) {
-        for(let i = 0; i < lv.star; i++) {
-            $(`#Level${lv.lv} .star img`)[i].src = "assets/img/starFill.png"
-        }
-    }
-    
+    initLevel();
 }
 
-localStorage.level = JSON.stringify(levelInfo);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+updateStar();

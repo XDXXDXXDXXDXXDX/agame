@@ -7,7 +7,7 @@ var Config = {
         offectY: 0
     },
     winTime: 100,
-    playSound: false,
+    playSound: true,
     objSize: {
         laserTransmitter: {
             width: 50,
@@ -33,6 +33,10 @@ var Config = {
         wolf: {
             width: 44,
             height: 35
+        },
+        boom: {
+            width: 33,
+            height: 33
         }
     },
     resources: {
@@ -41,6 +45,7 @@ var Config = {
             'indexBg1': './assets/img/index/loadBg1.png',
             'indexBg2': './assets/img/index/loadBg2.png',
             'moon': './assets/img/moon.png',
+            'boom': './assets/img/boom.png',
             'lv1bg': './assets/img/lv1bg.png',
             'laserTransmitter': './assets/img/laserTransmitter.png',
             'lightStart': './assets/img/lightStart.png',
@@ -51,6 +56,7 @@ var Config = {
             'mirror': './assets/img/mirror.png',
             'wall': './assets/img/wallCut.jpg',
             'wall2': './assets/img/wallCut2.jpg',
+            'wall3': './assets/img/wallCut3.png',
             'cloud': './assets/img/cloud.png',
             'cloud2': './assets/img/cloud2.png',
             'cloud3': './assets/img/cloud3.png',

@@ -54,6 +54,11 @@ class Wall {
                     this.start[i].x = wall.line[0].x;
                     m._x *= -1;
                     m._y *= -1;
+                }else if(m.regular == 'repeat') {
+                    for(let dot of wall.line) {
+                        dot.x -= m.x;
+                        dot.y -= m.y;
+                    }
                 }
             }
         }
@@ -71,7 +76,7 @@ class Wall {
             GSctx.fill();
         }
         GSctx.globalCompositeOperation = 'source-in'; //显示新老重叠的新的部分，以达到显示墙壁纹理
-        GSctx.drawImage(imgBox['wall2'], 0, 0, stageWidth, stageHeight);
+        GSctx.drawImage(imgBox['wall3'], 0, 0, stageWidth, stageHeight);
         GSctx.restore();
     }
 }

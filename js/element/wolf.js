@@ -7,6 +7,7 @@ class Wolf extends Element {
         this.v = 0; // 当前所运动到的帧数
         this.time = 10; //运动动画的快慢（值越大越慢）
         this.arrive = false;
+        this.alive = true;
         this.start = {
            x:  this.x,
            y: this.y
@@ -29,19 +30,26 @@ class Wolf extends Element {
         this._y = dy == 0 ? 1 : dy / ady; // y轴是否递增
         this.xOy = adx > ady ? true : false; // 以x或y为尺度（选为尺度的将以1分割，另外一个以尺度分割的个数来确定分割的单位d，true为x,false为y）
         this.d = this.xOy ? ady / adx : adx / ady; //较小的分度值
+
+        this.r = random(0, 10);
+        if(Math.random() > 0.5) {
+            this.r = - this.r;
+        }
     }
     move() {
-        if(Math.abs(this.x - this.mv.x) > 0.01) {
-            if(this.xOy) {
-                this.x = this.x + this._x * this.mv.speed;
-                this.y = this.y + this.d * this._y * this.mv.speed;
+        if(this.alive) {
+            if(Math.abs(this.x - this.mv.x) > 0.01) {
+                if(this.xOy) {
+                    this.x = this.x + this._x * this.mv.speed;
+                    this.y = this.y + this.d * this._y * this.mv.speed;
+                }else{
+                    this.x = this.x + this.d * this._x * this.mv.speed;
+                    this.y = this.y + this._y * this.mv.speed;
+                }
             }else{
-                this.x = this.x + this.d * this._x * this.mv.speed;
-                this.y = this.y + this._y * this.mv.speed;
+                this.arrive = true; 
             }
-        }else{
-            this.arrive = true; 
-        }
+        } 
     }
     draw() {
         let drawX = 0 - this.width / 2;
@@ -51,7 +59,11 @@ class Wolf extends Element {
         if(this.mv.dir) {
             GSctx.scale(-1, 1);
         }
-        GSctx.drawImage(this.icon, this.icon.width * (this.count / this.total), 0, this.icon.width / this.total, this.icon.height, drawX, drawY, this.width, this.height);
+        if(this.arrive || !this.alive) {
+            GSctx.drawImage(imgBox['boom'], drawX + this.r, drawY + this.r, Config.objSize.boom.width, Config.objSize.boom.height);
+        }else{
+            GSctx.drawImage(this.icon, this.icon.width * (this.count / this.total), 0, this.icon.width / this.total, this.icon.height, drawX, drawY, this.width, this.height);
+        }
         if(this.v < this.time * (this.count + 1)) {
             this.v++;
         }else{
