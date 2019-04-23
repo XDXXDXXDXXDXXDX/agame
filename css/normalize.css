@@ -6,6 +6,7 @@
 
 body {
     overflow: hidden;
+    position: relative;
 }
 
 button {
@@ -19,7 +20,7 @@ ul, li {
 }
 
 .toast-mask {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     background-color: rgb(127, 127, 127, 0.5);
@@ -30,29 +31,31 @@ ul, li {
 
 .toast {
     position: absolute;
-    width: 80%;
-    height: 40%;
-    max-width: 300px;
-    max-height: 270px;
-    left: 10%;
-    top: 30%;
+    width: 90%;
+    /* height: 20%; */
+    /* max-width: 300px; */
+    /* max-height: 270px; */
+    left: 5%;
+    top: 40%;
     background-color: #ffffff;
-    border-radius: 6px;
+    border-radius: 12px;
     padding: 20px;
     box-sizing: border-box;
 }
-.toast-header {
+/* .toast-header {
     height: 30%;
-}
+} */
 .toast-body {
+    padding: 30px 0;
     text-align: center;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
-    height: 40%;
+    /* height: 50%; */
     overflow: auto;
+    color: #00486E;
 }
 .toast-footer {
-    height: 30%;
+    /* height: 50%; */
     display: flex;
     display: -webkit-flex; /* Safari */
     flex-wrap: wrap;
@@ -60,8 +63,16 @@ ul, li {
     align-items: center;
 }
 .toast-btn {
-    border: 2px solid #000000;
+    /* border: 2px solid #000000; */
     border-radius: 6px;
-    width: 80px;
+    width: 30%;
+    font-size: 22px;
     height: 40px;
+    color: #ffffff;
+}
+.toast-btn:nth-child(1) {
+    background-color: #00486E;
+}
+.toast-btn:nth-child(2) {
+    background-color: #F71E5C;
 }

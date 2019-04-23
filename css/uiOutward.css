@@ -1,15 +1,38 @@
-#uiIndex, #uiStatistic, #uiInfo, #uiGamming, #uiSelectLv, #uiStarTur {
+#uiIndex, #uiStatistic, #uiGamming, #uiSelectLv {
     width: 100%;
     height: 100%;
     position: relative;
     box-sizing: border-box;
+    overflow: hidden;
 } 
+#uiInfo, #uiStarTur {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 20;
+}
+.tur-box {
+    width: 90%;
+    height: 80%;
+    position: absolute;
+    box-sizing: border-box;
+    overflow: hidden;
+    top: 10%;
+    left: 5%;
+    background-color: #fff;
+    border-radius: 12px;
+    z-index: 12;
+}
 
 #uiIndex .head-ctn {
     width: 100%;
-    height: 80%;
-    background-image: -webkit-linear-gradient(left, #FF7A00, #FE560A);
-    background-image: linear-gradient(to right, #FF7A00, #FE560A);
+    height: 100%;
+    /* background-image: -webkit-linear-gradient(left, #FF7A00, #FE560A);
+    background-image: linear-gradient(to right, #FF7A00, #FE560A); */
+    background-image: url(../assets/img/index/index.png);
+    background-size: 100% 100%;
     color: #fff;
     font-size: 40px;
     font-weight: bold;
@@ -23,7 +46,7 @@
     top: 80%;
     bottom: 0px;
     left: 0px;
-    background-color: #C60A0A;
+    /* background-color: #C60A0A; */
     z-index: 0;
 }
 #uiIndex .foot-features {
@@ -31,8 +54,8 @@
     height: 80px;
     position: absolute;
     bottom: 0px;
-    background-image: -webkit-linear-gradient(left, #FFC500, #FF9402);
-    background-image: linear-gradient(to right, #FFC500, #FF9402);
+    /* background-image: -webkit-linear-gradient(left, #FFC500, #FF9402);
+    background-image: linear-gradient(to right, #FFC500, #FF9402); */
     padding: 10px 0;
     box-sizing: border-box;
     display: flex;
@@ -57,9 +80,14 @@
 #uiIndex .related-info {
     color: #fff;
 }
+.head-ctn {
+    height: 100%;
+}
 .head-ctn .game-name {
-    padding-top: 20%;
-    height: 20%;
+    padding-top: 100%;
+    /* margin-top: 50%; */
+    width: 100%;
+    /* height: 20%; */
 }
 .head-ctn .game-name img{
     max-width: 90%;
@@ -69,7 +97,7 @@
 .start-game {
     width: 90%;
     height: 46%;
-    margin: 5% auto;
+    /* margin: 5% auto; */
     border: 1px solid #000;
     border-radius: 12px;
     display: table;
@@ -94,12 +122,6 @@
     padding-top: 10%;
     box-sizing: border-box;
 }
-
-/* 等级选择页面 */
-.levelBox {
-    position: absolute;
-    text-align: center;
-}
 .level-bg {
     position: absolute;
     background-color: antiquewhite;
@@ -109,29 +131,8 @@
     -webkit-transform: rotate(45deg); 
     -o-transform: rotate(45deg); 
 }
-.levelBox.cant-play .level-bg {
-    background-color: #7f7f7f;
-}
 .levelCtn {
     position: relative;
-}
-.lv5, .lv5 .level-bg, .lv5 .levelCtn {
-    width: 150px;
-    height: 150px;
-}
-.lv5 .star-img {
-    width: 50px;
-}
-.lv5 h3 {
-    font-size: 20px;
-    height: 40px;
-    line-height: 40px;
-}
-.lv5 {
-    z-index: 1;
-    top: 50%;
-    left: 50%;
-    margin: -75px 0 0 -75px;
 }
 .s-lv, .s-lv .level-bg, .s-lv .levelCtn {
     width: 110px;
@@ -148,26 +149,6 @@
 .s-lv {
     z-index: 2;
 }
-.lv1 {
-    top: 50%;
-    left: 50%;
-    margin: -155px 0 0 -155px;
-}
-.lv2 {
-    top: 50%;
-    right: 50%;
-    margin: -155px -155px 0 0;
-}
-.lv3 {
-    bottom: 50%;
-    left: 50%;
-    margin: 0 0 -155px -155px;
-}
-.lv4 {
-    bottom: 50%;
-    right: 50%;
-    margin: 0 -155px -155px 0;
-}
 
 /* 统计页面 */
 #uiStatistic {
@@ -175,28 +156,29 @@
 }
 
 /* 通用按钮 */
-.go2index, .go2Select {
+/* .go2index, .go2Select {
     position: absolute;
     top: 0;
     left: 0;
     border: 1px solid #000;
     padding: 4px 12px;
     z-index: 6;
-}
-.show-game-menu {
+} */
+/* .show-game-menu {
     position: absolute;
     top: 0;
     right: 0;
     border: 1px solid #000;
     padding: 4px 12px;
     z-index: 6;
-}
+} */
 
 /* 通关结算页面 */
 .win-level {
-    position: fixed;
+    display: none;
+    position: absolute;
     width: 80%;
-    height: 300px;
+    /* height: 300px; */
     left: 10%;
     top: 50%;
     margin-top: -150px;
@@ -204,25 +186,39 @@
     text-align: center;
     background-color: #fff;
     border-radius: 12px;
-    padding: 40px 0;
+    padding: 30px 10px;
     box-sizing: border-box;
 }
+.win-img {
+    max-width: 171px;
+}
 .win-level .star {
-    margin-top: 40px;
+    margin-top: 14px;
+    display: flex;
+    justify-content: space-around;
+}
+.win-level .star li {
+    width: 25%;
 }
 .win-level .star img {
-    width: 50px;
+    width: 90%;
 }
 .win-btn {
-    margin-top: 40px;
+    margin-top: 14px;
     display: flex;
     justify-content: space-around;
 }
 .win-btn button {
     width: 30%;
     height: 40px;
-    border: 1px solid #000;
+    /* border: 1px solid #000; */
     border-radius: 6px;
+    color: #fff;
+    font-size: 14px;
+    background-color: #00486E;
+}
+.win-btn button:nth-child(3) {
+    background-color: #F71E5C;
 }
 
 
@@ -243,9 +239,10 @@
 
 .help-info {
     width: 100%;
-    height: 80%;
-    padding-top: 10%;
+    height: 70%;
+    padding-top: 20px;
     overflow-y: auto;
+    box-sizing: border-box;
 }
 .version-info {
     width: 100%;
@@ -256,18 +253,20 @@
     color: #7f7f7f;
 }
 .tur-cta {
-    border: 1px solid #000;
+    /* border: 1px solid #000; */
     box-sizing: border-box;
     padding: 10px 0;
     border-radius: 6px;
     font-size: 14px;
-    width: 90%;
+    width: 86%;
     margin: auto;
     display: flex;
     justify-content: space-around;
+    background-color: #E0E0E0;
+    color: #00486E;
 }
 .tur-cta:not(.first) {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 .tur-cta img {
     width: 20%;
@@ -275,6 +274,33 @@
 }
 .tur-cta p {
     width: 74%
+}
+#uiInfo h2, #uiStarTur h2 {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    color: #00486E;
+    padding-top: 30px;
+    height: 14%;
+    box-sizing: border-box;
+}
+.close-cta {
+    height: 16%;
+    position: relative;
+}
+.close-tur {
+    font-size: 22px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -20px;
+    margin-left: -50px;
+    width: 100px;
+    height: 40px;
+    background-color: #F71E5C;
+    color: #fff;
+    border-radius: 6px;
+    display: block;
 }
 
 .star-tur {
@@ -290,13 +316,18 @@
     border: 1px solid #000;
     border-radius: 6px;
 }
-
-#uiStarTur {
-    padding-top: 50px;
+#uiStarTur .table-cta {
+    height: 70%;
+    overflow: auto;
+    box-sizing: border-box;
+    padding-top: 20px;
 }
 #uiStarTur table {
     width: 90%;
     margin: auto;
+    /* height: 70%; */
+    box-sizing: border-box;
+    padding-top: 30px;
     border-collapse: collapse;
     text-align: center;
     font-size: 10px;
@@ -304,4 +335,130 @@
 #uiStarTur table td, #uiStarTur table th {
     border: 1px solid #000;
     padding: 10px 4px;
+}
+
+.lv-public {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: none;
+    z-index: 10;
+}
+.lv-public .lt-moon {
+    position: absolute;
+    width: 100%;
+    top: -25%;
+    left: -35%;
+}
+.lvn {
+    display: none;
+}
+#Level1 {
+    width: 100%;
+    height: 100%;
+    background-image: url(../assets/img/slvBg/lv1.jpg);
+    background-size: 100% 100%;
+}
+#Level2 {
+    width: 100%;
+    height: 100%;
+    background-image: url(../assets/img/slvBg/lv2.jpg);
+    background-size: 100% 100%;
+}
+#Level3 {
+    width: 100%;
+    height: 100%;
+    background-image: url(../assets/img/slvBg/lv3.jpg);
+    background-size: 100% 100%;
+}
+#Level4 {
+    width: 100%;
+    height: 100%;
+    background-image: url(../assets/img/slvBg/lv4.jpg);
+    background-size: 100% 100%;
+}
+#Level5 {
+    width: 100%;
+    height: 100%;
+    background-image: url(../assets/img/slvBg/lv5.jpg);
+    background-size: 100% 100%;
+}
+
+.fun-btn-box {
+    position: absolute;
+    right: 5%;
+    top: 0;
+    width: 10%
+}
+.fun-btn-box li {
+    margin-top: 20px;
+}
+.fun-btn {
+    width: 100%
+}
+.star-box {
+    position: absolute;
+    width: 40%;
+    top: 61%;
+    left: 30%;
+    display: flex;
+    justify-content: space-between;
+}
+.star-box li {
+    width: 32%
+}
+.star-box img {
+    width: 100%;
+}
+
+.change-lv {
+    position: absolute;
+    width: 90%;
+    top: 50%;
+    left: 5%;
+    display: flex;
+    justify-content: space-between;
+}
+.change-lv img {
+    width: 40%;
+}
+.change-lv li:nth-child(2) {
+    text-align: right;
+}
+.see-pre-lv {
+    display: none;
+}
+
+.select-help, .extra-ctn {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 11;
+    display: none;
+}
+.help-cta, .extra-cta {
+    width: 90%;
+    height: 200px;
+    position: absolute;
+    top: 40%;
+    left: 5%;
+    border-radius: 12px;
+    background-color: #fff;
+    padding-top: 1px;
+    box-sizing: border-box;
+}
+.help-cta li, .extra-cta li {
+    width: 80%;
+    background-color: #00486E;
+    margin: 30px auto;
+    color: #fff;
+    text-align: center;
+    font-size: 22px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 6px;
 }

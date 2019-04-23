@@ -20,17 +20,17 @@ let Level1 = {
     lightHome: {
         name: 'lightHomeA',
         x: 300, // 发射器x坐标，激光开始的x坐标
-        y: 620, // 发射器y坐标，激光结束的y坐标
+        y: 600, // 发射器y坐标，激光结束的y坐标
         deg: 0,
-        icon: imgBox['homeDark'], // 发射器图标
-        activeIcon: imgBox['homeLight'],
+        icon: imgBox['homeDark1'], // 发射器图标
+        activeIcon: imgBox['homeLight1'],
         width: Config.objSize.lightHome.width, // 发射器宽度
         height: Config.objSize.lightHome.height // 发射器高度
     }, 
     mirror: [  
         {
             name: 'mirrorA',
-            x: 155, // 发射器x坐标，激光开始的x坐标
+            x: 115, // 发射器x坐标，激光开始的x坐标
             y: 191, // 发射器y坐标，激光结束的y坐标
             deg: 330,
             icon: imgBox['mirror'], // 发射器图标
@@ -39,7 +39,7 @@ let Level1 = {
         },    
         {
             name: 'mirrorB',
-            x: 229, // 发射器x坐标，激光开始的x坐标
+            x: 210, // 发射器x坐标，激光开始的x坐标
             y: 188, // 发射器y坐标，激光结束的y坐标
             deg: 180,
             icon: imgBox['mirror'], // 发射器图标
@@ -48,8 +48,8 @@ let Level1 = {
         },   
         {
             name: 'mirrorC',
-            x: 191, // 发射器x坐标，激光开始的x坐标
-            y: 185, // 发射器y坐标，激光结束的y坐标
+            x: 160, // 发射器x坐标，激光开始的x坐标
+            y: 184, // 发射器y坐标，激光结束的y坐标
             deg: 10,
             icon: imgBox['mirror'], // 发射器图标
             width: Config.objSize.mirror.width, // 发射器宽度
@@ -57,8 +57,8 @@ let Level1 = {
         },    
         {
             name: 'mirrorD',
-            x: 262, // 发射器x坐标，激光开始的x坐标
-            y: 204, // 发射器y坐标，激光结束的y坐标
+            x: 253, // 发射器x坐标，激光开始的x坐标
+            y: 206, // 发射器y坐标，激光结束的y坐标
             deg: 45,
             icon: imgBox['mirror'], // 发射器图标
             width: Config.objSize.mirror.width, // 发射器宽度
@@ -66,8 +66,8 @@ let Level1 = {
         },
         {
             name: 'mirrorE',
-            x: 294, // 发射器x坐标，激光开始的x坐标
-            y: 210, // 发射器y坐标，激光结束的y坐标
+            x: 292, // 发射器x坐标，激光开始的x坐标
+            y: 212, // 发射器y坐标，激光结束的y坐标
             deg: 330,
             icon: imgBox['mirror'], // 发射器图标
             width: Config.objSize.mirror.width, // 发射器宽度
@@ -75,8 +75,8 @@ let Level1 = {
         },   
         {
             name: 'mirrorF',
-            x: 311, // 发射器x坐标，激光开始的x坐标
-            y: 181, // 发射器y坐标，激光结束的y坐标
+            x: 314, // 发射器x坐标，激光开始的x坐标
+            y: 174, // 发射器y坐标，激光结束的y坐标
             deg: 270,
             icon: imgBox['mirror'], // 发射器图标
             width: Config.objSize.mirror.width, // 发射器宽度
@@ -150,3 +150,5 @@ let Level1 = {
         return starNum;
     }
 }
+
+nowLv = Level1; //默认为第一关

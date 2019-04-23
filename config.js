@@ -21,9 +21,13 @@ var Config = {
             width: 50,
             height: 50
         },
+        // mirror: {
+        //     width: 44,
+        //     height: 5
+        // },
         mirror: {
-            width: 44,
-            height: 5
+            width: 66,
+            height: 16
         },
         cloud: {
             width: 96,
@@ -35,8 +39,12 @@ var Config = {
             height: 35
         },
         boom: {
-            width: 33,
-            height: 33
+            width: 16,
+            height: 25
+        },
+        break: {
+            width: 25,
+            height: 25
         }
     },
     resources: {
@@ -46,12 +54,19 @@ var Config = {
             'indexBg2': './assets/img/index/loadBg2.png',
             'moon': './assets/img/moon.png',
             'boom': './assets/img/boom.png',
+            'break': './assets/img/break.png',
             'lv1bg': './assets/img/lv1bg.png',
             'laserTransmitter': './assets/img/laserTransmitter.png',
             'lightStart': './assets/img/lightStart.png',
             'lightHome': './assets/img/lightHome.png',
-            'homeDark': './assets/img/homeDark.png',
-            'homeLight': './assets/img/homeLight.png',
+            // 'homeDark': './assets/img/homeDark.png',
+            'homeDark1': './assets/img/homeDark1.png',
+            'homeDark2': './assets/img/homeDark2.png',
+            'homeDark3': './assets/img/homeDark3.png',
+            'homeDark4': './assets/img/homeDark4.png',
+            'homeDark5': './assets/img/homeDark5.png',
+            // 'homeLight': './assets/img/homeLight.png',
+            'homeLight1': './assets/img/homeLight1.png',
             'lightInHome': './assets/img/lightInHome.png',
             'mirror': './assets/img/mirror.png',
             'wall': './assets/img/wallCut.jpg',

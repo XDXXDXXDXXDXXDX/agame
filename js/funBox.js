@@ -141,26 +141,33 @@ function emitLaser(startX, startY, endX, endY) {
  */
 function calRefAngle(deg1, deg2) {
     let refAngle = 0;
-    let extraDeg = deg1 < 180 ? 0 : 180;
-    deg1 = deg1 < 180 ? deg1 : deg1 - 180;
+    // let extraDeg = deg1 < 180 ? 0 : 180;
+    // deg1 = deg1 < 180 ? deg1 : deg1 - 180;
     deg2 = deg2 < 180 ? deg2 : deg2 - 180; 
-    if(deg2 < 90) {
-        if(deg1 > deg2) {
-            let delta = 2 * deg2;
-            if(deg1 == delta) {
-                refAngle = 0
-            }else if(deg1 > delta){
-                refAngle = 360 - deg1 + 2 * deg2;
-            }else if(deg1 < delta){
-                refAngle = 2 * deg2 - deg1;
-            }
-        }else{
-            refAngle = 2 * deg2 - deg1;
-        }
-    }else{
-        refAngle = 2 * deg2 - deg1;
+    // if(deg2 < 90) {
+    //     if(deg1 > deg2) {
+    //         let delta = 2 * deg2;
+    //         if(deg1 == delta) {
+    //             refAngle = 0
+    //         }else if(deg1 > delta){
+    //             refAngle = 360 - deg1 + 2 * deg2;
+    //         }else if(deg1 < delta){
+    //             refAngle = 2 * deg2 - deg1;
+    //         }
+    //     }else{
+    //         refAngle = 2 * deg2 - deg1;
+    //     }
+    // }else{
+    //     refAngle = 2 * deg2 - deg1;
+    // }
+    // refAngle = refAngle + extraDeg < 360 ? refAngle + extraDeg : refAngle + extraDeg - 360;
+    refAngle = 2 * deg2 - deg1;
+    if(refAngle >= 360) {
+        refAngle = refAngle - 360;
+    }else if(refAngle < 0) {
+        refAngle = refAngle + 360;
     }
-    refAngle = refAngle + extraDeg < 360 ? refAngle + extraDeg : refAngle + extraDeg - 360;
+    
     return refAngle;
 }
 
@@ -198,7 +205,8 @@ function calNewXY(target) {
  * @param {boolean} loop 是否循环
  */
 function playSound(name, loop) {
-    if(Config.playSound == true) {
+    // if(Config.playSound == true) {
+    if(localStorage.playSound == "1") {
         if(loop) {
             soundBox[name].loop = 'loop'; 
         }
@@ -211,8 +219,19 @@ function pauseSound(name) {
 }
 
 function toggleSound() {
-    Config.playSound = !Config.playSound;
-    $('.volume').html(Config.playSound ? '<i class="fas fa-volume-up">' : '<i class="fas fa-volume-mute"></i>');
+    if(localStorage.playSound == "1") {
+        pauseSound(nowLv.bgMusic);
+        localStorage.playSound = "0";
+        $('.volume').attr('src', './assets/img/index/xsound.png');
+    }else{
+        localStorage.playSound = "1";
+        if(Game.status == 'gaming') {
+            playSound(nowLv.bgMusic, true)
+        }
+        $('.volume').attr('src', './assets/img/index/sound.png');
+    }
+    // Config.playSound = !Config.playSound;
+    // $('.volume').html(Config.playSound ? '<i class="fas fa-volume-up">' : '<i class="fas fa-volume-mute"></i>');
 }
 
 /**
@@ -261,14 +280,14 @@ function Xtoast({
         `);
     }
     // 屏幕过大时重新定位
-    if(window.innerWidth > 375) {
-        $('.toast').css({
-            left: '50%',
-            top: '50%',
-            marginLeft: '-150px',
-            marginTop: '-135px'
-        })
-    }
+    // if(window.innerWidth > 375) {
+    //     $('.toast').css({
+    //         left: '50%',
+    //         top: '50%',
+    //         marginLeft: '-150px',
+    //         marginTop: '-135px'
+    //     })
+    // }
     $('.toast').fadeIn();
     $('.toast').click((e) => {
         e.stopPropagation();  
@@ -339,10 +358,10 @@ function updateStar() {
         }
         if(lv.pass) {
             for(let i = 0; i < lv.star; i++) {
-                $(`#Level${lv.lv} .star img`)[i].src = "assets/img/starFill.png";
+                $(`#Level${lv.lv} .star-box img`)[i].src = "assets/img/starFill.png";
             }
         }else{
-            $(`#Level${lv.lv} .star img`).attr('src', 'assets/img/starEmpty.png');
+            $(`#Level${lv.lv} .star-box img`).attr('src', 'assets/img/starEmpty.png');
         }
         
     } 
@@ -361,6 +380,17 @@ function initLevel() {
     }
     localStorage.level = JSON.stringify(level);
 }
+// 解锁所有关卡
+$('.unlock-all').click(() => {
+    let levelInfo = JSON.parse(localStorage.level);
+    for(let level of levelInfo) {
+        level.canPlay = true;
+    }
+
+    localStorage.level = JSON.stringify(levelInfo);
+    updateStar();
+    $('.extra-ctn').fadeOut();
+});
 
 // 更新关卡信息
 function updateLvInfo({lv, pass, star, canPlay}) {
@@ -374,10 +404,78 @@ function updateLvInfo({lv, pass, star, canPlay}) {
     }
 
     localStorage.level = JSON.stringify(levelInfo);
-    
 }
 
 // 生成n~m的随机数,可以取n,m
 function random(n, m) {
     return Math.floor(Math.random() * (m - n + 1) + n);
+}
+
+// 展开游戏菜单
+function toggleMenu() {
+    if($('.game-fun').css('display') == 'none') {
+        $('.game-fun').fadeIn();
+        $('.show-game-menu').attr('src', './assets/img/index/close.png');
+    }else{
+        $('.game-fun').fadeOut();
+        $('.show-game-menu').attr('src', './assets/img/index/menu.png');
+    }
+}
+
+// XDXUI切换效果
+function xLeft(s1, s2) { 
+    $(s1).css({
+        position: 'absolute',
+        left: 0,
+        top: 0
+    });
+    $(s2).css({
+        position: 'absolute',
+        left: '100%',
+        top: 0
+    });
+    $(s2).show();
+    $(s1).animate({left:'-100%'}, function() {
+        $(s1).hide();
+        $(s1).css({
+            position: '',
+            left: '',
+            top: ''
+        });
+    });
+    $(s2).animate({left:0}, function() {
+        $(s2).css({
+            position: '',
+            left: '',
+            top: ''
+        });
+    });
+}
+function xRight(s1, s2) { 
+    $(s1).css({
+        position: 'absolute',
+        left: 0,
+        top: 0
+    });
+    $(s2).css({
+        position: 'absolute',
+        left: '-100%',
+        top: 0
+    });
+    $(s2).show();
+    $(s1).animate({left:'100%'}, function() {
+        $(s1).hide();
+        $(s1).css({
+            position: '',
+            left: '',
+            top: ''
+        });
+    });
+    $(s2).animate({left:0}, function() {
+        $(s2).css({
+            position: '',
+            left: '',
+            top: ''
+        });
+    });
 }

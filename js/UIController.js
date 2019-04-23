@@ -12,11 +12,15 @@ $('.related-info').click(() => {
 });
 // 开始游戏按钮
 $('.start-game').click(() => {
+    if(localStorage.first != undefined && localStorage.first == '1') {
+        $('#uiInfo').slideDown();
+    }
     $('#uiIndex').slideUp();
     $('#uiSelectLv').fadeIn(500);
 });
 // 返回到首页按钮
 $('.go2index').click(() => {
+    $('#uiSelectLv').fadeOut();
     $('#uiStatistic').fadeOut();
     $('#uiInfo').fadeOut();
     $('#loadAssets').fadeOut();
@@ -28,7 +32,7 @@ $('.back2select-lv').click(() => {
     if(Game.status == 'gaming') {
         Xtoast({
             type: 'confirm',
-            message: '选择别的关卡吗？当前游戏进度将不会保存！',
+            message: '确认要退出关卡吗？',
             callback: function(){
                 $('.menu').hide();
                 Game.end();
@@ -85,7 +89,7 @@ $('.replay').click(() => {
     if(Game.status == 'gaming') {
         Xtoast({
             type: 'confirm',
-            message: '确认重新开始当前关卡吗？当前记录将不会保存！',
+            message: '确认重新开始当前关卡吗？',
             callback: function(){
                 $('.menu').hide();
                 Game.end();
@@ -99,43 +103,24 @@ $('.replay').click(() => {
     }
 });
 // 关卡选择
-$('.levelBox').bind('click', function(){
-    if(!$(`#${this.id}`).hasClass("cant-play")) {
+$('.lv-public').click(() => {
+    let lvNum = nowLv.level;
+    if(!$(`#Level${lvNum}`).hasClass("cant-play")) {
         $('#uiSelectLv').hide();
+        $('#uiGamming').attr('class', `lv${lvNum}`);
         $('#uiGamming').fadeIn(500);
-    }
-    switch(this.id) {
-        case 'Level1': 
-            Game.start(Level1);
-        break;
-        case 'Level2': 
-            Game.start(Level2);
-        break;
-        case 'Level3': 
-            if(!$('#Level3').hasClass("cant-play")) {
-                Game.start(Level3);
-            }
-        break;
-        case 'Level4': 
-            if(!$('#Level4').hasClass("cant-play")) {
-                Game.start(Level4);
-            }
-        break;
-        case 'Level5': 
-            if(!$('#Level5').hasClass("cant-play")) {
-                Game.start(Level5);
-            }  
-        break;
+        Game.start(nowLv);
     }
 });
 
-// 充值关卡等级
+// 重置关卡等级
 $('.reset-level').click(() => {
     initLevel();
     updateStar();
     $('#Level3').addClass('cant-play');
     $('#Level4').addClass('cant-play');
     $('#Level5').addClass('cant-play');
+    $('.extra-ctn').fadeOut();
 });
 
 // 进入星星教程
@@ -149,3 +134,79 @@ $('.go2Select').click(() => {
     $('#uiStarTur').slideUp();
     $('#uiSelectLv').fadeIn(500);
 });
+
+// 查看下一关
+$('.see-next-lv').click(() => {
+    let lvNum = nowLv.level;
+    $('.see-pre-lv').show();
+    if(lvNum == 1) {
+        nowLv = Level2;
+    }else if(lvNum == 2){
+        nowLv = Level3;
+    }else if(lvNum == 3){
+        nowLv = Level4;
+    }else if(lvNum == 4){
+        nowLv = Level5;
+        $('.see-next-lv').hide(); //隐藏下一关按钮
+    }
+    xLeft(`#Level${lvNum}`, `#Level${lvNum + 1}`);
+});
+// 查看上一关
+$('.see-pre-lv').click(() => {
+    let lvNum = nowLv.level;
+    $('.see-next-lv').show();
+    if(lvNum == 2){
+        nowLv = Level1;
+        $('.see-pre-lv').hide(); //隐藏上一关按钮
+    }else if(lvNum == 3){
+        nowLv = Level2;
+    }else if(lvNum == 4){
+        nowLv = Level3;
+    }else if(lvNum == 5){
+        nowLv = Level4; 
+    }
+    xRight(`#Level${lvNum}`, `#Level${lvNum - 1}`);
+});
+
+// 帮助相关
+$('.select-help').click(() => {
+    $('.select-help').fadeOut();
+}); 
+$('.show-help').click(() => {
+    $('.select-help').fadeIn();
+});
+$('.how-to-play').click(() => {
+    $('.select-help').hide();
+    $('#uiInfo').slideDown();
+});
+$('.get-3-star').click(() => {
+    $('.select-help').hide();
+    $('#uiStarTur').slideDown();
+});
+$('.close-tur').click(() => {
+    $('#uiInfo').slideUp();
+    $('#uiStarTur').slideUp();
+});
+
+// 额外操作
+$('.extra-ctn').click(() => {
+    $('.extra-ctn').fadeOut();
+}); 
+$('.lt-moon').click(() => {
+    $('.extra-ctn').fadeIn();
+});
+
+// 禁止冒泡
+let stopProArr = [
+    '.fun-btn-box',
+    '.see-lv',
+    '.help-cta',
+    '.extra-cta',
+    '.lt-moon'
+];
+for(let select of stopProArr) {
+    $(select).click((e) => {
+        e.stopPropagation();
+    });
+}
+

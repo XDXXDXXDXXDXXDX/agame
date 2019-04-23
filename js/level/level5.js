@@ -22,12 +22,12 @@ let Level5 = {
         x: 186, // 发射器x坐标，激光开始的x坐标
         y: 600, // 发射器y坐标，激光结束的y坐标
         deg: 0,
-        icon: imgBox['homeDark'], // 发射器图标
-        activeIcon: imgBox['homeLight'],
+        icon: imgBox['homeDark5'], // 发射器图标
+        activeIcon: imgBox['homeLight1'],
         width: Config.objSize.lightHome.width, // 发射器宽度
         height: Config.objSize.lightHome.height // 发射器高度
     }, 
-    mirror: [  
+    mirror: Level1.mirror,/*[  
         {
             name: 'mirrorA',
             x: 155, // 发射器x坐标，激光开始的x坐标
@@ -82,7 +82,7 @@ let Level5 = {
             width: Config.objSize.mirror.width, // 发射器宽度
             height: Config.objSize.mirror.height // 发射器高度
         },    
-    ],
+    ],*/
     wolf: [
         {
             name: 'wolfA',

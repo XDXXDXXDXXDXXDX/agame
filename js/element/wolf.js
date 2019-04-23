@@ -59,8 +59,10 @@ class Wolf extends Element {
         if(this.mv.dir) {
             GSctx.scale(-1, 1);
         }
-        if(this.arrive || !this.alive) {
+        if(this.arrive) {
             GSctx.drawImage(imgBox['boom'], drawX + this.r, drawY + this.r, Config.objSize.boom.width, Config.objSize.boom.height);
+        }else if(!this.alive) {
+            GSctx.drawImage(imgBox['break'], drawX + this.r, drawY + this.r, Config.objSize.break.width, Config.objSize.break.height);
         }else{
             GSctx.drawImage(this.icon, this.icon.width * (this.count / this.total), 0, this.icon.width / this.total, this.icon.height, drawX, drawY, this.width, this.height);
         }

@@ -8,6 +8,7 @@ var Game = {
         
         this.update(); // 更新画面
         this.bindTouchAction(); // 绑定触摸操作
+        this.bindClickAction(); // 绑定鼠标事件
     },
     init: function() {
         let level = nowLv;
@@ -51,7 +52,6 @@ var Game = {
         }
         // 制作碎块
         this.makeBricks();
-
     },
     makeBricks() {
         this.bricks = [];
@@ -220,6 +220,7 @@ var Game = {
     bindTouchAction: function() {
         let lasers = this.lasers;
         let mirrors = this.mirrors;
+        let home = this.home;
         let timeOutEvent = '';
 
         let startX = 0,
@@ -228,27 +229,33 @@ var Game = {
             endY = 0,
             activeMirror = '';
 
+        // 绑定滑块
+        $(".changeDeg input").attr({
+            value: this.lasers[0].deg,
+            // onInput: `Game.changeLDeg(this, 0)`
+        });
+
         gameStage.addEventListener('touchstart', (e) => {
             startX = e.targetTouches[0].pageX - Config.window.offectX;
             startY = e.targetTouches[0].pageY - Config.window.offectY;
             e.preventDefault();
             // 每次点击都去除页面中的已存在的控制器
-            $('.changeDeg').remove();
+            // $('.changeDeg').remove();
 
-            for([i, laser] of lasers.entries()) {
-                let d = nodesD({x:startX, y: startY}, {x: laser.x, y: laser.y});   
-                if(d < laser.width / 2) {
-                    // $('#uiGamming').append(`<div class="changeDeg" style="top:${laser.y + 50}px;left:${laser.x + 50}px"><input type="range" value="${laser.deg}" min="0" max="360" class="deg_range" oninput="Game.changeLDeg(this, ${i})"></div>`);
-                    $('#uiGamming').append(`<div class="changeDeg" style="bottom:100px;left:30%"><input type="range" value="${laser.deg}" min="0" max="360" class="deg_range" oninput="Game.changeLDeg(this, ${i})"></div>`);
-                    $(".changeDeg").click((e) => {
-                        e.stopPropagation();    //  阻止事件冒泡
-                    });
-                    break;
-                }
-            }
+            // for([i, laser] of lasers.entries()) {
+            //     let d = nodesD({x:startX, y: startY}, {x: laser.x, y: laser.y});   
+            //     if(d < laser.width / 2) {
+            //         // $('#uiGamming').append(`<div class="changeDeg" style="top:${laser.y + 50}px;left:${laser.x + 50}px"><input type="range" value="${laser.deg}" min="0" max="360" class="deg_range" oninput="Game.changeLDeg(this, ${i})"></div>`);
+            //         $('#uiGamming').append(`<div class="changeDeg" style="bottom:100px;left:30%"><input type="range" value="${laser.deg}" min="0" max="360" class="deg_range" oninput="Game.changeLDeg(this, ${i})"></div>`);
+            //         $(".changeDeg").click((e) => {
+            //             e.stopPropagation();    //  阻止事件冒泡
+            //         });
+            //         break;
+            //     }
+            // }
 
             activeMirror = '';
-            timeOutEvent = setTimeout(function(){
+            // timeOutEvent = setTimeout(function(){
                 for([i, mirror] of mirrors.entries()) {
                     let d = nodesD({x:startX, y: startY}, {x: mirror.x, y: mirror.y});
                     if(d < mirror.width / 2) {
@@ -256,7 +263,8 @@ var Game = {
                         break;
                     }
                 }
-            },500);
+            // },500);
+            
             // 如果是狼的话，第四关可以通关点击杀掉
             if(nowLv.level == 4) {
                 for(let wolf of this.wolves) {
@@ -273,10 +281,13 @@ var Game = {
 
             // 第五关长按可以移动房子
             if(nowLv.level == 5) {
-                let d = nodesD({x:startX, y: startY}, {x: this.home.x, y: this.home.y});
-                if(d < this.home.width / 2) {
-                    activeMirror = this.home;
-                }
+                timeOutEvent = setTimeout(function(){
+                    // console.log(this.home)
+                    let d = nodesD({x:startX, y: startY}, {x: home.x, y: home.y});
+                    if(d < home.width / 2) {
+                        activeMirror = home;
+                    }
+                },500);
             }
         });     
 
@@ -300,9 +311,90 @@ var Game = {
         gameStage.addEventListener('touchend', (e) => {
             e.preventDefault();
             clearTimeout(timeOutEvent);
-        });   
+        });    
+    },
+    bindClickAction: function() {
+        let lasers = this.lasers;
+        let mirrors = this.mirrors;
+        let home = this.home;
+        let timeOutEvent = '';
 
-        
+        let startX = 0,
+            startY = 0,
+            endX = 0,
+            endY = 0,
+            activeMirror = '';
+
+        // 绑定滑块
+        $(".changeDeg input").attr({
+            value: this.lasers[0].deg,
+            // onInput: `Game.changeLDeg(this, 0)`
+        });
+
+        gameStage.addEventListener('mousedown', (e) => {
+            startX = e.pageX - Config.window.offectX;
+            startY = e.pageY - Config.window.offectY;
+            e.preventDefault();
+
+            activeMirror = '';
+            // timeOutEvent = setTimeout(function(){
+                for([i, mirror] of mirrors.entries()) {
+                    let d = nodesD({x:startX, y: startY}, {x: mirror.x, y: mirror.y});
+                    if(d < mirror.width / 2) {
+                        activeMirror = mirror;
+                        break;
+                    }
+                }
+            // },500);
+            
+            // 如果是狼的话，第四关可以通关点击杀掉
+            if(nowLv.level == 4) {
+                for(let wolf of this.wolves) {
+                    if(wolf.alive) {
+                        let d = nodesD({x:startX, y: startY}, {x: wolf.x, y: wolf.y});
+                        if(d < wolf.width / 2) {
+                            wolf.alive = false;
+                            break;
+                        }
+                    }
+     
+                }
+            }
+
+            // 第五关长按可以移动房子
+            if(nowLv.level == 5) {
+                timeOutEvent = setTimeout(function(){
+                    // console.log(this.home)
+                    let d = nodesD({x:startX, y: startY}, {x: home.x, y: home.y});
+                    if(d < home.width / 2) {
+                        activeMirror = home;
+                    }
+                },500);
+            }
+        });     
+
+        gameStage.addEventListener('mousemove', (e) => {
+            endX = e.pageX - Config.window.offectX;
+            endY = e.pageY - Config.window.offectY;
+
+            e.preventDefault();
+            clearTimeout(timeOutEvent);
+
+            if(activeMirror) {
+                activeMirror.x += endX - startX;
+                activeMirror.y += endY - startY;
+            }
+
+            // 将滑动的位置作为初始值
+            startX = endX;
+            startY = endY;
+        });     
+
+        gameStage.addEventListener('mouseup', (e) => {
+            activeMirror = '';
+            e.preventDefault();
+            clearTimeout(timeOutEvent);
+        });    
     },
     changeLDeg: function(thisInput, i) {
         let lasers = this.lasers;
