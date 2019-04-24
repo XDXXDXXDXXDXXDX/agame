@@ -46,6 +46,9 @@ $('.back2select-lv').click(() => {
         $('#uiGamming').fadeOut();
         $('#uiSelectLv').slideDown();
     }
+
+    $('.lv-cta').hide();
+    $(`#Level${nowLv.level}`).show();
 });
 // 从游戏中返回首页
 $('.back2main-menu').click(() => {
@@ -133,6 +136,8 @@ $('.star-tur').click(() => {
 $('.go2Select').click(() => {
     $('#uiStarTur').slideUp();
     $('#uiSelectLv').fadeIn(500);
+    $('.lv-cta').hide();
+    $(`#Level${nowLv.level}`).show();
 });
 
 // 查看下一关
